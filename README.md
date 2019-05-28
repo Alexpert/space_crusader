@@ -1,4 +1,4 @@
-#SPACE CRUSADER
+# SPACE CRUSADER
 
 Space Crusader is a game made for educational purposes.
 By:
