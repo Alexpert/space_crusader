@@ -7,13 +7,15 @@ public abstract class Entity {
 	private Direction orientation;
 	private boolean moveable;
 	private AbstractActionHandler actionHandler;
+	private World world;
 	
-	Entity(int x, int y, int health, Direction d, boolean moveable) {
+	Entity(int x, int y, int health, Direction d, boolean moveable, World world) {
 		this.x = x;
 		this.y = y;
 		this.health = health;
 		this.orientation = d;
 		this.moveable = moveable;
+		this.world = world;
 	}
 	
 	public void setActionHandler(AbstractActionHandler ac) {
