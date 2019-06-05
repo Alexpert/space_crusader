@@ -1,12 +1,11 @@
 package game.main.model;
 
 public class ActionHandlerPlayer extends AbstractActionHandler {
-
-	Entity entity;
 	
-	ActionHandlerPlayer(Entity e) {
+	public ActionHandlerPlayer(Entity e) {
 		this.entity = e;
 	}
+	
 	@Override
 	public void wizz(Direction d) {
 		System.out.println("wizz direction"+d+"");

@@ -2,7 +2,7 @@ package game.main.model;
 
 public abstract class AbstractActionHandler {
 
-	Entity entity;
+	protected Entity entity;
 
 	// public abstract void wait();
 
