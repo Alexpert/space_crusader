@@ -7,8 +7,8 @@ public class Player extends Entity {
 	private int money;
 	private ArrayList<Item> inventary;
 
-	Player(int x, int y, int health, char direction, boolean moveable) {
-		super(x, y, health, direction, moveable);
+	Player(int x, int y, int health, Direction d, boolean moveable) {
+		super(x, y, health, d, moveable);
 		this.money = 0;
 		this.inventary = new ArrayList<Item>();
 	}

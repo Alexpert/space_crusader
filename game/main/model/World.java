@@ -8,7 +8,7 @@ public class World {
 	private ArrayList<Entity> entities;
 	private Tile[][] map;
 	
-	World(int width, int height) {
+	public World(int width, int height) {
 		this.width = width;
 		this.height = height;
 		this.entities = new ArrayList<Entity>();

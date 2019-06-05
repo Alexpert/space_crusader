@@ -7,3 +7,5 @@
 /IActionHandler.class
 /AbstractActionHandler.class
 /PlayerActionHandler.class
+/Direction.class
+/ActionHandlerPlayer.class

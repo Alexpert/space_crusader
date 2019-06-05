@@ -4,15 +4,15 @@ public abstract class Entity {
 	
 	private int health;
 	private int x, y;
-	private char orientation;
+	private Direction orientation;
 	private boolean moveable;
 	private AbstractActionHandler actionHandler;
 	
-	Entity(int x, int y, int health, char direction, boolean moveable) {
+	Entity(int x, int y, int health, Direction d, boolean moveable) {
 		this.x = x;
 		this.y = y;
 		this.health = health;
-		this.orientation = direction;
+		this.orientation = d;
 		this.moveable = moveable;
 	}
 	
@@ -46,12 +46,12 @@ public abstract class Entity {
 		this.health = healthpoints;
 	}
 	
-	public char getOrientation() {
+	public Direction getOrientation() {
 		return this.orientation;
 	}
 	
-	public void setOrientation(char direction) {
-		this.orientation = direction;
+	public void setOrientation(Direction d) {
+		this.orientation = d;
 	}
 	
 	public boolean moveable() {
