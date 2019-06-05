@@ -1,0 +1,11 @@
+/World.class
+/Entity.class
+/Tile.class
+/Player.class
+/Item.class
+/DroppedItem.class
+/IActionHandler.class
+/AbstractActionHandler.class
+/PlayerActionHandler.class
+/Direction.class
+/ActionHandlerPlayer.class
