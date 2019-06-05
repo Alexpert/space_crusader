@@ -39,4 +39,27 @@ public class TestModel {
 		world.getTile(0, 0).clear();
 		assertTrue(world.getTile(0, 0).isEmpty());
 	}
+	
+	@Test
+	public void testHitAndTakeDamage() {
+		World world = new World(42, 42);
+		Player p1 = new Player(0, 0, 10, Direction.NORTH, true, world);
+		Player p2 = new Player(1, 0, 10, Direction.NORTH, true, world);
+		world.add(p1);
+		world.add(p2);
+		assertTrue(p2.getHealth()==10);
+		p1.hit(Direction.EAST);
+		assertTrue(p2.getHealth()==5);
+	}
+	
+	@Test
+	public void testGetTile() {
+		World world = new World(42, 42);
+		Player p1 = new Player(0, 0, 10, Direction.NORTH, true, world);
+		world.add(p1);
+		Tile t1 = world.getTile(0, 0);
+		Tile t2 = world.getTile(1, 0);
+		assertTrue(p1.getTile(Direction.EAST)== t2);
+		assertTrue(p1.getTile(Direction.RIGHT)== t2);
+	}
 }

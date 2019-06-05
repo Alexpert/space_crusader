@@ -24,10 +24,18 @@ public class ActionHandlerPlayer extends AbstractActionHandler {
 		return false;
 	}
 
-	@Override
+	@Override			// return false has nothing was on the tile
 	public boolean hit(Direction d) {
-		// TODO Auto-generated method stub
-		return false;
+		Tile t = this.entity.getTile(d);
+		if(t.isEmpty()) {
+			return false;
+		}
+		else {
+			for(int i = 0; i < t.nbEntity(); i ++) {
+				t.getEntity(i).addHealth(-5);
+			}
+			return true;
+		}
 	}
 
 	@Override
@@ -57,7 +65,7 @@ public class ActionHandlerPlayer extends AbstractActionHandler {
 	@Override
 	public boolean power() {
 		if(this.entity.getHealth() > 0) {
-			this.entity.setHealth(this.entity.getHealth() + 1);
+			this.entity.addHealth(1);
 			return true;
 		}
 		return false;
@@ -65,7 +73,7 @@ public class ActionHandlerPlayer extends AbstractActionHandler {
 
 	@Override
 	public boolean kamikaze() {
-		this.entity.setHealth(0);
+		this.entity.addHealth(0);
 		return true;
 	}
 

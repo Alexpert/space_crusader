@@ -36,4 +36,8 @@ public class Tile {
 	public void clear() {
 		this.entities.clear();
 	}
+	
+	public int nbEntity() {
+		return this.entities.size();
+	}
 }

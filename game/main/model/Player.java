@@ -27,16 +27,4 @@ public class Player extends Entity {
 	public void add(Item item) {
 		this.inventary.add(item);
 	}
-	
-	public void move() {
-		this.getActionHandler().move();
-	}
-	
-	public void move(Direction d) {
-		this.getActionHandler().move(d);
-	}
-	
-	public void turn(Direction d) {
-		this.getActionHandler().turn(d);
-	}
 }

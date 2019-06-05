@@ -46,8 +46,8 @@ public abstract class Entity {
 		return this.health;
 	}
 	
-	public void setHealth(int healthpoints) {
-		this.health = healthpoints;
+	public void addHealth(int healthpoints) {
+		this.health += healthpoints;
 	}
 	
 	public Direction getOrientation() {
@@ -66,4 +66,73 @@ public abstract class Entity {
 		return this.actionHandler;
 	}
 	
+	public World getWorld() {
+		return this.world;
+	}
+	
+	public Tile getTile(Direction d) {
+		Direction d2 = d;
+		if (d.ordinal() < 4 ) { //if the direction is not absolute
+			if(d == Direction.LEFT) {
+				d2 = d.get(((this.getOrientation().ordinal()+1)%4)+4);	//return WEST if the direction is NORTH
+			}
+			else if(d == Direction.RIGHT) {
+				d2 = d.get(((this.getOrientation().ordinal()+3)%4)+4);
+			}
+			else if(d == Direction.BACK) {
+				d2 = d.get(((this.getOrientation().ordinal()+2)%4)+4);
+			}
+			else if(d == Direction.FRONT) {
+				d2 = this.getOrientation();
+			}
+		}
+		
+		if(d2 == Direction.NORTH) {
+			if(this.getY() != 0) {
+				return this.getWorld().getTile(this.getX(), this.getY()-1);
+			}else {
+				return this.getWorld().getTile(this.getX(), this.getWorld().getHeight()-1);
+			}
+		}
+		if(d2 == Direction.SOUTH) {
+			if(this.getY() != this.getWorld().getHeight()+1) {
+				return this.getWorld().getTile(this.getX(), this.getY()+1);
+			}else {
+				return this.getWorld().getTile(this.getX(), 0);
+			}
+		}
+		if(d2 == Direction.EAST) {
+			if(this.getX() != this.getWorld().getWidth()-1) {
+				return this.getWorld().getTile(this.getX()+1, this.getY());
+			}else {
+				return this.getWorld().getTile(0, this.getY());
+			}
+		}
+		if(d2 == Direction.WEST) {
+			if(this.getY() != 0) {
+				return this.getWorld().getTile(this.getX()-1, this.getY());
+			}else {
+				return this.getWorld().getTile(this.getWorld().getWidth()-1, this.getY());
+			}
+		}
+		return null;
+	}
+	
+	
+	
+	public void move() {
+		this.getActionHandler().move();
+	}
+	
+	public void move(Direction d) {
+		this.getActionHandler().move(d);
+	}
+	
+	public void turn(Direction d) {
+		this.getActionHandler().turn(d);
+	}
+	
+	public void hit(Direction d) {
+		this.getActionHandler().hit(d);
+	}
 }
