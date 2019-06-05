@@ -3,6 +3,7 @@ package game.main.model;
 public abstract class Entity {
 	
 	private int health;
+	private int maxHealth;
 	private int x, y;
 	private Direction orientation;
 	private boolean moveable;
@@ -13,6 +14,7 @@ public abstract class Entity {
 		this.x = x;
 		this.y = y;
 		this.health = health;
+		this.maxHealth = health;
 		this.orientation = d;
 		this.moveable = moveable;
 		this.world = world;

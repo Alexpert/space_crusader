@@ -29,4 +29,14 @@ public class TestModel {
 		p.turn(Direction.LEFT);
 		assertTrue(p.getOrientation() == Direction.EAST);
 	}
+	
+	@Test
+	public void testAddClearEntityFromTile() {
+		World world = new World(42, 42);
+		Player p = new Player(0, 0, 10, Direction.NORTH, true, world);
+		world.add(p);
+		assertTrue(world.getTile(0, 0).getEntity(0) == p);
+		world.getTile(0, 0).clear();
+		assertTrue(world.getTile(0, 0).isEmpty());
+	}
 }

@@ -17,11 +17,23 @@ public class Tile {
 		this.entities.add(e);
 	}
 	
-	int getX() {
+	public Entity getEntity(int index) {
+		return this.entities.get(index);
+	}
+	
+	public boolean isEmpty() {
+		return this.entities.isEmpty();
+	}
+	
+	public int getX() {
 		return this.x;
 	}
 	
-	int getY() {
+	public int getY() {
 		return this.y;
+	}
+	
+	public void clear() {
+		this.entities.clear();
 	}
 }
