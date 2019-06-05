@@ -2,24 +2,26 @@ package game.main.model;
 
 import java.util.ArrayList;
 
-public class World {
-
-	private int width, height;
+public class Tile {
+	
+	private int x,y;
 	private ArrayList<Entity> entities;
-	private Tile[][] map;
 	
-	World(int width, int height) {
-		this.width = width;
-		this.height = height;
+	Tile(int x, int y) {
+		this.x = x;
+		this.y = y;
 		this.entities = new ArrayList<Entity>();
-		this.map = new Tile[width][height];
 	}
-	
+
 	public void add(Entity e) {
 		this.entities.add(e);
 	}
 	
+	int getX() {
+		return this.x;
+	}
 	
-	
-	
+	int getY() {
+		return this.y;
+	}
 }
