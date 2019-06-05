@@ -58,4 +58,8 @@ public abstract class Entity {
 		return this.moveable;
 	}
 	
+	protected AbstractActionHandler getActionHandler() {
+		return this.actionHandler;
+	}
+	
 }
