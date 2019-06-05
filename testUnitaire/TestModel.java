@@ -10,7 +10,8 @@ public class TestModel {
 	
 	@Test
 	public void testModelMove() {
-		Player p = new Player(0, 0, 10, Direction.NORTH, true);
+		World world = new World(1024, 56);
+		Player p = new Player(0, 0, 10, Direction.NORTH, true, world);
 		assertTrue(p.getY()==0);
 		p.move(Direction.SOUTH);
 		assertTrue(p.getY()==32);
@@ -20,7 +21,8 @@ public class TestModel {
 	
 	@Test
 	public void testModelTurn() {
-		Player p = new Player(0, 0, 10, Direction.NORTH, true);
+		World world = new World(42, 42);
+		Player p = new Player(0, 0, 10, Direction.NORTH, true, world);
 		assertTrue(p.getOrientation() == Direction.NORTH);
 		p.turn(Direction.SOUTH);
 		assertTrue(p.getOrientation() == Direction.SOUTH);
