@@ -10,62 +10,63 @@ import game.main.model.Entity;
 /* Michael PÉRIN, Verimag / Univ. Grenoble Alpes, may 2019 */
 
 public class IAutomaton {
-	IState current;
-	List<IBehaviour> behaviours;
-	List<IState> states;
+	private IState current;
+	private ArrayList<IBehaviour> behaviours;
+	private ArrayList<IState> states;
 
 	public IAutomaton(IState initial) {
-		this.current = initial;
-		this.behaviours = new ArrayList<>();
-		this.states = new ArrayList<>();
+		this.setCurrent(initial);
+		this.setBehaviours(new ArrayList<>());
+		this.setStates(new ArrayList<>());
+		this.getStates().add(initial);
 	}
 
 	public void addBehaviour(IBehaviour behaviour) {
-		IState foundState = this.getState(behaviour.source.name);
+		IState foundState = this.getState(behaviour.getSource().getName());
 		
 		if (foundState != null)
-			behaviour.source = foundState;
+			behaviour.setSource(foundState);
 		
-		for(ITransition transition: behaviour.transitions) {
-			foundState = this.getState(transition.target.name);
+		for(ITransition transition: behaviour.getTransitions()) {
+			foundState = this.getState(transition.target.getName());
 			if (foundState != null)
 				transition.target = foundState;
 			else
-				this.states.add(foundState);
+				this.getStates().add(transition.target);
 		}
 			
 		
-		this.behaviours.add(behaviour);
+		this.getBehaviours().add(behaviour);
 	}
 
-	private IState getState(String name) {
+	public IState getState(String name) {
 		int i = 0;
-		while (i < this.states.size() && this.states.get(i).name != name)
+		while (i < this.getStates().size() && !this.getStates().get(i).getName().equals(name))
 			i++;
 		
-		return i == this.states.size() ? null : this.states.get(i);
+		return i == this.getStates().size() ? null : this.getStates().get(i);
 	}
 	
 	private IBehaviour getBehaviour(IState state) {
 		int i = 0;
-		while (i < this.behaviours.size() && this.behaviours.get(i).source.equals(state))
+		while (i < this.getBehaviours().size() && this.getBehaviours().get(i).getSource().equals(state))
 			i++;
 		
-		return i == this.behaviours.size() ? null : this.behaviours.get(i);
+		return i == this.getBehaviours().size() ? null : this.getBehaviours().get(i);
 	}
 	
-	boolean step(Entity e) {
+	public boolean step(Entity e) {
 		// - selectionne le comportement en fonction de l'état courant
 		// - effectue une transition
 		// - met à jour l'état courant
 		// - gère l'exception "aucune transition possible"
 		// true si une transition effectuée, false si aucune transition possible (=?=
 		// mort de l'automate ?)
-		IBehaviour behaviour = this.getBehaviour(this.current);
+		IBehaviour behaviour = this.getBehaviour(this.getCurrent());
 		
 		if (behaviour != null)
 			try {
-				this.current = behaviour.step(e);
+				this.setCurrent(behaviour.step(e));
 				
 				return true;
 			} catch (Exception e1) {
@@ -76,5 +77,37 @@ public class IAutomaton {
 		
 		
 		return false; 
+	}
+
+	public int getNbStates() {
+		return this.getStates().size();
+	}
+	
+	public int getNbBehaviours() {
+		return this.getBehaviours().size();
+	}
+
+	public IState getCurrent() {
+		return current;
+	}
+
+	private void setCurrent(IState current) {
+		this.current = current;
+	}
+
+	public ArrayList<IBehaviour> getBehaviours() {
+		return behaviours;
+	}
+
+	private void setBehaviours(ArrayList<IBehaviour> behaviours) {
+		this.behaviours = behaviours;
+	}
+
+	public ArrayList<IState> getStates() {
+		return states;
+	}
+
+	private void setStates(ArrayList<IState> states) {
+		this.states = states;
 	}
 }

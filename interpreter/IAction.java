@@ -9,12 +9,17 @@ public abstract class IAction {
 	IAction(){}
 	abstract boolean exec(Entity e);
 	
+	public String toString() {
+		return this.getClass().toString();
+	}
+	
 	
 	public static class Wait extends IAction {
 		public Wait(){}
 		
 		boolean exec(Entity e){
-			return e.patient();
+			//e.patient();
+			return true;
 		}
 	}
 	
@@ -30,7 +35,7 @@ public abstract class IAction {
 		}
 		
 		public boolean exec(Entity e){
-			e.wizz(Direction.FRONT);
+			//e.wizz(Direction.FRONT);
 			return true;
 		}
 		
@@ -51,7 +56,7 @@ public abstract class IAction {
 		}
 		
 		public boolean exec(Entity e){
-			e.pop(Direction.FRONT);
+			//e.pop(Direction.FRONT);
 			return true;
 		}
 		
@@ -72,6 +77,7 @@ public abstract class IAction {
 		
 		public boolean exec(Entity e){
 			e.move(this.direction) ;
+			return true;
 		}
 		
 		public void addDirection(game.main.model.Direction direction) {
@@ -90,7 +96,8 @@ public abstract class IAction {
 		}
 		
 		public boolean exec(Entity e){
-			e.jump(this.direction) ;
+			//e.jump(this.direction) ;
+			return true;
 		}
 		
 		public void addDirection(game.main.model.Direction direction) {
@@ -110,6 +117,7 @@ public abstract class IAction {
 		
 		public boolean exec(Entity e){
 			e.turn(this.direction) ;
+			return true;
 		}
 		
 		public void addDirection(game.main.model.Direction direction) {
@@ -135,7 +143,8 @@ public abstract class IAction {
 		}
 		
 		public boolean exec(Entity e){
-			e.hit(this.direction, max(e.power,this.power));
+			//e.hit(this.direction, max(e.power,this.power));
+			return true;
 		}
 		
 		public void addDirection(game.main.model.Direction direction) {
@@ -157,7 +166,8 @@ public abstract class IAction {
 		}
 		
 		public boolean exec(Entity e){
-			e.protect(this.direction) ;
+			//e.protect(this.direction) ;
+			return true;
 		}
 		
 		public void addDirection(game.main.model.Direction direction) {
@@ -176,7 +186,8 @@ public abstract class IAction {
 		}
 		
 		public boolean exec(Entity e){
-			e.pick(this.direction) ;
+			//e.pick(this.direction) ;
+			return true;
 		}
 		
 		public void addDirection(game.main.model.Direction direction) {
@@ -195,7 +206,8 @@ public abstract class IAction {
 		}
 		
 		public boolean exec(Entity e){
-			e.cast(this.direction);
+			//e.cast(this.direction);
+			return true;
 		}
 		
 		public void addDirection(game.main.model.Direction direction) {
@@ -207,7 +219,8 @@ public abstract class IAction {
 		public Store() {}
 		
 		public boolean exec(Entity e) {
-			e.store();
+			//e.store();
+			return true;
 		}
 	}
 	
@@ -215,7 +228,8 @@ public abstract class IAction {
 		public Get() {}
 		
 		public boolean exec(Entity e) {
-			e.get();
+			//e.get();
+			return true;
 		}
 	}
 	
@@ -223,7 +237,8 @@ public abstract class IAction {
 		public Power() {}
 		
 		public boolean exec(Entity e) {
-			e.power();
+			//e.power();
+			return true;
 		}
 	}
 	
@@ -231,7 +246,8 @@ public abstract class IAction {
 		public Kamikaze() {}
 		
 		public boolean exec(Entity e) {
-			e.kamikaze();
+			//e.kamikaze();
+			return true;
 		}
 	}
 	
@@ -239,7 +255,8 @@ public abstract class IAction {
 		public Egg() {}
 		
 		public boolean exec(Entity e) {
-			e.egg();
+			//e.egg();
+			return true;
 		}
 	}
 	

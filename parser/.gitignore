@@ -29,3 +29,10 @@
 /SimpleCharStream.class
 /Token.class
 /TokenMgrError.class
+/AutomataParserTokenManager.java
+/ParseException.java
+/AutomataParserConstants.java
+/AutomataParser.java
+/TokenMgrError.java
+/SimpleCharStream.java
+/Token.java

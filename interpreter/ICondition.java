@@ -6,7 +6,7 @@ import game.main.model.*;
 
 public class ICondition {
 
-	ICondition() {
+	public ICondition() {
 	}
 
 	boolean eval(Entity e) {
@@ -73,7 +73,8 @@ public class ICondition {
 		}
 
 		boolean eval(Entity e) {
-			return e.getPressedKey() == this.key;
+			//return e.key(key);
+			return true;
 		}
 	}
 
@@ -107,7 +108,8 @@ public class ICondition {
 		}
 
 		boolean eval(Entity e) {
-			return e.isKind(this.kind, this.direction, this.distance);
+			//return e.cell(this.kind, this.direction, this.distance);
+			return true;
 		}
 		
 		public void addDistance(int distance) {
@@ -125,7 +127,8 @@ public class ICondition {
 		}
 
 		boolean eval(Entity e) {
-			return e.closetst(kind, direction);
+			//return e.closest(kind, direction);
+			return true;
 		}
 	}
 
@@ -143,7 +146,8 @@ public class ICondition {
 		}
 
 		boolean eval(Entity e) {
-			return e.gotStuff();
+			//return e.gotStuff();
+			return true;
 		}
 	}
 	

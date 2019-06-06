@@ -192,8 +192,9 @@ public class Ast {
 
 		public game.main.model.Direction getDirection() throws Exception {
 			game.main.model.Direction direction;
-
-			switch (this.value.toString().toLowerCase()) {
+			String strDebug = (((Terminal)((Constant)this.value).value).value).toLowerCase();
+			
+			switch (strDebug) {
 			case ("f"):
 				direction = game.main.model.Direction.FRONT;
 				break;
@@ -215,7 +216,7 @@ public class Ast {
 			case ("s"):
 				direction = game.main.model.Direction.SOUTH;
 				break;
-			case ("w"):
+			case ("o"):
 				direction = game.main.model.Direction.WEST;
 				break;
 
@@ -242,6 +243,48 @@ public class Ast {
 
 		public String toString() {
 			return value.toString();
+		}
+
+		public Kind getKind() throws Exception {
+			Kind kind;
+			switch (this.value.toString()) {
+			case ("A"):
+				kind = Kind.MONSTER;
+				break;
+			case ("D"):
+				kind = Kind.DANGER;
+				break;
+			case ("G"):
+				kind = Kind.GATE;
+				break;
+			case ("J"):
+				kind = Kind.JUMP_ELEMENT;
+				break;
+			case ("M"):
+				kind = Kind.MISSILE;
+				break;
+			case ("O"):
+				kind = Kind.OBSTACLE;
+				break;
+			case ("P"):
+				kind = Kind.ITEM;
+				break;
+			case ("T"):
+				kind = Kind.TEAM;
+				break;
+			case ("V"):
+				kind = Kind.VOID;
+				break;
+			case ("@"):
+				kind = Kind.PLAYER;
+				break;
+			case ("_"):
+				kind = Kind.ANYTHING;
+				break;
+			default:
+				throw new Exception("Entity type invalid");
+			}
+			return kind;
 		}
 	}
 
@@ -348,18 +391,18 @@ public class Ast {
 			return expression.toString();
 		}
 
-		public ICondition make() {
-			ICondition condition;
+		public ICondition make() throws Exception {
+			ICondition condition = new ICondition();
 			switch (expression.kind) {
 			case ("UnaryOp"):
-				condition = new Not(new Condition(((UnaryOp) this.expression).operand).make());
+				condition = condition.new Not(new Condition(((UnaryOp) this.expression).operand).make());
 				break;
 			case ("BinaryOp"):
 				if (((UnaryOp) this.expression).operator.value == "&") {
-					condition = new And(new Condition((((BinaryOp) this.expression).left_operand)).make(),
+					condition = condition.new And(new Condition((((BinaryOp) this.expression).left_operand)).make(),
 							new Condition((((BinaryOp) this.expression).right_operand)).make());
 				} else {
-					condition = new Or(new Condition((((BinaryOp) this.expression).left_operand)).make(),
+					condition = condition.new Or(new Condition((((BinaryOp) this.expression).left_operand)).make(),
 							new Condition((((BinaryOp) this.expression).right_operand)).make());
 				}
 				break;
@@ -367,47 +410,48 @@ public class Ast {
 				FunCall exprAsFunCall = (FunCall)expression;
 				switch(exprAsFunCall.name.value.toLowerCase()) {
 				case ("true"):
-					condition = new True();
+					condition = condition.new True();
 					break;
 				case ("key"):
 					if (exprAsFunCall.parameters.size() != 1 || exprAsFunCall.parameters.get(0).kind != "Key")
 						throw new Exception("Not a Key");
-					condition = new ICondition.Key(((Key)exprAsFunCall.parameters.get(0)).value.toString());
+					condition = condition.new Key(((Key)exprAsFunCall.parameters.get(0)).value.toString());
 					break;
 				case ("mydir"):
 					if (exprAsFunCall.parameters.size() != 1 || exprAsFunCall.parameters.get(0).kind != "Direction")
 						throw new Exception("Not a Key");
-					condition = new MyDir(((Direction) exprAsFunCall.parameters.get(0)).getDirection());
+					condition = condition.new MyDir(((Direction) exprAsFunCall.parameters.get(0)).getDirection());
 					break;
 				case ("cell"):
 					if (exprAsFunCall.parameters.size() < 2 || exprAsFunCall.parameters.size() > 3)
 						throw new Exception("Wrong argument count");
 					if (exprAsFunCall.parameters.get(0).kind != "Direction")
 						throw new Exception("Not a Direction");
-					if (exprAsFunCall.parameters.get(0).kind != "Kind")
-						throw new Exception("Not a Kind");
-					if (exprAsFunCall.parameters.size() > 2 || exprAsFunCall.parameters.get(0).kind != "Distance")
+					if (exprAsFunCall.parameters.get(1).kind != "Entity")
+						throw new Exception("Not an Entity");
+					if (exprAsFunCall.parameters.size() > 2 && exprAsFunCall.parameters.get(2).kind != "Number")
 						throw new Exception("Not a Distance");
 					
-					condition = new Cell(((Direction) exprAsFunCall.parameters.get(0)).getDirection(),
-							(Kind) exprAsFunCall.parameters.get(1));
+					condition = condition.new Cell(((Direction) exprAsFunCall.parameters.get(0)).getDirection(),
+							(((Entity) exprAsFunCall.parameters.get(1)).getKind()));
 					((Cell)condition).addDistance(Integer.parseInt(((Number_as_String) exprAsFunCall.parameters.get(2))
 							.value.toString()));
 					break;
 				case ("closest"):
 					if (exprAsFunCall.parameters.size() != 2)
 						throw new Exception("Wrong argument count");
-					if (exprAsFunCall.parameters.get(0).kind != "Kind")
+					if (exprAsFunCall.parameters.get(0).kind != "Entity")
+						throw new Exception("Not an Entity");
+					if (exprAsFunCall.parameters.get(1).kind != "Direction")
 						throw new Exception("Not a Direction");
-					if (exprAsFunCall.parameters.get(0).kind != "Direction")
-					condition = new Closest((Kind) exprAsFunCall.parameters.get(1),
+					condition = condition.new Closest(((Entity) exprAsFunCall.parameters.get(1)).getKind(),
 							((Direction) exprAsFunCall.parameters.get(0)).getDirection());
 					break;
 				case ("gotpower"):
-					condition = new GotPower();
+					condition = condition.new GotPower();
 					break;
 				case ("gotstuff"):
-					condition = new GotStuff();
+					condition = condition.new GotStuff();
 					break;
 					
 					default:
@@ -418,6 +462,7 @@ public class Ast {
 				default:
 					throw new Exception("Not a valid FunCall");
 			}
+			return condition;
 		}
 	}
 
@@ -450,7 +495,7 @@ public class Ast {
 				direction = ((Direction) exprAsFunCall.parameters.get(0)).getDirection();
 			}
 			int power = 0;
-			if (exprAsFunCall.parameters.size() > 1 && exprAsFunCall.parameters.get(1).kind != "Number_as_String") {
+			if (exprAsFunCall.parameters.size() > 1 && exprAsFunCall.parameters.get(1).kind != "Number") {
 				power = Integer.parseInt(((Number_as_String) exprAsFunCall.parameters.get(1)).value.toString());
 			}
 
@@ -594,8 +639,6 @@ public class Ast {
 
 			return iAutomata;
 		}
-		
-		
 
 	}
 
@@ -614,7 +657,7 @@ public class Ast {
 
 		public IAutomaton make() throws Exception {
 			IState istate_initial = entry.make();
-			
+
 			IAutomaton iAutomaton = new IAutomaton(istate_initial);
 
 			// construction de la liste des IBehaviours

@@ -187,7 +187,7 @@ Entity
  **/
 
 /* Identifier */
-  final public String P_Identifier() throws ParseException {
+  static final public String P_Identifier() throws ParseException {
   Token token;
     token = jj_consume_token(ID);
                {if (true) return token.image;}
@@ -198,7 +198,7 @@ Entity
  * | "N" | "S" | "O" | "E" | "F" | "B" | "L" | "R"
  * | "d"
  */
-  final public Direction P_Direction() throws ParseException {
+  static final public Direction P_Direction() throws ParseException {
   Token token;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case DIRECTION:
@@ -222,7 +222,7 @@ Entity
  * | "e"
  * | "_"
  */
-  final public Entity P_Entity() throws ParseException {
+  static final public Entity P_Entity() throws ParseException {
   Token token;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case ENTITY:
@@ -244,7 +244,7 @@ Entity
 /* Run
  * | Some_Automata <EOF>
  */
-  final public Ast Run() throws ParseException {
+  static final public Ast Run() throws ParseException {
   List<Automaton> automata ;
     automata = P_Some_Automata(new LinkedList<Automaton>());
     jj_consume_token(0);
@@ -256,7 +256,7 @@ Entity
  * | Automaton Some_Automata
  * | epsilon
  */
-  final public List<Automaton> P_Some_Automata(List<Automaton> input_list) throws ParseException {
+  static final public List<Automaton> P_Some_Automata(List<Automaton> input_list) throws ParseException {
   Automaton aut ; List<Automaton> list ;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case ID:
@@ -274,7 +274,7 @@ Entity
 /* Automaton
  * | Identifier "(" Identifier ")" "{" At_least_one_Behaviour "}"
  */
-  final public Automaton P_Automaton() throws ParseException {
+  static final public Automaton P_Automaton() throws ParseException {
   String name ; String entry_state ; List<Behaviour> behaviours ;
     name = P_Identifier();
     jj_consume_token(20);
@@ -290,7 +290,7 @@ Entity
 /* At_least_one_Behaviour
  * | Behaviour  Some_Behaviour
  */
-  final public List<Behaviour> P_At_least_one_Behaviour(List<Behaviour> input_list) throws ParseException {
+  static final public List<Behaviour> P_At_least_one_Behaviour(List<Behaviour> input_list) throws ParseException {
   Behaviour behaviour ; List<Behaviour> list ;
     behaviour = P_Behaviour();
     list = P_Some_Behaviour(input_list);
@@ -302,7 +302,7 @@ Entity
  * | At_least_one_Behaviour
  * | epsilon
  */
-  final public List<Behaviour> P_Some_Behaviour(List<Behaviour> input_list) throws ParseException {
+  static final public List<Behaviour> P_Some_Behaviour(List<Behaviour> input_list) throws ParseException {
   List<Behaviour> list ;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case 24:
@@ -319,7 +319,7 @@ Entity
 /* Behaviour
  * | "*"  State Opt_Points Some_Transitions
  */
-  final public Behaviour P_Behaviour() throws ParseException {
+  static final public Behaviour P_Behaviour() throws ParseException {
   State state ; List<Transition> list = new LinkedList<Transition>() ;
     jj_consume_token(24);
     state = P_State();
@@ -333,7 +333,7 @@ Entity
  * | ":" 
  * | epsilon
  */
-  final public Void P_Opt_Points() throws ParseException {
+  static final public Void P_Opt_Points() throws ParseException {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case 25:
       jj_consume_token(25);
@@ -349,7 +349,7 @@ Entity
 /* State
  * | "(" State_Identifier ")"
  */
-  final public State P_State() throws ParseException {
+  static final public State P_State() throws ParseException {
   State state ;
     jj_consume_token(20);
     state = P_State_Identifier();
@@ -363,7 +363,7 @@ Entity
  * | "_"
  * | epsilon
  */
-  final public State P_State_Identifier() throws ParseException {
+  static final public State P_State_Identifier() throws ParseException {
   String name ;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case ID:
@@ -385,7 +385,7 @@ Entity
  * | Transition  Some_Transitions 
  * | epsilon
  */
-  final public List<Transition> P_Some_Transitions(List<Transition> input_list) throws ParseException {
+  static final public List<Transition> P_Some_Transitions(List<Transition> input_list) throws ParseException {
   Transition transition ; List<Transition> list ;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case CONDITION:
@@ -408,7 +408,7 @@ Entity
 /* Transition
  * | Opt_Bar  Condition "?" Action ":"  State
  */
-  final public Transition P_Transition() throws ParseException {
+  static final public Transition P_Transition() throws ParseException {
   Condition condition ; Action action ; State state ;
     P_Opt_Bar();
     condition = P_Condition();
@@ -424,7 +424,7 @@ Entity
  * | "|"
  * | epsilon
  */
-  final public Void P_Opt_Bar() throws ParseException {
+  static final public Void P_Opt_Bar() throws ParseException {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case 28:
       jj_consume_token(28);
@@ -440,7 +440,7 @@ Entity
 /* Condition
    | Expression
 */
-  final public Condition P_Condition() throws ParseException {
+  static final public Condition P_Condition() throws ParseException {
   Expression expression ;
     expression = P_Expression();
           {if (true) return new Condition(expression) ;}
@@ -450,7 +450,7 @@ Entity
 /* Action
    | Expression
 */
-  final public Action P_Action() throws ParseException {
+  static final public Action P_Action() throws ParseException {
   Expression expression ;
     expression = P_Expression();
           {if (true) return new Action(expression) ;}
@@ -462,7 +462,7 @@ Entity
    | <UNARYOP> Expression 
    | FunCall Op_Expression
 */
-  final public Expression P_Expression() throws ParseException {
+  static final public Expression P_Expression() throws ParseException {
   Expression expression ; Token token ; FunCall funcall ;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case 20:
@@ -496,7 +496,7 @@ Entity
    | <BINOP> Expression
    | epsilon
 */
-  final public Expression P_Op_Expression(Expression e1) throws ParseException {
+  static final public Expression P_Op_Expression(Expression e1) throws ParseException {
   Token token ; Expression e2 ;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case BINOP:
@@ -516,7 +516,7 @@ Entity
  * | CONDITION Opt_Parameters
  * | ACTION    Opt_Parameters
  */
-  final public FunCall P_FunCall() throws ParseException {
+  static final public FunCall P_FunCall() throws ParseException {
   Token token ; List<Parameter> parameters = new LinkedList<Parameter>() ; Key key ;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case 29:
@@ -550,7 +550,7 @@ Entity
  * | SPECIAL_KEY
  * | "_"
  */
-  final public Key P_Key_Name() throws ParseException {
+  static final public Key P_Key_Name() throws ParseException {
   Token token ;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case INT:
@@ -589,7 +589,7 @@ Entity
  * | "(" Some_Parameters ")"
  * | epsilon
  */
-  final public List<Parameter> P_Opt_Parameters(List<Parameter> input_list) throws ParseException {
+  static final public List<Parameter> P_Opt_Parameters(List<Parameter> input_list) throws ParseException {
   List<Parameter> list ;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case 20:
@@ -609,7 +609,7 @@ Entity
  * | Parameter  More_Parameters
  * | epsilon
  */
-  final public List<Parameter> P_Some_Parameters(List<Parameter> input_list) throws ParseException {
+  static final public List<Parameter> P_Some_Parameters(List<Parameter> input_list) throws ParseException {
   Parameter parameter ; List<Parameter> list ;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case DIRVAR:
@@ -633,7 +633,7 @@ Entity
  * | ","  Parameter  More_Parameters 
  * | epsilon
  */
-  final public List<Parameter> P_More_Parameters(List<Parameter> input_list) throws ParseException {
+  static final public List<Parameter> P_More_Parameters(List<Parameter> input_list) throws ParseException {
   Parameter parameter ; List<Parameter> list ;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case 30:
@@ -655,7 +655,7 @@ Entity
  * | Integer
  * | "_"
  */
-  final public Parameter P_Parameter() throws ParseException {
+  static final public Parameter P_Parameter() throws ParseException {
   Token token ; Parameter parameter ;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case DIRVAR:
@@ -684,16 +684,17 @@ Entity
     throw new Error("Missing return statement in function");
   }
 
+  static private boolean jj_initialized_once = false;
   /** Generated Token Manager. */
-  public AutomataParserTokenManager token_source;
-  SimpleCharStream jj_input_stream;
+  static public AutomataParserTokenManager token_source;
+  static SimpleCharStream jj_input_stream;
   /** Current token. */
-  public Token token;
+  static public Token token;
   /** Next token. */
-  public Token jj_nt;
-  private int jj_ntk;
-  private int jj_gen;
-  final private int[] jj_la1 = new int[16];
+  static public Token jj_nt;
+  static private int jj_ntk;
+  static private int jj_gen;
+  static final private int[] jj_la1 = new int[16];
   static private int[] jj_la1_0;
   static {
       jj_la1_init_0();
@@ -708,6 +709,13 @@ Entity
   }
   /** Constructor with InputStream and supplied encoding */
   public AutomataParser(java.io.InputStream stream, String encoding) {
+    if (jj_initialized_once) {
+      System.out.println("ERROR: Second call to constructor of static parser.  ");
+      System.out.println("       You must either use ReInit() or set the JavaCC option STATIC to false");
+      System.out.println("       during parser generation.");
+      throw new Error();
+    }
+    jj_initialized_once = true;
     try { jj_input_stream = new SimpleCharStream(stream, encoding, 1, 1); } catch(java.io.UnsupportedEncodingException e) { throw new RuntimeException(e); }
     token_source = new AutomataParserTokenManager(jj_input_stream);
     token = new Token();
@@ -717,11 +725,11 @@ Entity
   }
 
   /** Reinitialise. */
-  public void ReInit(java.io.InputStream stream) {
+  static public void ReInit(java.io.InputStream stream) {
      ReInit(stream, null);
   }
   /** Reinitialise. */
-  public void ReInit(java.io.InputStream stream, String encoding) {
+  static public void ReInit(java.io.InputStream stream, String encoding) {
     try { jj_input_stream.ReInit(stream, encoding, 1, 1); } catch(java.io.UnsupportedEncodingException e) { throw new RuntimeException(e); }
     token_source.ReInit(jj_input_stream);
     token = new Token();
@@ -732,6 +740,13 @@ Entity
 
   /** Constructor. */
   public AutomataParser(java.io.Reader stream) {
+    if (jj_initialized_once) {
+      System.out.println("ERROR: Second call to constructor of static parser. ");
+      System.out.println("       You must either use ReInit() or set the JavaCC option STATIC to false");
+      System.out.println("       during parser generation.");
+      throw new Error();
+    }
+    jj_initialized_once = true;
     jj_input_stream = new SimpleCharStream(stream, 1, 1);
     token_source = new AutomataParserTokenManager(jj_input_stream);
     token = new Token();
@@ -741,7 +756,7 @@ Entity
   }
 
   /** Reinitialise. */
-  public void ReInit(java.io.Reader stream) {
+  static public void ReInit(java.io.Reader stream) {
     jj_input_stream.ReInit(stream, 1, 1);
     token_source.ReInit(jj_input_stream);
     token = new Token();
@@ -752,6 +767,13 @@ Entity
 
   /** Constructor with generated Token Manager. */
   public AutomataParser(AutomataParserTokenManager tm) {
+    if (jj_initialized_once) {
+      System.out.println("ERROR: Second call to constructor of static parser. ");
+      System.out.println("       You must either use ReInit() or set the JavaCC option STATIC to false");
+      System.out.println("       during parser generation.");
+      throw new Error();
+    }
+    jj_initialized_once = true;
     token_source = tm;
     token = new Token();
     jj_ntk = -1;
@@ -768,7 +790,7 @@ Entity
     for (int i = 0; i < 16; i++) jj_la1[i] = -1;
   }
 
-  private Token jj_consume_token(int kind) throws ParseException {
+  static private Token jj_consume_token(int kind) throws ParseException {
     Token oldToken;
     if ((oldToken = token).next != null) token = token.next;
     else token = token.next = token_source.getNextToken();
@@ -784,7 +806,7 @@ Entity
 
 
 /** Get the next Token. */
-  final public Token getNextToken() {
+  static final public Token getNextToken() {
     if (token.next != null) token = token.next;
     else token = token.next = token_source.getNextToken();
     jj_ntk = -1;
@@ -793,7 +815,7 @@ Entity
   }
 
 /** Get the specific Token. */
-  final public Token getToken(int index) {
+  static final public Token getToken(int index) {
     Token t = token;
     for (int i = 0; i < index; i++) {
       if (t.next != null) t = t.next;
@@ -802,19 +824,19 @@ Entity
     return t;
   }
 
-  private int jj_ntk() {
+  static private int jj_ntk() {
     if ((jj_nt=token.next) == null)
       return (jj_ntk = (token.next=token_source.getNextToken()).kind);
     else
       return (jj_ntk = jj_nt.kind);
   }
 
-  private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
-  private int[] jj_expentry;
-  private int jj_kind = -1;
+  static private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
+  static private int[] jj_expentry;
+  static private int jj_kind = -1;
 
   /** Generate ParseException. */
-  public ParseException generateParseException() {
+  static public ParseException generateParseException() {
     jj_expentries.clear();
     boolean[] la1tokens = new boolean[31];
     if (jj_kind >= 0) {
@@ -845,11 +867,11 @@ Entity
   }
 
   /** Enable tracing. */
-  final public void enable_tracing() {
+  static final public void enable_tracing() {
   }
 
   /** Disable tracing. */
-  final public void disable_tracing() {
+  static final public void disable_tracing() {
   }
 
 }
