@@ -135,4 +135,32 @@ public abstract class Entity {
 	public void hit(Direction d) {
 		this.getActionHandler().hit(d);
 	}
+	
+	// Condition
+	
+	public boolean Key (String key) {
+		//TODO
+		return false;
+	}
+	
+	public boolean MyDir (Direction d) {
+		//TODO
+		return false;
+	}
+	
+	public boolean Cell (Direction d, Entity e) {
+		//TODO
+		return false;
+	}
+	
+	public boolean Closest (Entity e, Direction d) {
+		//TODO
+		return false;		
+	}
+	
+	public boolean GotStuff () {
+		//TODO
+		return false;
+	}
+	
 }

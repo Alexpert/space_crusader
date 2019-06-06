@@ -1,27 +1,23 @@
 package game.main.model;
 
-public class ActionHandlerPlayer extends AbstractActionHandler {
-	
-	public ActionHandlerPlayer(Entity e) {
-		this.entity = e;
-	}
-	
+public class ActionHandlerAdultRabbit extends AbstractActionHandler{
+
 	@Override
 	public void patient() {
 		// TODO Auto-generated method stub
 		
 	}
-	
+
 	@Override
 	public void wizz(Direction d) {
-		System.out.println("wizz direction"+d+"");
-
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void pop(Direction d) {
-		System.out.println("pop direction"+d+"");
-
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
@@ -30,18 +26,10 @@ public class ActionHandlerPlayer extends AbstractActionHandler {
 		return false;
 	}
 
-	@Override			// return false has nothing was on the tile
+	@Override
 	public boolean hit(Direction d) {
-		Tile t = this.entity.getTile(d);
-		if(t.isEmpty()) {
-			return false;
-		}
-		else {
-			for(int i = 0; i < t.nbEntity(); i ++) {
-				t.getEntity(i).addHealth(-5);
-			}
-			return true;
-		}
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
@@ -52,6 +40,12 @@ public class ActionHandlerPlayer extends AbstractActionHandler {
 
 	@Override
 	public boolean pick(Direction d) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean cast(Direction d) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -70,28 +64,18 @@ public class ActionHandlerPlayer extends AbstractActionHandler {
 
 	@Override
 	public boolean power() {
-		if(this.entity.getHealth() > 0) {
-			this.entity.addHealth(1);
-			return true;
-		}
+		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean kamikaze() {
-		this.entity.addHealth(0);
-		return true;
-	}
-
-	@Override
-	public boolean egg() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-
 	@Override
-	public boolean cast(Direction d) {
+	public boolean egg() {
 		// TODO Auto-generated method stub
 		return false;
 	}
