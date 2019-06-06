@@ -1,16 +1,22 @@
 package game.main.model;
 
+import java.awt.Graphics;
 import java.util.ArrayList;
+
+import game.main.view.IPainter;
+import game.main.view.TilePainter;
 
 public class Tile {
 	
 	private int x,y;
 	private ArrayList<Entity> entities;
+	private IPainter painter;
 	
 	Tile(int x, int y) {
 		this.x = x;
 		this.y = y;
 		this.entities = new ArrayList<Entity>();
+		this.painter = new TilePainter(this);
 	}
 
 	public void add(Entity e) {
@@ -39,6 +45,10 @@ public class Tile {
 	
 	public int nbEntity() {
 		return this.entities.size();
+	}
+	
+	public void paint(Graphics g) {
+		this.painter.paint(g);
 	}
 
 }
