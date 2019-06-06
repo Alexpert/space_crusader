@@ -40,4 +40,5 @@ public class Tile {
 	public int nbEntity() {
 		return this.entities.size();
 	}
+
 }

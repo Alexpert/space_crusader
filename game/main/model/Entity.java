@@ -1,5 +1,9 @@
 package game.main.model;
 
+import java.awt.Graphics;
+
+import game.main.view.IPainter;
+
 public abstract class Entity {
 	
 	private int health;
@@ -9,6 +13,7 @@ public abstract class Entity {
 	private boolean moveable;
 	private AbstractActionHandler actionHandler;
 	private World world;
+	private IPainter painter;
 	
 	Entity(int x, int y, int health, Direction d, boolean moveable, World world) {
 		this.x = x;
@@ -22,6 +27,10 @@ public abstract class Entity {
 	
 	public void setActionHandler(AbstractActionHandler ac) {
 		this.actionHandler = ac;
+	}
+	
+	public void paint(Graphics g) {
+		this.painter.paint(g);
 	}
 	
 	public abstract void step();
@@ -117,8 +126,6 @@ public abstract class Entity {
 		}
 		return null;
 	}
-	
-	
 	
 	public void move() {
 		this.getActionHandler().move();
