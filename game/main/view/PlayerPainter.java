@@ -23,7 +23,6 @@ public class PlayerPainter  implements IPainter{
 	public void paint(Graphics g) {
 		g.setColor(Color.BLUE);
 		g.fillRect(entity.getX()*32, entity.getY()*32, 32, 32);
-		
 	}
 	
 	
