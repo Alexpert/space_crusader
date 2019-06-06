@@ -199,7 +199,7 @@ public abstract class Entity {
 						}
 					}
 				}
-				if (i < Math.abs(nbTile/2)) {
+				if (n < Math.abs(nbTile/2)) {
 					j--;
 					if (j < 0) {
 						j = worldHeight + (j % worldHeight);
@@ -238,7 +238,7 @@ public abstract class Entity {
 						}
 					}
 				}
-				if (i < Math.abs(nbTile/2)) {
+				if (n < Math.abs(nbTile/2)) {
 					j++;
 					if (j >= worldHeight) {
 						j =	-(j % worldHeight);
@@ -278,7 +278,7 @@ public abstract class Entity {
 						}
 					}
 				}
-				if (j <= Math.abs(nbTile/2)) {
+				if (n < Math.abs(nbTile/2)) {
 					i--;
 					if (i < 0) {
 						i = worldWidth + (i % worldWidth);
@@ -318,7 +318,7 @@ public abstract class Entity {
 						}
 					}
 				}
-				if (j < Math.abs(nbTile/2)) {
+				if (n < Math.abs(nbTile/2)) {
 					i++;
 					if (i >= worldWidth) {
 						i =	-(i % worldWidth);
