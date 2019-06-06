@@ -22,7 +22,7 @@ public class PlayerPainter  implements IPainter{
 	@Override
 	public void paint(Graphics g) {
 		g.setColor(Color.BLUE);
-		g.drawRect(entity.getX()*32, entity.getY()*32, 32, 32);
+		g.fillRect(entity.getX()*32, entity.getY()*32, 32, 32);
 		
 	}
 	

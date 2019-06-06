@@ -5,13 +5,19 @@ import java.awt.event.MouseEvent;
 import java.util.HashMap;
 
 import edu.ricm3.game.GameController;
+import game.main.model.Model;
+import game.main.view.View;
 
 public class Controller extends GameController {
 	
 	private HashMap<String, Boolean> map;
+	private Model model;
+	private View view;
 	
-	public Controller() {
+	public Controller(Model m, View v) {
 		this.map = new HashMap<>();
+		this.model = m;
+		this.view = v;
 		
 		//Initialization of the HashMap with the keyboard key :
 		//Initialization of the alphabet's letters

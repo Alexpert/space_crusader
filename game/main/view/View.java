@@ -51,7 +51,7 @@ public class View extends GameView {
 			for(int j = 0; j < w.getHeight(); j++) {
 				Tile t = w.getTile(i, j);
 				g.setColor(Color.GREEN);
-				g.drawRect(i, j, 32, 32);
+				g.fillRect(i*32, j*32, 32, 32);
 				for(int k = 0; k < t.nbEntity(); k++) {
 					t.getEntity(k).paint(g);
 				}

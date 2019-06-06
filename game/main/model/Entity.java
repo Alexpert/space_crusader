@@ -75,6 +75,10 @@ public abstract class Entity {
 		return this.actionHandler;
 	}
 	
+	protected void setIPainter(IPainter ip) {
+		this.painter=ip;
+	}
+	
 	public World getWorld() {
 		return this.world;
 	}

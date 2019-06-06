@@ -7,19 +7,25 @@ import java.awt.event.KeyEvent;
 
 import org.junit.Test;
 import game.main.controller.Controller;
+import game.main.model.Model;
+import game.main.view.View;
 
 public class TestController {
 
 	@Test
 	public void testIsPressed() {
-		Controller controller = new Controller();
+		Model m = new Model();
+		View v = new View(m);
+		Controller controller = new Controller(m,v);
 		assertTrue(controller.isPressed("a") == false);
 		assertTrue(controller.isPressed("A") == false);
 	}
 	
 	@Test
 	public void testKeyPressed() {
-		Controller controller = new Controller();
+		Model m = new Model();
+		View v = new View(m);
+		Controller controller = new Controller(m,v);
 		Container component = new Container();
 		KeyEvent e = new KeyEvent(component, 0, 0, 0, 0x43, 'c', 0);
 		controller.keyPressed(e);
@@ -28,7 +34,9 @@ public class TestController {
 	
 	@Test
 	public void testKeyRealeased() {
-		Controller controller = new Controller();
+		Model m = new Model();
+		View v = new View(m);
+		Controller controller = new Controller(m,v);
 		Container component = new Container();
 		KeyEvent e = new KeyEvent(component, 0, 0, 0, 0x43, 'c', 0);
 		controller.keyPressed(e);
