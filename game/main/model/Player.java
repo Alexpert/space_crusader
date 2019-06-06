@@ -2,6 +2,8 @@ package game.main.model;
 
 import java.util.ArrayList;
 
+import game.main.view.PlayerPainter;
+
 public class Player extends Entity {
 	
 	private int money;
@@ -12,6 +14,7 @@ public class Player extends Entity {
 		this.money = 0;
 		this.inventary = new ArrayList<Item>();
 		this.setActionHandler(new ActionHandlerPlayer(this));
+		this.setIPainter(new PlayerPainter(this));
 	}
 
 	@Override
@@ -26,17 +29,5 @@ public class Player extends Entity {
 	
 	public void add(Item item) {
 		this.inventary.add(item);
-	}
-	
-	public void move() {
-		this.getActionHandler().move();
-	}
-	
-	public void move(Direction d) {
-		this.getActionHandler().move(d);
-	}
-	
-	public void turn(Direction d) {
-		this.getActionHandler().turn(d);
 	}
 }
