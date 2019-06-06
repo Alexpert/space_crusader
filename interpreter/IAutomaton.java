@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ListIterator;
 
 import game.main.model.Entity;
+import interpreter.IAction.Wait;
 
 /* Michael PÉRIN, Verimag / Univ. Grenoble Alpes, may 2019 */
 
@@ -28,11 +29,11 @@ public class IAutomaton {
 			behaviour.setSource(foundState);
 		
 		for(ITransition transition: behaviour.getTransitions()) {
-			foundState = this.getState(transition.target.getName());
+			foundState = this.getState(transition.getTarget().getName());
 			if (foundState != null)
-				transition.target = foundState;
+				transition.setTarget(foundState);
 			else
-				this.getStates().add(transition.target);
+				this.getStates().add(transition.getTarget());
 		}
 			
 		
@@ -47,7 +48,7 @@ public class IAutomaton {
 		return i == this.getStates().size() ? null : this.getStates().get(i);
 	}
 	
-	private IBehaviour getBehaviour(IState state) {
+	public IBehaviour getBehaviour(IState state) {
 		int i = 0;
 		while (i < this.getBehaviours().size() && !this.getBehaviours().get(i).getSource().equals(state))
 			i++;

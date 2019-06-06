@@ -24,28 +24,32 @@ public abstract class IAction {
 	}
 	
 	public static class Wizz extends IAction {
-		Direction direction;
+		private Direction direction;
 		
 		public Wizz(Direction direction){
-			this.direction = direction;
+			this.setDirection(direction);
 		}
 		
 		public Wizz(){
-			this.direction = Direction.FRONT;
+			this.setDirection(Direction.FRONT);
 		}
 		
 		public boolean exec(Entity e){
 			//e.wizz(Direction.FRONT);
 			return true;
 		}
-		
-		public void addDirection(game.main.model.Direction direction) {
+
+		public Direction getDirection() {
+			return direction;
+		}
+
+		public void setDirection(Direction direction) {
 			this.direction = direction;
 		}
 	}
 	
 	public static class Pop extends IAction {
-		Direction direction;
+		private Direction direction;
 		
 		public Pop(Direction direction){
 			this.direction = direction;
@@ -59,14 +63,18 @@ public abstract class IAction {
 			//e.pop(Direction.FRONT);
 			return true;
 		}
-		
-		public void addDirection(game.main.model.Direction direction) {
+
+		public Direction getDirection() {
+			return direction;
+		}
+
+		public void setDirection(Direction direction) {
 			this.direction = direction;
 		}
 	}
 	
 	public static class Move extends IAction {
-		Direction direction ;
+		private Direction direction ;
 		
 		public Move(Direction direction){
 			this.direction = direction ;
@@ -79,14 +87,18 @@ public abstract class IAction {
 			e.move(this.direction) ;
 			return true;
 		}
-		
-		public void addDirection(game.main.model.Direction direction) {
+
+		public Direction getDirection() {
+			return direction;
+		}
+
+		public void setDirection(Direction direction) {
 			this.direction = direction;
 		}
 	}
 	
 	public static class Jump extends IAction {
-		Direction direction ;
+		private Direction direction ;
 		
 		public Jump(Direction direction){
 			this.direction = direction ;
@@ -99,14 +111,18 @@ public abstract class IAction {
 			//e.jump(this.direction) ;
 			return true;
 		}
-		
-		public void addDirection(game.main.model.Direction direction) {
+
+		public Direction getDirection() {
+			return direction;
+		}
+
+		public void setDirection(Direction direction) {
 			this.direction = direction;
 		}
 	}
 	
 	public static class Turn extends IAction {
-		Direction direction ;
+		private Direction direction ;
 		
 		public Turn(Direction direction){
 			this.direction = direction ;
@@ -119,44 +135,55 @@ public abstract class IAction {
 			e.turn(this.direction) ;
 			return true;
 		}
-		
-		public void addDirection(game.main.model.Direction direction) {
+
+		public Direction getDirection() {
+			return direction;
+		}
+
+		public void setDirection(Direction direction) {
 			this.direction = direction;
 		}
 	}
 	
 	public static class Hit extends IAction {
-		Direction direction ;
-		Integer power;
+		private Direction direction ;
+		private Integer power;
 		
 		public Hit(Direction direction, Integer power){
 			this.direction = direction ;
-			this.power = power;
+			this.setPower(power);
 		}
 		public Hit(Direction direction){
 			this.direction = direction ;
-			this.power = 1 ; // valeur par défaut
+			this.setPower(1) ; // valeur par défaut
 		}
 		public Hit(){
 			this.direction = Direction.FRONT; // Front par défaut
-			this.power = 1 ; // puissance par défaut
+			this.setPower(1) ; // puissance par défaut
 		}
 		
 		public boolean exec(Entity e){
 			//e.hit(this.direction, max(e.power,this.power));
 			return true;
 		}
-		
-		public void addDirection(game.main.model.Direction direction) {
+
+		public Direction getDirection() {
+			return direction;
+		}
+
+		public void setDirection(Direction direction) {
 			this.direction = direction;
 		}
-		public void addPower(int power) {
+		public Integer getPower() {
+			return power;
+		}
+		public void setPower(Integer power) {
 			this.power = power;
 		}
 	}
 	
 	public static class Protect extends IAction {
-		Direction direction ;
+		private Direction direction ;
 		
 		public Protect(Direction direction){
 			this.direction = direction ;
@@ -169,14 +196,18 @@ public abstract class IAction {
 			//e.protect(this.direction) ;
 			return true;
 		}
-		
-		public void addDirection(game.main.model.Direction direction) {
+
+		public Direction getDirection() {
+			return direction;
+		}
+
+		public void setDirection(Direction direction) {
 			this.direction = direction;
 		}
 	}
 	
 	public static class Pick extends IAction {
-		Direction direction ;
+		private Direction direction ;
 		
 		public Pick(Direction direction){
 			this.direction = direction ;
@@ -189,14 +220,18 @@ public abstract class IAction {
 			//e.pick(this.direction) ;
 			return true;
 		}
-		
-		public void addDirection(game.main.model.Direction direction) {
+
+		public Direction getDirection() {
+			return direction;
+		}
+
+		public void setDirection(Direction direction) {
 			this.direction = direction;
 		}
 	}
 	
 	public static class Throw extends IAction {
-		Direction direction ;
+		private Direction direction ;
 		
 		public Throw(Direction direction){
 			this.direction = direction ;
@@ -209,8 +244,12 @@ public abstract class IAction {
 			//e.cast(this.direction);
 			return true;
 		}
-		
-		public void addDirection(game.main.model.Direction direction) {
+
+		public Direction getDirection() {
+			return direction;
+		}
+
+		public void setDirection(Direction direction) {
 			this.direction = direction;
 		}
 	}

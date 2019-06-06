@@ -28,7 +28,7 @@ public class IBehaviour {
 		if (i == nbTransitions)
 			throw new Exception("No transition feasible");
 		
-		return this.getTransitions().get(i).target;
+		return this.getTransitions().get(i).exec(e);
 	}
 
 	public IState getSource() {

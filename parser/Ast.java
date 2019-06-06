@@ -491,11 +491,11 @@ public class Ast {
 			FunCall exprAsFunCall = (FunCall) this.expression;
 
 			game.main.model.Direction direction = null;
-			if (exprAsFunCall.parameters.size() > 0 && exprAsFunCall.parameters.get(0).kind != "Direction") {
+			if (exprAsFunCall.parameters.size() > 0 && exprAsFunCall.parameters.get(0).kind == "Direction") {
 				direction = ((Direction) exprAsFunCall.parameters.get(0)).getDirection();
 			}
 			int power = 0;
-			if (exprAsFunCall.parameters.size() > 1 && exprAsFunCall.parameters.get(1).kind != "Number") {
+			if (exprAsFunCall.parameters.size() > 1 && exprAsFunCall.parameters.get(1).kind == "Number") {
 				power = Integer.parseInt(((Number_as_String) exprAsFunCall.parameters.get(1)).value.toString());
 			}
 
@@ -506,48 +506,49 @@ public class Ast {
 			case ("wizz"):
 				iAction = new Wizz();
 				if (direction != null)
-					((Wizz) iAction).addDirection(direction);
+					((Wizz) iAction).setDirection(direction);
+				break;
 			case ("pop"):
 				iAction = new Pop();
 				if (direction != null)
-					((Pop) iAction).addDirection(direction);
+					((Pop) iAction).setDirection(direction);
 				break;
 			case ("move"):
 				iAction = new Move();
 				if (direction != null)
-					((Move) iAction).addDirection(direction);
+					((Move) iAction).setDirection(direction);
 				break;
 			case ("jump"):
 				iAction = new Jump();
 				if (direction != null)
-					((Jump) iAction).addDirection(direction);
+					((Jump) iAction).setDirection(direction);
 				break;
 			case ("turn"):
 				iAction = new Turn();
 				if (direction != null)
-					((Turn) iAction).addDirection(direction);
+					((Turn) iAction).setDirection(direction);
 				break;
 			case ("hit"):
 				iAction = new Hit();
 				if (direction != null)
-					((Hit) iAction).addDirection(direction);
+					((Hit) iAction).setDirection(direction);
 				if (power != 0)
-					((Hit) iAction).addPower(power);
+					((Hit) iAction).setPower(power);
 				break;
 			case ("protect"):
 				iAction = new Protect();
 				if (direction != null)
-					((Protect) iAction).addDirection(direction);
+					((Protect) iAction).setDirection(direction);
 				break;
 			case ("pick"):
 				iAction = new Pick();
 				if (direction != null)
-					((Pick) iAction).addDirection(direction);
+					((Pick) iAction).setDirection(direction);
 				break;
 			case ("throw"):
 				iAction = new Throw();
 				if (direction != null)
-					((Throw) iAction).addDirection(direction);
+					((Throw) iAction).setDirection(direction);
 				break;
 			case ("store"):
 				iAction = new Store();
