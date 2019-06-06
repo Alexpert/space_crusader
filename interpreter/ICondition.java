@@ -32,12 +32,28 @@ public class ICondition {
 		private ICondition operandR;
 
 		public Or(ICondition operandL, ICondition operandR) {
-			this.operandL = operandL;
-			this.operandR = operandR;
+			this.setOperandL(operandL);
+			this.setOperandR(operandR);
 		}
 
 		boolean eval(Entity e) {
-			return this.operandL.eval(e) || this.operandR.eval(e);
+			return this.getOperandL().eval(e) || this.getOperandR().eval(e);
+		}
+
+		public ICondition getOperandL() {
+			return operandL;
+		}
+
+		private void setOperandL(ICondition operandL) {
+			this.operandL = operandL;
+		}
+
+		public ICondition getOperandR() {
+			return operandR;
+		}
+
+		private void setOperandR(ICondition operandR) {
+			this.operandR = operandR;
 		}
 	}
 	
@@ -47,12 +63,28 @@ public class ICondition {
 		private ICondition operandR;
 
 		public And(ICondition operandL, ICondition operandR) {
-			this.operandL = operandL;
-			this.operandR = operandR;
+			this.setOperandL(operandL);
+			this.setOperandR(operandR);
 		}
 
 		boolean eval(Entity e) {
-			return this.operandL.eval(e) && this.operandR.eval(e);
+			return this.getOperandL().eval(e) && this.getOperandR().eval(e);
+		}
+
+		public ICondition getOperandL() {
+			return operandL;
+		}
+
+		private void setOperandL(ICondition operandL) {
+			this.operandL = operandL;
+		}
+
+		public ICondition getOperandR() {
+			return operandR;
+		}
+
+		private void setOperandR(ICondition operandR) {
+			this.operandR = operandR;
 		}
 	}
 
@@ -69,12 +101,20 @@ public class ICondition {
 		private String key;
 
 		public Key(String key) {
-			this.key = key;
+			this.setKey(key);
 		}
 
 		boolean eval(Entity e) {
 			//return e.key(key);
 			return true;
+		}
+
+		public String getKey() {
+			return key;
+		}
+
+		private void setKey(String key) {
+			this.key = key;
 		}
 	}
 
@@ -82,29 +122,37 @@ public class ICondition {
 		private Direction direction;
 
 		public MyDir(Direction direction) {
-			this.direction = direction;
+			this.setDirection(direction);
 		}
 
 		boolean eval(Entity e) {
-			return e.getOrientation() == this.direction;
+			return e.getOrientation() == this.getDirection();
+		}
+
+		public Direction getDirection() {
+			return direction;
+		}
+
+		private void setDirection(Direction direction) {
+			this.direction = direction;
 		}
 	}
 
 	public class Cell extends ICondition {
-		Direction direction;
-		Kind kind;
-		int distance;
+		private Direction direction;
+		private Kind kind;
+		private int distance;
 
 		public Cell(Direction direction, Kind kind, int distance) {
-			this.direction = direction;
-			this.kind = kind;
-			this.distance = distance;
+			this.setDirection(direction);
+			this.setKind(kind);
+			this.setDistance(distance);
 		}
 
 		public Cell(Direction direction, Kind kind) {
-			this.direction = direction;
-			this.kind = kind;
-			this.distance = 1;
+			this.setDirection(direction);
+			this.setKind(kind);
+			this.setDistance(1);
 		}
 
 		boolean eval(Entity e) {
@@ -113,6 +161,30 @@ public class ICondition {
 		}
 		
 		public void addDistance(int distance) {
+			this.setDistance(distance);
+		}
+
+		public Direction getDirection() {
+			return direction;
+		}
+
+		private void setDirection(Direction direction) {
+			this.direction = direction;
+		}
+
+		public Kind getKind() {
+			return kind;
+		}
+
+		private void setKind(Kind kind) {
+			this.kind = kind;
+		}
+
+		public int getDistance() {
+			return distance;
+		}
+
+		private void setDistance(int distance) {
 			this.distance = distance;
 		}
 	}
@@ -122,13 +194,29 @@ public class ICondition {
 		private Direction direction;
 
 		public Closest(Kind kind, Direction direction) {
-			this.kind = kind;
-			this.direction = direction;
+			this.setKind(kind);
+			this.setDirection(direction);
 		}
 
 		boolean eval(Entity e) {
 			//return e.closest(kind, direction);
 			return true;
+		}
+
+		public Kind getKind() {
+			return kind;
+		}
+
+		private void setKind(Kind kind) {
+			this.kind = kind;
+		}
+
+		public Direction getDirection() {
+			return direction;
+		}
+
+		private void setDirection(Direction direction) {
+			this.direction = direction;
 		}
 	}
 

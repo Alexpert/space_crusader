@@ -11,9 +11,11 @@ import org.junit.Test;
 
 import game.main.model.Direction;
 import game.main.model.Entity;
+import game.main.model.Kind;
 import interpreter.IAction;
 import interpreter.IAutomaton;
 import interpreter.IBehaviour;
+import interpreter.ICondition;
 import parser.Ast;
 import parser.Ast.AI_Definitions;
 import parser.AutomataParser;
@@ -145,6 +147,43 @@ public class TestAutomate {
 			+ "* (T1):"
 			+ "| True ? Throw() : (T1)"
 			+ "| True ? Throw(N) : (T1)"
+			+ "}"
+			+
+			"ConditionDebugger(C1){"
+			+ "* (C1):"
+			+ "| GotPower() ? Pop() : (C1)"
+			+ "| GotStuff() ? Pop() : (C1)"
+			+ "}"
+			+
+			"MyDirDebugger(MD1){"
+			+ "* (MD1):"
+			+ "| MyDir(N) ? Pop() : (MD1)"
+			+ "}"
+			+
+			"ClosestDebugger(MD1){"
+			+ "* (MD1):"
+			+ "| Closest(N, A) ? Pop() : (MD1)"
+			+ "}"
+			+
+			"CellDebugger(C1){"
+			+ "* (C1):"
+			+ "| Cell(N, A) ? Pop() : (C1)"
+			+ "| Cell(N, A, 5) ? Pop() : (C1)"
+			+ "}"
+			+
+			"EntityDebugger(E1){"
+			+ "* (E1):"
+			+ "| Closest(N, A) ? Pop() : (E1)"
+			+ "| Closest(N, D) ? Pop() : (E1)"
+			+ "| Closest(N, G) ? Pop() : (E1)"
+			+ "| Closest(N, J) ? Pop() : (E1)"
+			+ "| Closest(N, M) ? Pop() : (E1)"
+			+ "| Closest(N, O) ? Pop() : (E1)"
+			+ "| Closest(N, P) ? Pop() : (E1)"
+			+ "| Closest(N, T) ? Pop() : (E1)"
+			+ "| Closest(N, V) ? Pop() : (E1)"
+			+ "| Closest(N, @) ? Pop() : (E1)"
+			+ "| Closest(N, _) ? Pop() : (E1)"
 			+ "}"
 			;
 	private static Ast ast;
@@ -378,5 +417,76 @@ public class TestAutomate {
 				.getTransitions().get(0).getAction()).getDirection() == Direction.FRONT);
 		assertTrue(((IAction.Throw)automaton.getBehaviours().get(0)
 				.getTransitions().get(1).getAction()).getDirection() == Direction.NORTH);
+	}
+	
+	@Test
+	public void testConditions() {
+		IAutomaton automaton =  TestAutomate.automatons.get(17);
+		assertTrue(automaton.getBehaviours().get(0)
+				.getTransitions().get(0).getCondition().getClass() == ICondition.GotPower.class);
+		assertTrue(automaton.getBehaviours().get(0)
+				.getTransitions().get(1).getCondition().getClass() == ICondition.GotStuff.class);
+	}
+	
+	@Test
+	public void testMyDir() {
+		IAutomaton automaton =  TestAutomate.automatons.get(18);
+		assertTrue(((ICondition.MyDir)automaton.getBehaviours().get(0)
+				.getTransitions().get(0).getCondition()).getDirection() == Direction.NORTH);
+	}
+	
+	@Test
+	public void testClosest() {
+		IAutomaton automaton =  TestAutomate.automatons.get(19);
+		assertTrue(((ICondition.Closest)automaton.getBehaviours().get(0)
+				.getTransitions().get(0).getCondition()).getDirection() == Direction.NORTH);
+		assertTrue(((ICondition.Closest)automaton.getBehaviours().get(0)
+				.getTransitions().get(0).getCondition()).getKind() == Kind.MONSTER);
+	}
+	
+	@Test
+	public void testCell() {
+		IAutomaton automaton =  TestAutomate.automatons.get(20);
+
+		assertTrue(((ICondition.Cell)automaton.getBehaviours().get(0)
+				.getTransitions().get(0).getCondition()).getDirection() == Direction.NORTH);
+		assertTrue(((ICondition.Cell)automaton.getBehaviours().get(0)
+				.getTransitions().get(0).getCondition()).getKind() == Kind.MONSTER);
+		assertTrue(((ICondition.Cell)automaton.getBehaviours().get(0)
+				.getTransitions().get(0).getCondition()).getDistance() == 1);
+		
+		assertTrue(((ICondition.Cell)automaton.getBehaviours().get(0)
+				.getTransitions().get(1).getCondition()).getDirection() == Direction.NORTH);
+		assertTrue(((ICondition.Cell)automaton.getBehaviours().get(0)
+				.getTransitions().get(1).getCondition()).getKind() == Kind.MONSTER);
+		assertTrue(((ICondition.Cell)automaton.getBehaviours().get(0)
+				.getTransitions().get(1).getCondition()).getDistance() == 5);
+	}
+	
+	@Test
+	public void testEntities() {
+		IAutomaton automaton =  TestAutomate.automatons.get(21);
+		assertTrue(((ICondition.Closest)automaton.getBehaviours().get(0)
+				.getTransitions().get(0).getCondition()).getKind() == Kind.MONSTER);
+		assertTrue(((ICondition.Closest)automaton.getBehaviours().get(0)
+				.getTransitions().get(1).getCondition()).getKind() == Kind.DANGER);
+		assertTrue(((ICondition.Closest)automaton.getBehaviours().get(0)
+				.getTransitions().get(2).getCondition()).getKind() == Kind.GATE);
+		assertTrue(((ICondition.Closest)automaton.getBehaviours().get(0)
+				.getTransitions().get(3).getCondition()).getKind() == Kind.JUMP_ELEMENT);
+		assertTrue(((ICondition.Closest)automaton.getBehaviours().get(0)
+				.getTransitions().get(4).getCondition()).getKind() == Kind.MISSILE);
+		assertTrue(((ICondition.Closest)automaton.getBehaviours().get(0)
+				.getTransitions().get(5).getCondition()).getKind() == Kind.OBSTACLE);
+		assertTrue(((ICondition.Closest)automaton.getBehaviours().get(0)
+				.getTransitions().get(6).getCondition()).getKind() == Kind.ITEM);
+		assertTrue(((ICondition.Closest)automaton.getBehaviours().get(0)
+				.getTransitions().get(7).getCondition()).getKind() == Kind.TEAM);
+		assertTrue(((ICondition.Closest)automaton.getBehaviours().get(0)
+				.getTransitions().get(8).getCondition()).getKind() == Kind.VOID);
+		assertTrue(((ICondition.Closest)automaton.getBehaviours().get(0)
+				.getTransitions().get(9).getCondition()).getKind() == Kind.PLAYER);
+		assertTrue(((ICondition.Closest)automaton.getBehaviours().get(0)
+				.getTransitions().get(10).getCondition()).getKind() == Kind.ANYTHING);
 	}
 }

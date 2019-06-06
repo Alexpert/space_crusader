@@ -192,8 +192,8 @@ public class Ast {
 
 		public game.main.model.Direction getDirection() throws Exception {
 			game.main.model.Direction direction;
-			String strDebug = (((Terminal)((Constant)this.value).value).value).toLowerCase();
-			
+			String strDebug = (((Terminal) ((Constant) this.value).value).value).toLowerCase();
+
 			switch (strDebug) {
 			case ("f"):
 				direction = game.main.model.Direction.FRONT;
@@ -407,15 +407,15 @@ public class Ast {
 				}
 				break;
 			case ("FunCall"):
-				FunCall exprAsFunCall = (FunCall)expression;
-				switch(exprAsFunCall.name.value.toLowerCase()) {
+				FunCall exprAsFunCall = (FunCall) expression;
+				switch (exprAsFunCall.name.value.toLowerCase()) {
 				case ("true"):
 					condition = condition.new True();
 					break;
 				case ("key"):
 					if (exprAsFunCall.parameters.size() != 1 || exprAsFunCall.parameters.get(0).kind != "Key")
 						throw new Exception("Not a Key");
-					condition = condition.new Key(((Key)exprAsFunCall.parameters.get(0)).value.toString());
+					condition = condition.new Key(((Key) exprAsFunCall.parameters.get(0)).value.toString());
 					break;
 				case ("mydir"):
 					if (exprAsFunCall.parameters.size() != 1 || exprAsFunCall.parameters.get(0).kind != "Direction")
@@ -431,21 +431,34 @@ public class Ast {
 						throw new Exception("Not an Entity");
 					if (exprAsFunCall.parameters.size() > 2 && exprAsFunCall.parameters.get(2).kind != "Number")
 						throw new Exception("Not a Distance");
-					
+
 					condition = condition.new Cell(((Direction) exprAsFunCall.parameters.get(0)).getDirection(),
 							(((Entity) exprAsFunCall.parameters.get(1)).getKind()));
-					((Cell)condition).addDistance(Integer.parseInt(((Number_as_String) exprAsFunCall.parameters.get(2))
-							.value.toString()));
+					if (exprAsFunCall.parameters.size() >2)
+						((Cell) condition).addDistance(
+							Integer.parseInt(((Number_as_String) exprAsFunCall.parameters.get(2)).value.toString()));
 					break;
 				case ("closest"):
 					if (exprAsFunCall.parameters.size() != 2)
 						throw new Exception("Wrong argument count");
-					if (exprAsFunCall.parameters.get(0).kind != "Entity")
-						throw new Exception("Not an Entity");
-					if (exprAsFunCall.parameters.get(1).kind != "Direction")
+					if (exprAsFunCall.parameters.get(0).kind != "Direction")
 						throw new Exception("Not a Direction");
-					condition = condition.new Closest(((Entity) exprAsFunCall.parameters.get(1)).getKind(),
-							((Direction) exprAsFunCall.parameters.get(0)).getDirection());
+					//C'est pas joli mais le parser reconnais "O" comme Direction et non comme en entité
+					if (exprAsFunCall.parameters.get(1).kind != "Entity"
+							&& !(exprAsFunCall.parameters.get(1).kind == "Direction"
+							&& ((Direction)exprAsFunCall.parameters.get(1)).getDirection() ==
+							game.main.model.Direction.WEST)
+							&& exprAsFunCall.parameters.get(1).kind != "Underscore")
+						throw new Exception("Not an Entity");
+					Kind entity;
+					if (exprAsFunCall.parameters.get(1).kind == "Direction") {
+						entity = Kind.OBSTACLE;
+					} else if (exprAsFunCall.parameters.get(1).kind.equals("Underscore")) {
+						entity = Kind.ANYTHING;
+					} else {
+						entity = ((Entity) exprAsFunCall.parameters.get(1)).getKind();
+					}
+					condition = condition.new Closest(entity, ((Direction) exprAsFunCall.parameters.get(0)).getDirection());
 					break;
 				case ("gotpower"):
 					condition = condition.new GotPower();
@@ -453,14 +466,14 @@ public class Ast {
 				case ("gotstuff"):
 					condition = condition.new GotStuff();
 					break;
-					
-					default:
-						throw new Exception("Not a valid Condition FunCall");
+
+				default:
+					throw new Exception("Not a valid Condition FunCall");
 				}
 				break;
-				
-				default:
-					throw new Exception("Not a valid FunCall");
+
+			default:
+				throw new Exception("Not a valid FunCall");
 			}
 			return condition;
 		}
