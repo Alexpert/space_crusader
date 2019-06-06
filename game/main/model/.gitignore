@@ -9,3 +9,6 @@
 /PlayerActionHandler.class
 /Direction.class
 /ActionHandlerPlayer.class
+/Rabbit.class
+/Kind.class
+/ActionHandlerRabbit.class
