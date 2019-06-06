@@ -82,6 +82,11 @@ public abstract class Entity {
 	public World getWorld() {
 		return this.world;
 	}
+	
+	public void moveToTile(int x, int y) {
+		this.world.getTile(this.getX(), this.getY()).remove(this);
+		this.world.getTile(x, y).add(this);
+	}
 
 	public Tile getTile(Direction d) {
 		Direction d2 = d;

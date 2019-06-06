@@ -12,34 +12,47 @@ public abstract class AbstractActionHandler {
 
 	public boolean move() {
 		Direction d = this.entity.getOrientation();
+		int newX = this.entity.getX();
+		int newY = this.entity.getY();
+		
 		if(d == Direction.EAST) {
-			this.entity.setX(this.entity.getX() + 32);
+			newX++;
 		}
 		else if(d == Direction.WEST) {
-			this.entity.setX(this.entity.getX() - 32);
+			newX--;
 		}
 		else if(d == Direction.NORTH) {
-			this.entity.setY(this.entity.getY() - 32);
+			newY--;
 		}
 		else if(d == Direction.SOUTH) {
-			this.entity.setY(this.entity.getY() + 32);
+			newY++;
 		}
+		
+		if(newX >= this.entity.getWorld().getWidth()) {		//controlling the torus property
+			newX -= this.entity.getWorld().getWidth();
+		}
+		if(newX < 0) {
+			newX += this.entity.getWorld().getWidth();
+		}
+		if(newY >= this.entity.getWorld().getHeight()) {
+			newY -= this.entity.getWorld().getHeight();
+		}
+		if(newY < 0) {
+			newY += this.entity.getWorld().getHeight();
+		}
+		
+		this.entity.moveToTile(newX, newY);
+		this.entity.setX(newX);
+		this.entity.setY(newY);
+		
 		return false;
 	}
 	
 	public boolean move(Direction d) {
-		if(d == Direction.EAST) {
-			this.entity.setX(this.entity.getX() + 32);
-		}
-		else if(d == Direction.WEST) {
-			this.entity.setX(this.entity.getX() - 32);
-		}
-		else if(d == Direction.NORTH) {
-			this.entity.setY(this.entity.getY() - 32);
-		}
-		else if(d == Direction.SOUTH) {
-			this.entity.setY(this.entity.getY() + 32);
-		}
+		Direction lastDirection = this.entity.getOrientation();
+		this.entity.turn(d);
+		this.move();
+		this.entity.turn(lastDirection);
 		return false;
 	}
 

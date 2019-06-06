@@ -47,6 +47,10 @@ public class Tile {
 		return this.entities.size();
 	}
 	
+	public void remove(Entity e) {
+		this.entities.remove(e);
+	}
+	
 	public void paint(Graphics g) {
 		this.painter.paint(g);
 	}

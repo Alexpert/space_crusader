@@ -10,13 +10,16 @@ public class TestModel {
 	
 	@Test
 	public void testModelMove() {
-		World world = new World(1024, 56);
+		World world = new World(20, 20);
 		Player p = new Player(0, 0, 10, Direction.NORTH, true, world);
 		assertTrue(p.getY()==0);
 		p.move(Direction.SOUTH);
-		assertTrue(p.getY()==32);
+		assertTrue(p.getY()==1);
 		p.move();
 		assertTrue(p.getY()==0);
+		p.move();
+		assertTrue(p.getY()==19);
+		
 	}
 	
 	@Test
