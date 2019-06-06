@@ -4,7 +4,7 @@ public abstract class AbstractActionHandler {
 
 	protected Entity entity;
 
-	// public abstract void wait();
+	public abstract void patient();
 
 	public abstract void wizz(Direction d);
 
@@ -73,7 +73,7 @@ public abstract class AbstractActionHandler {
 
 	public abstract boolean pick(Direction d);
 
-	// public abstract boolean throw(Direction d);
+	public abstract boolean cast(Direction d);
 
 	public abstract boolean store();
 

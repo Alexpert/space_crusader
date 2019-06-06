@@ -10,3 +10,8 @@
 /Direction.class
 /ActionHandlerPlayer.class
 /Model.class
+/Rabbit.class
+/Kind.class
+/ActionHandlerRabbit.class
+/AdultRabbit.class
+/ActionHandlerAdultRabbit.class
