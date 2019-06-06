@@ -1,6 +1,7 @@
 package interpreter;
 import java.util.List;
-import java.util.ListIterator;
+
+import game.main.model.Entity;
 
 /* Michael PÉRIN, Verimag / Univ. Grenoble Alpes, may 2019 */
 
@@ -13,14 +14,14 @@ public class IBehaviour {
 		this.transitions = transitions ;
 	}
 	
-	IState step() {
+	IState step(Entity e) throws Exception {
 		// - selectionne la première transition faisable
 		// - lève une exception si aucune transition possible
 		// return l'état cible de la transition choisie
 		int i = 0;
 		int nbTransitions = this.transitions.size();
 		
-		while (i < nbTransitions && this.transitions.get(i).feasible()) {
+		while (i < nbTransitions && this.transitions.get(i).feasible(e)) {
 			i++;
 		}
 		

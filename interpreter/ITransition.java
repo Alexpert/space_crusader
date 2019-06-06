@@ -1,5 +1,7 @@
 package interpreter;
 
+import game.main.model.*;
+
 /* Michael PÉRIN, Verimag / Univ. Grenoble Alpes, may 2019 */
 
 public class ITransition {

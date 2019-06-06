@@ -6,6 +6,9 @@ import java.util.ListIterator;
 
 import interpreter.*;
 import interpreter.IAction.*;
+import interpreter.ICondition.*;
+
+import game.main.model.*;
 
 /* Michael PÉRIN, Verimag / Univ. Grenoble Alpes, june 2018
  *
@@ -186,6 +189,42 @@ public class Ast {
 		public String toString() {
 			return value.toString();
 		}
+
+		public game.main.model.Direction getDirection() throws Exception {
+			game.main.model.Direction direction;
+
+			switch (this.value.toString().toLowerCase()) {
+			case ("f"):
+				direction = game.main.model.Direction.FRONT;
+				break;
+			case ("r"):
+				direction = game.main.model.Direction.RIGHT;
+				break;
+			case ("b"):
+				direction = game.main.model.Direction.BACK;
+				break;
+			case ("l"):
+				direction = game.main.model.Direction.LEFT;
+				break;
+			case ("n"):
+				direction = game.main.model.Direction.NORTH;
+				break;
+			case ("e"):
+				direction = game.main.model.Direction.EAST;
+				break;
+			case ("s"):
+				direction = game.main.model.Direction.SOUTH;
+				break;
+			case ("w"):
+				direction = game.main.model.Direction.WEST;
+				break;
+
+			default:
+				throw new Exception("Unrecognized Direction");
+			}
+
+			return direction;
+		}
 	}
 
 	public static class Entity extends Parameter {
@@ -310,7 +349,75 @@ public class Ast {
 		}
 
 		public ICondition make() {
-			return null; // TODO
+			ICondition condition;
+			switch (expression.kind) {
+			case ("UnaryOp"):
+				condition = new Not(new Condition(((UnaryOp) this.expression).operand).make());
+				break;
+			case ("BinaryOp"):
+				if (((UnaryOp) this.expression).operator.value == "&") {
+					condition = new And(new Condition((((BinaryOp) this.expression).left_operand)).make(),
+							new Condition((((BinaryOp) this.expression).right_operand)).make());
+				} else {
+					condition = new Or(new Condition((((BinaryOp) this.expression).left_operand)).make(),
+							new Condition((((BinaryOp) this.expression).right_operand)).make());
+				}
+				break;
+			case ("FunCall"):
+				FunCall exprAsFunCall = (FunCall)expression;
+				switch(exprAsFunCall.name.value.toLowerCase()) {
+				case ("true"):
+					condition = new True();
+					break;
+				case ("key"):
+					if (exprAsFunCall.parameters.size() != 1 || exprAsFunCall.parameters.get(0).kind != "Key")
+						throw new Exception("Not a Key");
+					condition = new ICondition.Key(((Key)exprAsFunCall.parameters.get(0)).value.toString());
+					break;
+				case ("mydir"):
+					if (exprAsFunCall.parameters.size() != 1 || exprAsFunCall.parameters.get(0).kind != "Direction")
+						throw new Exception("Not a Key");
+					condition = new MyDir(((Direction) exprAsFunCall.parameters.get(0)).getDirection());
+					break;
+				case ("cell"):
+					if (exprAsFunCall.parameters.size() < 2 || exprAsFunCall.parameters.size() > 3)
+						throw new Exception("Wrong argument count");
+					if (exprAsFunCall.parameters.get(0).kind != "Direction")
+						throw new Exception("Not a Direction");
+					if (exprAsFunCall.parameters.get(0).kind != "Kind")
+						throw new Exception("Not a Kind");
+					if (exprAsFunCall.parameters.size() > 2 || exprAsFunCall.parameters.get(0).kind != "Distance")
+						throw new Exception("Not a Distance");
+					
+					condition = new Cell(((Direction) exprAsFunCall.parameters.get(0)).getDirection(),
+							(Kind) exprAsFunCall.parameters.get(1));
+					((Cell)condition).addDistance(Integer.parseInt(((Number_as_String) exprAsFunCall.parameters.get(2))
+							.value.toString()));
+					break;
+				case ("closest"):
+					if (exprAsFunCall.parameters.size() != 2)
+						throw new Exception("Wrong argument count");
+					if (exprAsFunCall.parameters.get(0).kind != "Kind")
+						throw new Exception("Not a Direction");
+					if (exprAsFunCall.parameters.get(0).kind != "Direction")
+					condition = new Closest((Kind) exprAsFunCall.parameters.get(1),
+							((Direction) exprAsFunCall.parameters.get(0)).getDirection());
+					break;
+				case ("gotpower"):
+					condition = new GotPower();
+					break;
+				case ("gotstuff"):
+					condition = new GotStuff();
+					break;
+					
+					default:
+						throw new Exception("Not a valid Condition FunCall");
+				}
+				break;
+				
+				default:
+					throw new Exception("Not a valid FunCall");
+			}
 		}
 	}
 
@@ -338,36 +445,64 @@ public class Ast {
 			IAction iAction;
 			FunCall exprAsFunCall = (FunCall) this.expression;
 
+			game.main.model.Direction direction = null;
+			if (exprAsFunCall.parameters.size() > 0 && exprAsFunCall.parameters.get(0).kind != "Direction") {
+				direction = ((Direction) exprAsFunCall.parameters.get(0)).getDirection();
+			}
+			int power = 0;
+			if (exprAsFunCall.parameters.size() > 1 && exprAsFunCall.parameters.get(1).kind != "Number_as_String") {
+				power = Integer.parseInt(((Number_as_String) exprAsFunCall.parameters.get(1)).value.toString());
+			}
+
 			switch (exprAsFunCall.name.value.toLowerCase()) {
 			case ("wait"):
 				iAction = new Wait();
 				break;
 			case ("wizz"):
 				iAction = new Wizz();
-				break;
+				if (direction != null)
+					((Wizz) iAction).addDirection(direction);
 			case ("pop"):
 				iAction = new Pop();
+				if (direction != null)
+					((Pop) iAction).addDirection(direction);
 				break;
 			case ("move"):
 				iAction = new Move();
+				if (direction != null)
+					((Move) iAction).addDirection(direction);
 				break;
 			case ("jump"):
 				iAction = new Jump();
+				if (direction != null)
+					((Jump) iAction).addDirection(direction);
 				break;
 			case ("turn"):
 				iAction = new Turn();
+				if (direction != null)
+					((Turn) iAction).addDirection(direction);
 				break;
 			case ("hit"):
 				iAction = new Hit();
+				if (direction != null)
+					((Hit) iAction).addDirection(direction);
+				if (power != 0)
+					((Hit) iAction).addPower(power);
 				break;
 			case ("protect"):
 				iAction = new Protect();
+				if (direction != null)
+					((Protect) iAction).addDirection(direction);
 				break;
 			case ("pick"):
 				iAction = new Pick();
+				if (direction != null)
+					((Pick) iAction).addDirection(direction);
 				break;
 			case ("throw"):
 				iAction = new Throw();
+				if (direction != null)
+					((Throw) iAction).addDirection(direction);
 				break;
 			case ("store"):
 				iAction = new Store();
@@ -452,6 +587,16 @@ public class Ast {
 			return Dot.graph("Automata", string);
 		}
 
+		public ArrayList<IAutomaton> make() throws Exception {
+			ArrayList<IAutomaton> iAutomata = new ArrayList<>();
+			for (Automaton iAutomaton : this.automata)
+				iAutomata.add(iAutomaton.make());
+
+			return iAutomata;
+		}
+		
+		
+
 	}
 
 	public static class Automaton extends Ast {
@@ -468,14 +613,15 @@ public class Ast {
 		}
 
 		public IAutomaton make() throws Exception {
-			List<IBehaviour> iBehaviours = new ArrayList<IBehaviour>();
 			IState istate_initial = entry.make();
+			
+			IAutomaton iAutomaton = new IAutomaton(istate_initial);
 
 			// construction de la liste des IBehaviours
 			for (Behaviour behaviour : this.behaviours)
-				iBehaviours.add((IBehaviour) behaviour.make());
+				iAutomaton.addBehaviour((IBehaviour) behaviour.make());
 
-			return new IAutomaton(istate_initial, iBehaviours);
+			return iAutomaton;
 		}
 
 		public String tree_edges() {

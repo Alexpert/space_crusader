@@ -22,3 +22,10 @@
 /ICondition.class
 /IState.class
 /ITransition.class
+/ICondition$Not.class
+/ICondition$Or.class
+/ICondition$And.class
+/ICondition$GotStuff.class
+/ICondition$Closest.class
+/ICondition$MyDir.class
+/ICondition$Key.class

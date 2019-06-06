@@ -1,18 +1,20 @@
 package interpreter;
 
+import game.main.model.*;
+
 /* Michael PÉRIN, Verimag / Univ. Grenoble Alpes, may 2019 */
 
-public class IAction {
+public abstract class IAction {
 	
 	IAction(){}
-	boolean exec(Entity e){}
+	abstract boolean exec(Entity e);
 	
 	
 	public static class Wait extends IAction {
 		public Wait(){}
 		
 		boolean exec(Entity e){
-			e.wait();
+			return e.patient();
 		}
 	}
 	
@@ -28,7 +30,12 @@ public class IAction {
 		}
 		
 		public boolean exec(Entity e){
-			e.wizz(Direction.Front);
+			e.wizz(Direction.FRONT);
+			return true;
+		}
+		
+		public void addDirection(game.main.model.Direction direction) {
+			this.direction = direction;
 		}
 	}
 	
@@ -44,7 +51,12 @@ public class IAction {
 		}
 		
 		public boolean exec(Entity e){
-			e.pop(Direction.Front);
+			e.pop(Direction.FRONT);
+			return true;
+		}
+		
+		public void addDirection(game.main.model.Direction direction) {
+			this.direction = direction;
 		}
 	}
 	
@@ -61,6 +73,10 @@ public class IAction {
 		public boolean exec(Entity e){
 			e.move(this.direction) ;
 		}
+		
+		public void addDirection(game.main.model.Direction direction) {
+			this.direction = direction;
+		}
 	}
 	
 	public static class Jump extends IAction {
@@ -76,6 +92,10 @@ public class IAction {
 		public boolean exec(Entity e){
 			e.jump(this.direction) ;
 		}
+		
+		public void addDirection(game.main.model.Direction direction) {
+			this.direction = direction;
+		}
 	}
 	
 	public static class Turn extends IAction {
@@ -90,6 +110,10 @@ public class IAction {
 		
 		public boolean exec(Entity e){
 			e.turn(this.direction) ;
+		}
+		
+		public void addDirection(game.main.model.Direction direction) {
+			this.direction = direction;
 		}
 	}
 	
@@ -113,6 +137,13 @@ public class IAction {
 		public boolean exec(Entity e){
 			e.hit(this.direction, max(e.power,this.power));
 		}
+		
+		public void addDirection(game.main.model.Direction direction) {
+			this.direction = direction;
+		}
+		public void addPower(int power) {
+			this.power = power;
+		}
 	}
 	
 	public static class Protect extends IAction {
@@ -127,6 +158,10 @@ public class IAction {
 		
 		public boolean exec(Entity e){
 			e.protect(this.direction) ;
+		}
+		
+		public void addDirection(game.main.model.Direction direction) {
+			this.direction = direction;
 		}
 	}
 	
@@ -143,6 +178,10 @@ public class IAction {
 		public boolean exec(Entity e){
 			e.pick(this.direction) ;
 		}
+		
+		public void addDirection(game.main.model.Direction direction) {
+			this.direction = direction;
+		}
 	}
 	
 	public static class Throw extends IAction {
@@ -156,7 +195,11 @@ public class IAction {
 		}
 		
 		public boolean exec(Entity e){
-			e.throw(this.direction) ;
+			e.cast(this.direction);
+		}
+		
+		public void addDirection(game.main.model.Direction direction) {
+			this.direction = direction;
 		}
 	}
 	
