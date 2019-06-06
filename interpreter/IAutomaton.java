@@ -49,7 +49,7 @@ public class IAutomaton {
 	
 	private IBehaviour getBehaviour(IState state) {
 		int i = 0;
-		while (i < this.getBehaviours().size() && this.getBehaviours().get(i).getSource().equals(state))
+		while (i < this.getBehaviours().size() && !this.getBehaviours().get(i).getSource().equals(state))
 			i++;
 		
 		return i == this.getBehaviours().size() ? null : this.getBehaviours().get(i);

@@ -21,7 +21,7 @@ public class IBehaviour {
 		int i = 0;
 		int nbTransitions = this.getTransitions().size();
 		
-		while (i < nbTransitions && this.getTransitions().get(i).feasible(e)) {
+		while (i < nbTransitions && !this.getTransitions().get(i).feasible(e)) {
 			i++;
 		}
 		

@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import game.main.model.Entity;
@@ -35,46 +36,56 @@ public class TestAutomate {
 			"LittleTurn(Mv){\n" + 
 			"  *(Mv): True ? Move(F) : (Trn)\n" + 
 			"  *(Trn): True ? Turn(R) : (Mv)\n" + 
-			"}" +
-			"SmoothDebugger(D1){"
-			+ "* (D1):"
-			+ "  | True ? Pop : (D2)"
-			+ "* (D2):"
-			+ "  | !True ? Wizz : (D2)"
-			+ "}";
-	private Ast ast;
-	private ArrayList<IAutomaton> automatons;
+			"}\n" +
+			"SmoothDebugger(D1){\n"
+			+ "* (D1):\n"
+			+ "  | True ? Pop : (D2)\n"
+			+ "* (D2):\n"
+			+ "  | !True ? Wizz : (D2)\n"
+			+ "}\n" +
+			"OrDebugger(Or1){\n"
+			+ "* (Or1):\n"
+			+ " | True / True ? Pop : (Or2)\n"
+			+ "* (Or2):\n"
+			+ " | True / !True ? Pop : (Or1)\n"
+			+ "}\n"+
+			"AndDebugger(And1){\n"
+			+ "* (And1):\n"
+			+ " | True & !True ? Pop : (And1)\n"
+			+ " | True & True ? Pop : (And2)\n"
+			+ "* (And2):\n"
+			+ "}\n";
+	private static Ast ast;
+	private static ArrayList<IAutomaton> automatons;
+	
+	@BeforeClass
+	public static void init() throws Exception{
+		ast = new AutomataParser(new java.io.StringReader(TestAutomate.automata)).Run();
+		automatons = ((AI_Definitions) ast).make();
+	}
 	
 	@Test
-	public void testMain() throws Exception{
-		this.ast = new AutomataParser(new java.io.StringReader(this.automata)).Run();
-		this.automatons = ((AI_Definitions) ast).make();
-		
-		testCreationMultipleAutomata();
-		testCountStates();
-		testCountBehaviours();
-		testCoherenceAutomaton();
-		testBasicExecution();
-	}
-	
 	public void testCreationMultipleAutomata() throws Exception {
-		assertTrue(this.automatons.size() == 4);
+		assertTrue(TestAutomate.automatons.size() == 6);
 	}
 	
+	@Test
 	public void testCountStates() throws Exception {
-		assertTrue(this.automatons.get(0).getNbStates() == 2);
-		assertTrue(this.automatons.get(1).getNbStates() == 1);
-		assertTrue(this.automatons.get(2).getNbStates() == 2);
+		assertTrue(TestAutomate.automatons.get(0).getNbStates() == 2);
+		assertTrue(TestAutomate.automatons.get(1).getNbStates() == 1);
+		assertTrue(TestAutomate.automatons.get(2).getNbStates() == 2);
 	}
 	
+	@Test
 	public void testCountBehaviours() throws Exception {
-		assertTrue(this.automatons.get(0).getNbBehaviours() == 2);
-		assertTrue(this.automatons.get(1).getNbBehaviours() == 1);
-		assertTrue(this.automatons.get(2).getNbBehaviours() == 2);
+		assertTrue(TestAutomate.automatons.get(0).getNbBehaviours() == 2);
+		assertTrue(TestAutomate.automatons.get(1).getNbBehaviours() == 1);
+		assertTrue(TestAutomate.automatons.get(2).getNbBehaviours() == 2);
 	}
 	
+	@Test
 	public void testCoherenceAutomaton(){
-		for (IAutomaton iAutomaton: this.automatons) {
+		for (IAutomaton iAutomaton: TestAutomate.automatons) {
 			for(IBehaviour behaviour:iAutomaton.getBehaviours()) {
 				assert(behaviour.getSource() != null);
 				assert(iAutomaton.getState(behaviour.getSource().getName()) != null);
@@ -82,9 +93,10 @@ public class TestAutomate {
 		}
 	}
 	
+	@Test
 	public void testBasicExecution(){
 		Entity e = null;
-		IAutomaton automaton =  this.automatons.get(3);
+		IAutomaton automaton =  TestAutomate.automatons.get(3);
 		assertTrue(automaton.getCurrent().getName().equals("D1"));
 		assertTrue(automaton.step(e));
 		assertTrue(automaton.getCurrent().getName().equals("D2"));
@@ -92,7 +104,24 @@ public class TestAutomate {
 		assertTrue(automaton.getCurrent().getName().equals("D2"));
 	}
 	
-	public void testComplexExecution(){
+	@Test
+	public void testOr(){
+		Entity e = null;
+		IAutomaton automaton =  TestAutomate.automatons.get(4);
+		assertTrue(automaton.getCurrent().getName().equals("Or1"));
+		assertTrue(automaton.step(e));
+		assertTrue(automaton.getCurrent().getName().equals("Or2"));
+		assertTrue(automaton.step(e));
+		assertTrue(automaton.getCurrent().getName().equals("Or1"));
+	}
+	
+	@Test
+	public void testAnd(){
+		Entity e = null;
+		IAutomaton automaton =  TestAutomate.automatons.get(5);
+		assertTrue(automaton.getCurrent().getName().equals("And1"));
+		assertTrue(automaton.step(e));
+		assertTrue(automaton.getCurrent().getName().equals("And2"));
 
 	}
 }

@@ -398,7 +398,7 @@ public class Ast {
 				condition = condition.new Not(new Condition(((UnaryOp) this.expression).operand).make());
 				break;
 			case ("BinaryOp"):
-				if (((UnaryOp) this.expression).operator.value == "&") {
+				if (((BinaryOp) this.expression).operator.value.equals("&")) {
 					condition = condition.new And(new Condition((((BinaryOp) this.expression).left_operand)).make(),
 							new Condition((((BinaryOp) this.expression).right_operand)).make());
 				} else {
