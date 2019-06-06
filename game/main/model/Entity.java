@@ -10,12 +10,13 @@ public abstract class Entity {
 	private int maxHealth;
 	private int x, y;
 	private Direction orientation;
+	private Kind kind;
 	private boolean moveable;
 	private AbstractActionHandler actionHandler;
 	private World world;
 	private IPainter painter;
-	
-	Entity(int x, int y, int health, Direction d, boolean moveable, World world) {
+
+	Entity(int x, int y, int health, Direction d, boolean moveable, World world, Kind kind) {
 		this.x = x;
 		this.y = y;
 		this.health = health;
@@ -23,16 +24,17 @@ public abstract class Entity {
 		this.orientation = d;
 		this.moveable = moveable;
 		this.world = world;
+		this.kind = kind;
 	}
 
 	public void setActionHandler(AbstractActionHandler ac) {
 		this.actionHandler = ac;
 	}
-	
+
 	public void paint(Graphics g) {
 		this.painter.paint(g);
 	}
-	
+
 	public abstract void step();
 
 	public int getX() {
@@ -74,11 +76,11 @@ public abstract class Entity {
 	protected AbstractActionHandler getActionHandler() {
 		return this.actionHandler;
 	}
-	
+
 	protected void setIPainter(IPainter ip) {
-		this.painter=ip;
+		this.painter = ip;
 	}
-	
+
 	public World getWorld() {
 		return this.world;
 	}
@@ -127,7 +129,7 @@ public abstract class Entity {
 		}
 		return null;
 	}
-	
+
 	public void move() {
 		this.getActionHandler().move();
 	}
@@ -147,8 +149,7 @@ public abstract class Entity {
 	// Condition
 
 	public boolean Key(String key) {
-		// TODO
-		return false;
+		return world.getModel().getBoolHashMap(key);
 	}
 
 	public boolean MyDir(Direction d) {
@@ -159,7 +160,14 @@ public abstract class Entity {
 		}
 	}
 
-	public boolean Cell(Direction d, Entity e, int distance) {
+	public boolean Cell(Direction d, Kind e, int distance) {
+		if (distance == 0) {
+			return false;
+		}
+		int nbTile = 1 + (distance-1) * 2;
+		int n = 0;
+		int worldWidth = this.world.getWidth();
+		int worldHeight = this.world.getHeight();
 		Direction d2 = d;
 		boolean res = false;
 		if (d.ordinal() < 4) { // if the direction is not absolute
@@ -175,90 +183,181 @@ public abstract class Entity {
 		}
 		if (d2 == Direction.NORTH) {
 			int i = this.x - distance + 1;
+			if (i < 0) {
+				i = worldWidth + (i % worldWidth);
+			}
 			int j = this.y - 1;
-			while (i < this.x + distance - 1 && !res) {
+			if (j < 0) {
+				j = worldHeight + (j % worldHeight);
+			}
+			while (n < nbTile && !res) {
 				Tile tile = this.world.getTile(i, j);
 				if (!tile.isEmpty()) {
 					for (int k = 0; k < tile.nbEntity(); k++) {
-						if (tile.getEntity(k).getClass() == e.getClass()) {
+						if (tile.getEntity(k).kind == e) {
 							res = true;
 						}
 					}
 				}
-				if (i < this.x) {
+				if (i < Math.abs(nbTile/2)) {
 					j--;
+					if (j < 0) {
+						j = worldHeight + (j % worldHeight);
+					}
 				} else {
 					j++;
+					if (j >= worldHeight) {
+						j =	-(j % worldHeight);
+					}
 				}
 				i++;
+				if (i >= worldWidth) {
+					i =	-(i % worldWidth);
+				}
+				n++;
 			}
 		}
 		if (d2 == Direction.SOUTH) {
+			
 			int i = this.x - distance + 1;
+			if (i < 0) {
+				i = worldWidth + (i % worldWidth);
+			}
+			
 			int j = this.y + 1;
-			while (i < this.x + distance - 1 && !res) {
+			if (j >= worldHeight) {
+				j =	-(j % worldHeight);
+			}
+			
+			while (n < nbTile && !res) {
 				Tile tile = this.world.getTile(i, j);
 				if (!tile.isEmpty()) {
 					for (int k = 0; k < tile.nbEntity(); k++) {
-						if (tile.getEntity(k).getClass() == e.getClass()) {
+						if (tile.getEntity(k).kind == e) {
 							res = true;
 						}
 					}
 				}
-				if (i < this.x) {
+				if (i < Math.abs(nbTile/2)) {
 					j++;
+					if (j >= worldHeight) {
+						j =	-(j % worldHeight);
+					}
 				} else {
 					j--;
+					if (j < 0) {
+						j = worldHeight + (j % worldHeight);
+					}
 				}
 				i++;
+				if (i >= worldWidth) {
+					i =	-(i % worldWidth);
+				}
+				n++;
 			}
 		}
+		
 		if (d2 == Direction.EAST) {
-			int i = this.x - 1;
+			
+			int i = this.x + 1;
+			if (i >= worldWidth) {
+				i =	-(i % worldWidth);
+			}
+			
 			int j = this.y - distance + 1;
-			while (i < this.y + distance - 1 && !res) {
+			if (j < 0) {
+				j = worldHeight + (j % worldHeight);
+			}
+			
+			while (n < nbTile && !res) {
 				Tile tile = this.world.getTile(i, j);
 				if (!tile.isEmpty()) {
 					for (int k = 0; k < tile.nbEntity(); k++) {
-						if (tile.getEntity(k).getClass() == e.getClass()) {
+						if (tile.getEntity(k).kind == e) {
 							res = true;
 						}
 					}
 				}
-				if (j < this.y) {
+				if (j <= Math.abs(nbTile/2)) {
 					i--;
+					if (i < 0) {
+						i = worldWidth + (i % worldWidth);
+					}
 				} else {
 					i++;
+					if (i >= worldWidth) {
+						i =	-(i % worldWidth);
+					}
 				}
 				j++;
+				if (j >= worldHeight) {
+					j =	-(j % worldHeight);
+				}
+				n++;
 			}
 		}
+		
 		if (d2 == Direction.WEST) {
-			int i = this.x + 1;
+			
+			int i = this.x - 1;
+			if (i < 0) {
+				i = worldWidth + (i % worldWidth);
+			}
+			
 			int j = this.y - distance + 1;
-			while (i < this.y + distance - 1 && !res) {
+			if (j < 0) {
+				j = worldHeight + (j % worldHeight);
+			}
+			
+			while (n < nbTile && !res) {
 				Tile tile = this.world.getTile(i, j);
 				if (!tile.isEmpty()) {
 					for (int k = 0; k < tile.nbEntity(); k++) {
-						if (tile.getEntity(k).getClass() == e.getClass()) {
+						if (tile.getEntity(k).kind == e) {
 							res = true;
 						}
 					}
 				}
-				if (j < this.y) {
+				if (j < Math.abs(nbTile/2)) {
 					i++;
+					if (i >= worldWidth) {
+						i =	-(i % worldWidth);
+					}
 				} else {
 					i--;
+					if (i < 0) {
+						i = worldWidth + (i % worldWidth);
+					}
 				}
 				j++;
+				if (j >= worldHeight) {
+					j =	-(j % worldHeight);
+				}
+				n++;
 			}
 		}
 		return res;
 	}
 
-	public boolean Closest(Entity e, Direction d) {
-		// TODO
-		return false;
+	public boolean Closest(Kind e, Direction d) {
+		Direction d2 = Direction.NORTH;
+		boolean res = false;
+		int i = 1;
+		int j = 0;
+		while (!res) {
+			d2 = d2.get(i % 4 + 4);
+			if (i % 4 == 1) {
+				j++;
+			}
+			if (!res) {
+				res = Cell(d2, e, j);
+			}
+			i++;
+		}
+		if (d != d2) {
+			res = false;
+		}
+		return res;
 	}
 
 	public boolean GotStuff() {

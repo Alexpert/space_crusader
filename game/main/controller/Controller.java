@@ -10,40 +10,12 @@ import game.main.view.View;
 
 public class Controller extends GameController {
 	
-	private HashMap<String, Boolean> map;
 	private Model model;
 	private View view;
 	
 	public Controller(Model m, View v) {
-		this.map = new HashMap<>();
 		this.model = m;
 		this.view = v;
-		
-		//Initialization of the HashMap with the keyboard key :
-		//Initialization of the alphabet's letters
-		char c;
-		String s;
-		for(c = 'a'; c <= 'z'; ++c) {
-			s = String.valueOf(c);
-			this.map.put(s, false);
-		}
-		
-		//Initilization of the figures
-		for(int i = 0; i < 10; i++) {
-			s = String.valueOf(i);
-			this.map.put(s, false);
-		}
-		
-		//Initialization of SPACE and ENTER
-		this.map.put("SPACE".toLowerCase(), false);
-		this.map.put("ENTER".toLowerCase(), false);
-		
-		//Initialization of the four arrows
-		this.map.put("FU".toLowerCase(), false);
-		this.map.put("FD".toLowerCase(), false);
-		this.map.put("FR".toLowerCase(), false);
-		this.map.put("FL".toLowerCase(), false);
-		
 		
 	}
 
@@ -69,14 +41,14 @@ public class Controller extends GameController {
 	public void keyPressed(KeyEvent e) {
 		//Cast of the given character to a string (composed of lower letters)
 		String key = String.valueOf(e.getKeyChar()).toLowerCase();
-		this.map.put(key, true);
+		model.writeHashMap(key, true);
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		//Cast of the given character to a string (composed of lower letters)
 		String key = String.valueOf(e.getKeyChar()).toLowerCase();
-		this.map.put(key, false);
+		model.writeHashMap(key, false);
 
 	}
 
@@ -124,7 +96,7 @@ public class Controller extends GameController {
 	
 	//Return if the given keyboard key is Pressed
 	public boolean isPressed(String str) {
-		return this.map.get(str.toLowerCase());
+		return model.getBoolHashMap(str);
 	}
 
 }
