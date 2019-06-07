@@ -7,9 +7,9 @@ public class Model extends GameModel{
 	World currentWorld;
 	
 	public Model() {
-		this.currentWorld = new World(20, 20);
-		this.currentWorld.add(new Player(0, 0, 10, Direction.NORTH, true, currentWorld));
-		this.currentWorld.add(new Player(1, 3, 10, Direction.NORTH, true, currentWorld));
+		this.currentWorld = new World(51, 34);
+//		this.currentWorld.add(new Player(0, 0, 10, Direction.NORTH, true, currentWorld));
+//		this.currentWorld.add(new Player(1, 3, 10, Direction.NORTH, true, currentWorld));
 	}
 	
 	@Override

@@ -11,13 +11,8 @@ public class World {
 	public World(int width, int height) {
 		this.width = width;
 		this.height = height;
+		this.map = WorldBuilder.createTiles(width, height);
 		this.entities = new ArrayList<Entity>();
-		this.map = new Tile[width][height];
-		for(int i = 0; i < width; i ++) {
-			for(int j = 0; j < height; j++) {
-				this.map[i][j] = new Tile(i, j);
-			}
-		}
 	}
 	
 	public void add(Entity e) {

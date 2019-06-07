@@ -48,8 +48,8 @@ public class View extends GameView {
 		g.fillRect(0, 0, getWidth(), getHeight());
 		World w = m_model.getCurrentWorld();
 		for(int i = 0; i < w.getHeight(); i++) {
-			for(int j = 0; j < w.getHeight(); j++) {
-				Tile t = w.getTile(i, j);
+			for(int j = 0; j < w.getWidth(); j++) {
+				Tile t = w.getTile(j, i);
 				t.paint(g);
 			}
 		}

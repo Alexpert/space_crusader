@@ -11,10 +11,12 @@ public class Tile {
 	private int x,y;
 	private ArrayList<Entity> entities;
 	private IPainter painter;
+	private TileBiome biome;
 	
-	Tile(int x, int y) {
+	Tile(int x, int y, TileBiome biome) {
 		this.x = x;
 		this.y = y;
+		this.biome = biome;
 		this.entities = new ArrayList<Entity>();
 		this.painter = new TilePainter(this);
 	}
@@ -25,6 +27,10 @@ public class Tile {
 	
 	public Entity getEntity(int index) {
 		return this.entities.get(index);
+	}
+	
+	public TileBiome getBiome() {
+		return this.biome;
 	}
 	
 	public boolean isEmpty() {

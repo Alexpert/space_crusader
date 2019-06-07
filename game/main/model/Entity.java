@@ -214,7 +214,6 @@ public abstract class Entity {
 	}
 
 	public boolean gotStuff() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
