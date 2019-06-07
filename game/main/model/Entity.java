@@ -146,122 +146,75 @@ public abstract class Entity {
 
 	// Condition
 
-	public boolean Key(String key) {
+	public boolean key(String key) {
 		// TODO
 		return false;
 	}
 
-	public boolean MyDir(Direction d) {
+	public boolean myDir(Direction d) {
 		if (this.orientation == d) {
 			return true;
 		} else {
 			return false;
 		}
 	}
-
-	public boolean Cell(Direction d, Entity e, int distance) {
-		Direction d2 = d;
-		boolean res = false;
-		if (d.ordinal() < 4) { // if the direction is not absolute
-			if (d == Direction.LEFT) {
-				d2 = d.get(((this.getOrientation().ordinal() + 1) % 4) + 4); // return WEST if the direction is NORTH
-			} else if (d == Direction.RIGHT) {
-				d2 = d.get(((this.getOrientation().ordinal() + 3) % 4) + 4);
-			} else if (d == Direction.BACK) {
-				d2 = d.get(((this.getOrientation().ordinal() + 2) % 4) + 4);
-			} else if (d == Direction.FRONT) {
-				d2 = this.getOrientation();
-			}
-		}
-		if (d2 == Direction.NORTH) {
-			int i = this.x - distance + 1;
-			int j = this.y - 1;
-			while (i < this.x + distance - 1 && !res) {
-				Tile tile = this.world.getTile(i, j);
-				if (!tile.isEmpty()) {
-					for (int k = 0; k < tile.nbEntity(); k++) {
-						if (tile.getEntity(k).getClass() == e.getClass()) {
-							res = true;
-						}
-					}
-				}
-				if (i < this.x) {
-					j--;
-				} else {
-					j++;
-				}
-				i++;
-			}
-		}
-		if (d2 == Direction.SOUTH) {
-			int i = this.x - distance + 1;
-			int j = this.y + 1;
-			while (i < this.x + distance - 1 && !res) {
-				Tile tile = this.world.getTile(i, j);
-				if (!tile.isEmpty()) {
-					for (int k = 0; k < tile.nbEntity(); k++) {
-						if (tile.getEntity(k).getClass() == e.getClass()) {
-							res = true;
-						}
-					}
-				}
-				if (i < this.x) {
-					j++;
-				} else {
-					j--;
-				}
-				i++;
-			}
-		}
-		if (d2 == Direction.EAST) {
-			int i = this.x - 1;
-			int j = this.y - distance + 1;
-			while (i < this.y + distance - 1 && !res) {
-				Tile tile = this.world.getTile(i, j);
-				if (!tile.isEmpty()) {
-					for (int k = 0; k < tile.nbEntity(); k++) {
-						if (tile.getEntity(k).getClass() == e.getClass()) {
-							res = true;
-						}
-					}
-				}
-				if (j < this.y) {
-					i--;
-				} else {
-					i++;
-				}
-				j++;
-			}
-		}
-		if (d2 == Direction.WEST) {
-			int i = this.x + 1;
-			int j = this.y - distance + 1;
-			while (i < this.y + distance - 1 && !res) {
-				Tile tile = this.world.getTile(i, j);
-				if (!tile.isEmpty()) {
-					for (int k = 0; k < tile.nbEntity(); k++) {
-						if (tile.getEntity(k).getClass() == e.getClass()) {
-							res = true;
-						}
-					}
-				}
-				if (j < this.y) {
-					i++;
-				} else {
-					i--;
-				}
-				j++;
-			}
-		}
-		return res;
+	
+	public boolean cell(Direction d, Kind kind, int distance) {
+		// TODO
+		return true;
 	}
 
-	public boolean Closest(Entity e, Direction d) {
+	public boolean closest(Kind kind, Direction d) {
 		// TODO
 		return false;
 	}
 
-	public boolean GotStuff() {
+	public void patient() {
+		this.actionHandler.patient();
+	}
+
+	public void wizz(Direction direction) {
+		this.actionHandler.wizz(direction);
+	}
+
+	public void pop(Direction direction) {
+		this.actionHandler.pop(direction);
+	}
+
+	public void jump(Direction direction) {
+		this.actionHandler.jump(direction);
+	}
+
+	public void protect(Direction direction) {
+		this.actionHandler.protect(direction);
+	}
+
+	public void pick(Direction direction) {
+		this.actionHandler.pick(direction);
+	}
+
+	public void cast(Direction direction) {
+		this.actionHandler.cast(direction);
+	}
+
+	public void store() {
+		this.actionHandler.store();
+	}
+
+	public void get() {
+		this.actionHandler.get();
+	}
+
+	public void kamikaze() {
+		this.actionHandler.kamikaze();
+	}
+
+	public void egg() {
+		this.actionHandler.egg();
+	}
+
+	public boolean gotStuff() {
+		// TODO Auto-generated method stub
 		return false;
 	}
 

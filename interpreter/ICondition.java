@@ -105,8 +105,7 @@ public class ICondition {
 		}
 
 		boolean eval(Entity e) {
-			//return e.key(key);
-			return true;
+			return e.key(key);
 		}
 
 		public String getKey() {
@@ -156,8 +155,7 @@ public class ICondition {
 		}
 
 		boolean eval(Entity e) {
-			//return e.cell(this.kind, this.direction, this.distance);
-			return true;
+			return e.cell(this.direction, this.kind, this.distance);
 		}
 		
 		public void addDistance(int distance) {
@@ -199,8 +197,7 @@ public class ICondition {
 		}
 
 		boolean eval(Entity e) {
-			//return e.closest(kind, direction);
-			return true;
+			return e.closest(kind, direction);
 		}
 
 		public Kind getKind() {
@@ -234,8 +231,7 @@ public class ICondition {
 		}
 
 		boolean eval(Entity e) {
-			//return e.gotStuff();
-			return true;
+			return e.gotStuff();
 		}
 	}
 	
