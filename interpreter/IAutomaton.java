@@ -70,7 +70,7 @@ public class IAutomaton {
 				return true;
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
-				System.out.println("Behaviour could no find any valid transition");
+				//System.out.println("Behaviour could no find any valid transition");
 				return false;
 			}
 		

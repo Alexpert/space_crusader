@@ -41,14 +41,14 @@ public class Model extends GameModel{
 			this.map.put("FR".toLowerCase(), false);
 			this.map.put("FL".toLowerCase(), false);
 			
-		this.currentWorld = new World(20, 20, this);
+		this.currentWorld = new World(200, 200, this);
 		try {
 			automata = Interpreter.initAutomata(this.automataPath);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 //		this.currentWorld.add(new Player(19, 0, 10, Direction.NORTH, true, currentWorld ,Kind.TEAM));
-		this.currentWorld.add(new Player(0, 0, 10, Direction.NORTH, true, currentWorld ,Kind.TEAM));
+		this.currentWorld.add(new Player(0, 0, 10, Direction.NORTH, true, currentWorld ,Kind.PLAYER));
 		//this.currentWorld.add(new Player(1, 3, 10, Direction.NORTH, true, currentWorld ,Kind.TEAM));
 	
 	}
@@ -62,7 +62,6 @@ public class Model extends GameModel{
 	}
 	@Override
 	public void step(long now) {
-		System.out.println("Model: step");
 		this.getCurrentWorld().step(now);
 	}
 
