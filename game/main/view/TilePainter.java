@@ -9,9 +9,42 @@ import game.main.model.Tile;
 public class TilePainter{
 
 	Tile tile;
+	Color color;
 	
 	public TilePainter(Tile t) {
 		this.tile = t;
+		switch(t.getBiome()) {
+		case DESERT:
+			this.color = Color.YELLOW;
+			break;
+		case DRYLAND:
+			this.color = Color.ORANGE;
+			break;
+		case FOREST:
+			this.color = Color.GREEN;
+			break;
+		case ICE:
+			this.color = Color.BLUE;
+			break;
+		case JUNGLE:
+			this.color = Color.CYAN;
+			break;
+		case PLAIN:
+			this.color = Color.PINK;
+			break;
+		case STONE:
+			this.color = Color.GRAY;
+			break;
+		case SWAMP:
+			this.color = Color.LIGHT_GRAY;
+			break;
+		case TAIGA:
+			this.color = Color.MAGENTA;
+			break;
+		default:
+			this.color = Color.BLACK;
+			break;
+		}
 	}
 	
 	public void step(long now) {
@@ -39,7 +72,7 @@ public class TilePainter{
 		
 		for (int px: allPosX) {
 			for (int py: allPosY) {
-				g.setColor(Color.GREEN);
+				g.setColor(this.color);
 				g.fillRect(px, py, 32, 32);
 				for(int k = 0; k < tile.nbEntity(); k++) {
 					tile.getEntity(k).paint(g,px,py);

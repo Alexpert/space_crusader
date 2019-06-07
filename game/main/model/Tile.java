@@ -3,20 +3,21 @@ package game.main.model;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-import game.main.view.IPainter;
 import game.main.view.TilePainter;
 
 public class Tile {
 	
 	private int x,y;
 	private ArrayList<Entity> entities;
+	private TileBiome biome;
 	private TilePainter painter;
 	private World w;
 	
-	Tile(int x, int y, World w) {
+	Tile(int x, int y, TileBiome biome, World world) {
 		this.x = x;
 		this.y = y;
-		this.w = w;
+		this.w = world;
+		this.biome = biome;
 		this.entities = new ArrayList<Entity>();
 		this.painter = new TilePainter(this);
 	}
@@ -27,6 +28,10 @@ public class Tile {
 	
 	public Entity getEntity(int index) {
 		return this.entities.get(index);
+	}
+	
+	public TileBiome getBiome() {
+		return this.biome;
 	}
 	
 	public boolean isEmpty() {
