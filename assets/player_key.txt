@@ -4,4 +4,5 @@ Forward(Init){
 		| Key(s) ? Move(S) :(Init)
 		| Key(d) ? Move(E) :(Init)
 		| Key(q) ? Move(O) :(Init)
+		| True ? Wait :(Init)
 }
