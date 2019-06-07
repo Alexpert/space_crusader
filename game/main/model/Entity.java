@@ -18,6 +18,7 @@ public abstract class Entity {
 	private World world;
 	private IPainter painter;
 	private IAutomaton automaton;
+	private boolean hasViewport;
 
 	Entity(int x, int y, int health, Direction d, boolean moveable, World world, Kind kind) {
 		this.x = x;
@@ -29,6 +30,7 @@ public abstract class Entity {
 		this.world = world;
 		this.kind = kind;
 		this.automaton = this.getWorld().getAutomata().get(0);
+		this.hasViewport = false;
 		System.out.println(this.automaton.getName());
 	}
 
@@ -41,7 +43,6 @@ public abstract class Entity {
 	}
 
 	public void step(long now) {
-		System.out.println("Player: step");
 		this.automaton.step(this);
 	}
 
@@ -449,6 +450,18 @@ public abstract class Entity {
 
 	public void egg() {
 		this.actionHandler.egg();
+	}
+	
+	public void hasViewport(boolean bool) {
+		this.hasViewport = bool;
+	}
+	
+	public boolean getHasViewport() {
+		return this.hasViewport;
+	}
+	
+	public Kind getKind() {
+		return this.kind;
 	}
 
 }
