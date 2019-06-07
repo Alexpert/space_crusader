@@ -43,6 +43,7 @@ public class Model extends GameModel{
 			
 		this.currentWorld = new World(20, 20, this);
 		automata = Interpreter.initAutomata(this.automataPath);
+//		this.currentWorld.add(new Player(19, 0, 10, Direction.NORTH, true, currentWorld ,Kind.TEAM));
 		this.currentWorld.add(new Player(0, 0, 10, Direction.NORTH, true, currentWorld ,Kind.TEAM));
 		//this.currentWorld.add(new Player(1, 3, 10, Direction.NORTH, true, currentWorld ,Kind.TEAM));
 	
