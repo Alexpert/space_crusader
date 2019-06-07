@@ -62,7 +62,19 @@ public class TestModel {
 		world.add(p1);
 		Tile t1 = world.getTile(0, 0);
 		Tile t2 = world.getTile(1, 0);
+		Tile t3 = world.getTile(0, 41);
 		assertTrue(p1.getTile(Direction.EAST)== t2);
 		assertTrue(p1.getTile(Direction.RIGHT)== t2);
+		assertTrue(p1.getTile(Direction.NORTH)==t3);
+		assertTrue(p1.getTile(Direction.FRONT)==t3);
+		assertTrue(p1.getTile(Direction.WEST)==world.getTile(41,0));
+		assertTrue(p1.getTile(Direction.LEFT)==world.getTile(41,0));
+		p1.move(Direction.WEST);
+		assertTrue(p1.getTile(Direction.EAST)== t1);
+		assertTrue(p1.getTile(Direction.RIGHT)== t1);
+		assertTrue(p1.getTile(Direction.NORTH)==world.getTile(41,41));
+		assertTrue(p1.getTile(Direction.FRONT)==world.getTile(41,41));
+		assertTrue(p1.getTile(Direction.SOUTH)==world.getTile(41,1));
+		assertTrue(p1.getTile(Direction.BACK)==world.getTile(41,1));
 	}
 }

@@ -15,7 +15,7 @@ public class World {
 		this.map = new Tile[width][height];
 		for(int i = 0; i < width; i ++) {
 			for(int j = 0; j < height; j++) {
-				this.map[i][j] = new Tile(i, j);
+				this.map[i][j] = new Tile(i, j, this);
 			}
 		}
 	}

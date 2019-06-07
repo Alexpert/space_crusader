@@ -17,16 +17,20 @@ public class View extends GameView {
 	int m_npaints;
 	int m_fps;
 	Model m_model;
+	Viewport viewport;
 	// Controller m_ctr;
 
 	public View(Model m) {
 		m_model = m;
+		viewport = new Viewport(this.m_model.getCurrentWorld());
 		// m_ctr = c;
 	}
 
 	public void step(long now) {
 
 	}
+	
+	
 
 	private void computeFPS() {
 		long now = System.currentTimeMillis();
@@ -43,16 +47,9 @@ public class View extends GameView {
 	@Override
 	protected void _paint(Graphics g) {
 		computeFPS();
-
+				
 		g.setColor(m_background);
 		g.fillRect(0, 0, getWidth(), getHeight());
-		World w = m_model.getCurrentWorld();
-		for(int i = 0; i < w.getHeight(); i++) {
-			for(int j = 0; j < w.getHeight(); j++) {
-				Tile t = w.getTile(i, j);
-				t.paint(g);
-			}
-		}
-		
+		viewport.paint(g);
 	}
 }

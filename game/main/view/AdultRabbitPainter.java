@@ -20,9 +20,9 @@ public class AdultRabbitPainter implements IPainter {
 		}
 
 		@Override
-		public void paint(Graphics g) {
+		public void paint(Graphics g,int posX,int posY) {
 			g.setColor(Color.RED);
-			g.fillRect(entity.getX()*32, entity.getY()*32, 32, 32);
+			g.fillRect(posX, posY, 32, 32);
 		}
 		
 		

@@ -10,8 +10,8 @@ public class Model extends GameModel{
 		this.currentWorld = new World(20, 20);
 		Player p = new Player(0, 0, 10, Direction.NORTH, true, currentWorld);
 		this.currentWorld.add(p);
-		p.move();
-		p.move(Direction.WEST);
+		//p.move();
+		//p.move(Direction.WEST);
 		this.currentWorld.add(new Rabbit(3, 1, 2, Direction.SOUTH, true, currentWorld));
 		this.currentWorld.add(new AdultRabbit(4, 4, 20, Direction.WEST, true, currentWorld));
 	}

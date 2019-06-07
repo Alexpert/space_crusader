@@ -29,8 +29,8 @@ public abstract class Entity {
 		this.actionHandler = ac;
 	}
 	
-	public void paint(Graphics g) {
-		this.painter.paint(g);
+	public void paint(Graphics g,int posX,int posY) {
+		this.painter.paint(g,posX,posY);
 	}
 	
 	public abstract void step();
@@ -101,9 +101,11 @@ public abstract class Entity {
 				d2 = this.getOrientation();
 			}
 		}
+		int newX=this.getX();
+		int newY=this.getY();
 
 		if (d2 == Direction.NORTH) {
-			if (this.getY() != 0) {
+			if (this.getY() > 0) {
 				return this.getWorld().getTile(this.getX(), this.getY() - 1);
 			} else {
 				return this.getWorld().getTile(this.getX(), this.getWorld().getHeight() - 1);
@@ -124,7 +126,7 @@ public abstract class Entity {
 			}
 		}
 		if (d2 == Direction.WEST) {
-			if (this.getY() != 0) {
+			if (this.getY() > 0) {
 				return this.getWorld().getTile(this.getX() - 1, this.getY());
 			} else {
 				return this.getWorld().getTile(this.getWorld().getWidth() - 1, this.getY());
