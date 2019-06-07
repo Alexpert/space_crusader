@@ -25,13 +25,13 @@ public class TilePainter{
 		
 		int posX = this.tile.getX()*32 - posCamX, posY = this.tile.getY()*32 - posCamY;
 		
-		while (posX <= camWidth) {
+		while (posX < camWidth) {
 			if (posX >= -32)
 				allPosX.add(posX);
 			posX += this.tile.getWorld().getWidth()*32;
 		}
 		
-		while (posY <= camHeight) {
+		while (posY < camHeight) {
 			if (posY >= -32)
 				allPosY.add(posY);
 			posY += this.tile.getWorld().getHeight()*32;
