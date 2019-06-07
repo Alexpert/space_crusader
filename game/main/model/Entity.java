@@ -391,4 +391,50 @@ public abstract class Entity {
 		return false;
 	}
 
+	public void patient() {
+		this.actionHandler.patient();
+	}
+
+	public void wizz(Direction direction) {
+		this.actionHandler.wizz(direction);
+	}
+
+	public void pop(Direction direction) {
+		this.actionHandler.pop(direction);
+	}
+
+	public void jump(Direction direction) {
+		this.actionHandler.jump(direction);
+		
+	}
+
+	public void protect(Direction direction) {
+		this.actionHandler.protect(direction);
+		
+	}
+
+	public void pick(Direction direction) {
+		this.actionHandler.pick(direction);
+	}
+
+	public void cast(Direction direction) {
+		this.actionHandler.cast(direction);
+	}
+
+	public void store() {
+		this.actionHandler.store();
+	}
+
+	public void get() {
+		this.actionHandler.get();
+	}
+
+	public void kamikaze() {
+		this.actionHandler.kamikaze();
+	}
+
+	public void egg() {
+		this.actionHandler.egg();
+	}
+
 }
