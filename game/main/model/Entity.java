@@ -1,6 +1,7 @@
 package game.main.model;
 
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 import game.main.view.IPainter;
 
@@ -148,11 +149,11 @@ public abstract class Entity {
 
 	// Condition
 
-	public boolean Key(String key) {
+	public boolean key(String key) {
 		return world.getModel().getBoolHashMap(key);
 	}
 
-	public boolean MyDir(Direction d) {
+	public boolean myDir(Direction d) {
 		if (this.orientation == d) {
 			return true;
 		} else {
@@ -160,7 +161,7 @@ public abstract class Entity {
 		}
 	}
 
-	public boolean Cell(Direction d, Kind e, int distance) {
+	public boolean cell(Direction d, Kind e, int distance) {
 		if (distance == 0) {
 			return false;
 		}
@@ -279,12 +280,12 @@ public abstract class Entity {
 					}
 				}
 				if (n < Math.abs(nbTile/2)) {
-					i--;
+					i++;
 					if (i < 0) {
 						i = worldWidth + (i % worldWidth);
 					}
 				} else {
-					i++;
+					i--;
 					if (i >= worldWidth) {
 						i =	-(i % worldWidth);
 					}
@@ -319,12 +320,12 @@ public abstract class Entity {
 					}
 				}
 				if (n < Math.abs(nbTile/2)) {
-					i++;
+					i--;
 					if (i >= worldWidth) {
 						i =	-(i % worldWidth);
 					}
 				} else {
-					i--;
+					i++;
 					if (i < 0) {
 						i = worldWidth + (i % worldWidth);
 					}
@@ -339,28 +340,54 @@ public abstract class Entity {
 		return res;
 	}
 
-	public boolean Closest(Kind e, Direction d) {
-		Direction d2 = Direction.NORTH;
-		boolean res = false;
-		int i = 1;
-		int j = 0;
-		while (!res) {
-			d2 = d2.get(i % 4 + 4);
-			if (i % 4 == 1) {
-				j++;
+	public boolean closest(Kind e, Direction d) {
+		ArrayList<Entity> entities = this.world.getEntities();
+		int k = 0;
+		boolean isPresent = false;
+		while (k < entities.size() && !isPresent) {
+			Entity entity = entities.get(k);
+			if (entity != this && entity.kind == e ) {
+				isPresent = true;
 			}
-			if (!res) {
-				res = Cell(d2, e, j);
+			k++;
+		}
+		if (!isPresent) {
+			return isPresent;
+		}
+		
+		boolean resN = false, resS = false, resE = false, resW = false;
+		int i = 1;
+		while (!resN && !resS && !resE && !resW ) {
+			if (!resN) {
+				resN = cell(Direction.NORTH, e, i);
+			}
+			if (!resS) {
+				resS = cell(Direction.SOUTH, e, i);
+			}
+			if (!resE) {
+				resE = cell(Direction.EAST, e, i);
+			}
+			if (!resW) {
+				resW = cell(Direction.WEST, e, i);
 			}
 			i++;
 		}
-		if (d != d2) {
-			res = false;
+		if (d == Direction.NORTH && resN) {
+			return resN;
 		}
-		return res;
+		else if (d == Direction.SOUTH && resS) {
+			return resS;
+		}
+		else if (d == Direction.EAST && resE) {
+			return resE;
+		}
+		else if (d == Direction.WEST && resW) {
+			return resW;
+		}
+		return false;
 	}
 
-	public boolean GotStuff() {
+	public boolean gotStuff() {
 		return false;
 	}
 

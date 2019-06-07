@@ -42,7 +42,11 @@ public class World {
 	public int getWidth() {
 		return width;
 	}
-
+	
+	public ArrayList<Entity> getEntities() {
+		return this.entities;
+	}
+	
 	public void setWidth(int width) {
 		this.width = width;
 	}

@@ -37,8 +37,8 @@ public class Model extends GameModel{
 			this.map.put("FL".toLowerCase(), false);
 			
 		this.currentWorld = new World(20, 20, this);
-		this.currentWorld.add(new Player(0, 0, 10, Direction.NORTH, true, currentWorld ,Kind.TEAM));
-		this.currentWorld.add(new Player(1, 3, 10, Direction.NORTH, true, currentWorld ,Kind.TEAM));
+		//this.currentWorld.add(new Player(0, 0, 10, Direction.NORTH, true, currentWorld ,Kind.TEAM));
+		//this.currentWorld.add(new Player(1, 3, 10, Direction.NORTH, true, currentWorld ,Kind.TEAM));
 	}
 	
 	public void writeHashMap(String key, boolean bool) {
