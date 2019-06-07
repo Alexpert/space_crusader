@@ -3,7 +3,6 @@ package game.main.model;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-import game.main.view.IPainter;
 import game.main.view.TilePainter;
 
 public class Tile {

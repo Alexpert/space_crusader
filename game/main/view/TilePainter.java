@@ -5,7 +5,6 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 import game.main.model.Tile;
-import game.main.model.TileBiome;
 
 public class TilePainter{
 
@@ -73,7 +72,7 @@ public class TilePainter{
 		
 		for (int px: allPosX) {
 			for (int py: allPosY) {
-				g.setColor(Color.GREEN);
+				g.setColor(this.color);
 				g.fillRect(px, py, 32, 32);
 				for(int k = 0; k < tile.nbEntity(); k++) {
 					tile.getEntity(k).paint(g,px,py);
