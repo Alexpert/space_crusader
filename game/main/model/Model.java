@@ -14,7 +14,7 @@ public class Model extends GameModel{
 	private String automataPath = "assets/player_key.txt";
 	private ArrayList<IAutomaton> automata;
 	
-	public Model() throws Exception {
+	public Model() {
 		//Initialization of the HashMap with the keyboard key :
 			//Initialization of the alphabet's letters
 		 	this.map = new HashMap<String, Boolean>();
@@ -42,7 +42,11 @@ public class Model extends GameModel{
 			this.map.put("FL".toLowerCase(), false);
 			
 		this.currentWorld = new World(20, 20, this);
-		automata = Interpreter.initAutomata(this.automataPath);
+		try {
+			automata = Interpreter.initAutomata(this.automataPath);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 //		this.currentWorld.add(new Player(19, 0, 10, Direction.NORTH, true, currentWorld ,Kind.TEAM));
 		this.currentWorld.add(new Player(0, 0, 10, Direction.NORTH, true, currentWorld ,Kind.TEAM));
 		//this.currentWorld.add(new Player(1, 3, 10, Direction.NORTH, true, currentWorld ,Kind.TEAM));
