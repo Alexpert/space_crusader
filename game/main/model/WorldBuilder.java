@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class WorldBuilder {
-	public static Tile[][] createTiles(int width, int height) {
+	public static Tile[][] createTiles(int width, int height, World world) {
 		Tile[][] tiles = new Tile[width][height];
 		float[] temperature = ToreNoise.noise(width, height);
 		float[] humidity = ToreNoise.noise(width, height);
@@ -12,7 +12,7 @@ public class WorldBuilder {
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
 				tiles[j][i] = new Tile(j, i, 
-					TileBiome.getBiome(temperature[i * width + j], humidity[i * width + j]));
+					TileBiome.getBiome(temperature[i * width + j], humidity[i * width + j]), world);
 			}
 		}
 		

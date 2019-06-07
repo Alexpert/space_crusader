@@ -14,7 +14,8 @@ public class World {
 	public World(int width, int height, Model model) {
 		this.width = width;
 		this.height = height;
-		this.map = WorldBuilder.createTiles(width, height);
+		this.model = model;
+		this.map = WorldBuilder.createTiles(width, height, this);
 		this.entities = new ArrayList<Entity>();
 	}
 	

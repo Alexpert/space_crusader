@@ -14,10 +14,10 @@ public class Tile {
 	private TilePainter painter;
 	private World w;
 	
-	Tile(int x, int y, TileBiome biome) {
+	Tile(int x, int y, TileBiome biome, World world) {
 		this.x = x;
 		this.y = y;
-		this.w = w;
+		this.w = world;
 		this.biome = biome;
 		this.entities = new ArrayList<Entity>();
 		this.painter = new TilePainter(this);
