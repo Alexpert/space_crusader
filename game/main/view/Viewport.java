@@ -22,9 +22,9 @@ public class Viewport {
 		System.out.println("World Dimension w: " + this.w.getWidth() + " h: " + this.w.getHeight());
 		
 		for(int i = 0; i < w.getHeight(); i++) {
-			for(int j = 0; j < w.getHeight(); j++) {
-				Tile t = w.getTile(i, j);
-				t.paint(g,posX,posY,640,640);
+			for(int j = 0; j < w.getWidth(); j++) {
+				Tile t = w.getTile(j, i);
+				t.paint(g,posX,posY,1024,1024);
 			}
 		}
 	}

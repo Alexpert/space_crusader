@@ -41,7 +41,7 @@ public class Model extends GameModel{
 			this.map.put("FR".toLowerCase(), false);
 			this.map.put("FL".toLowerCase(), false);
 			
-		this.currentWorld = new World(20, 20, this);
+		this.currentWorld = new World(32, 32, this);
 		try {
 			automata = Interpreter.initAutomata(this.automataPath);
 		} catch (Exception e) {

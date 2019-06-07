@@ -1,7 +1,21 @@
 package game.main.model;
 
 public enum TileBiome {
-	DESERT, STONE, ICE, DRYLAND, PLAIN, FOREST, JUNGLE, SWAMP, TAIGA;
+	DESERT("assets/terrain/desert.png"), STONE("assets/terrain/stone.png"),
+	ICE("assets/terrain/ice.png"), DRYLAND("assets/terrain/dryland.png"),
+	PLAIN("assets/terrain/plain.png"), FOREST("assets/terrain/forest.png"),
+	JUNGLE("assets/terrain/jungle.png"), SWAMP("assets/terrain/swamp.png"),
+	TAIGA("assets/terrain/taiga.png");
+	
+	private String texturePath;
+	
+	private TileBiome(String texturePath) {
+		this.texturePath = texturePath;
+	}
+	
+	public String getTexturePath() {
+		return this.texturePath;
+	}
 
 	public static TileBiome getBiome(float temperature, float humidity) {
 		if (temperature < 0.33) {
