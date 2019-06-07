@@ -3,15 +3,20 @@ package testUnitaire;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
+import game.main.controller.Controller;
 import game.main.model.*;
+import game.main.view.View;
 
 
 public class TestModel {
 	
 	@Test
 	public void testModelMove() {
-		World world = new World(20, 20);
-		Player p = new Player(0, 0, 10, Direction.NORTH, true, world);
+		Model m = new Model();
+		World world = new World(1024, 56, m);
+		Kind kind = Kind.TEAM;
+		Player p = new Player(0, 0, 10, Direction.NORTH, true, world, kind);
 		assertTrue(p.getY()==0);
 		p.move(Direction.SOUTH);
 		assertTrue(p.getY()==1);
@@ -24,8 +29,10 @@ public class TestModel {
 	
 	@Test
 	public void testModelTurn() {
-		World world = new World(42, 42);
-		Player p = new Player(0, 0, 10, Direction.NORTH, true, world);
+		Model m = new Model();
+		World world = new World(42, 42, m);
+		Kind kind = Kind.TEAM;
+		Player p = new Player(0, 0, 10, Direction.NORTH, true, world, kind);
 		assertTrue(p.getOrientation() == Direction.NORTH);
 		p.turn(Direction.SOUTH);
 		assertTrue(p.getOrientation() == Direction.SOUTH);
@@ -35,8 +42,10 @@ public class TestModel {
 	
 	@Test
 	public void testAddClearEntityFromTile() {
-		World world = new World(42, 42);
-		Player p = new Player(0, 0, 10, Direction.NORTH, true, world);
+		Model m = new Model();
+		World world = new World(42, 42, m);
+		Kind kind = Kind.TEAM;
+		Player p = new Player(0, 0, 10, Direction.NORTH, true, world, kind);
 		world.add(p);
 		assertTrue(world.getTile(0, 0).getEntity(0) == p);
 		world.getTile(0, 0).clear();
@@ -45,9 +54,11 @@ public class TestModel {
 	
 	@Test
 	public void testHitAndTakeDamage() {
-		World world = new World(42, 42);
-		Player p1 = new Player(0, 0, 10, Direction.NORTH, true, world);
-		Player p2 = new Player(1, 0, 10, Direction.NORTH, true, world);
+		Model m = new Model();
+		World world = new World(42, 42, m);
+		Kind kind = Kind.TEAM;
+		Player p1 = new Player(0, 0, 10, Direction.NORTH, true, world, kind);
+		Player p2 = new Player(1, 0, 10, Direction.NORTH, true, world, kind);
 		world.add(p1);
 		world.add(p2);
 		assertTrue(p2.getHealth()==10);
@@ -57,8 +68,10 @@ public class TestModel {
 	
 	@Test
 	public void testGetTile() {
-		World world = new World(42, 42);
-		Player p1 = new Player(0, 0, 10, Direction.NORTH, true, world);
+		Model m = new Model();
+		World world = new World(42, 42, m);
+		Kind kind = Kind.TEAM;
+		Player p1 = new Player(0, 0, 10, Direction.NORTH, true, world, kind);
 		world.add(p1);
 		Tile t1 = world.getTile(0, 0);
 		Tile t2 = world.getTile(1, 0);

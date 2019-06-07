@@ -2,15 +2,19 @@ package game.main.model;
 
 import java.util.ArrayList;
 
+import interpreter.IAutomaton;
+
 public class World {
 
 	private int width, height;
 	private ArrayList<Entity> entities;
 	private Tile[][] map;
+	private Model model;
 	
-	public World(int width, int height) {
+	public World(int width, int height, Model model) {
 		this.width = width;
 		this.height = height;
+		this.model = model;
 		this.entities = new ArrayList<Entity>();
 		this.map = new Tile[width][height];
 		for(int i = 0; i < width; i ++) {
@@ -29,6 +33,9 @@ public class World {
 		return this.map[x][y];
 	}
 	
+	public Model getModel() {
+		return this.model;
+	}
 	//delete all entities from the selected tile
 	public void clearTile(int x, int y) {
 		this.map[x][y].clear();
@@ -37,7 +44,11 @@ public class World {
 	public int getWidth() {
 		return width;
 	}
-
+	
+	public ArrayList<Entity> getEntities() {
+		return this.entities;
+	}
+	
 	public void setWidth(int width) {
 		this.width = width;
 	}
@@ -48,5 +59,15 @@ public class World {
 
 	public void setHeight(int height) {
 		this.height = height;
+	}
+
+	public ArrayList<IAutomaton> getAutomata() {
+		return this.model.getAutomata();
+	}
+
+	public void step(long now) {
+		for(Entity entity: this.entities)
+			entity.step(now);
+		
 	}
 }
