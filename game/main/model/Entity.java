@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 import game.main.view.IPainter;
+import interpreter.IAutomaton;
 
 public abstract class Entity {
 
@@ -16,6 +17,7 @@ public abstract class Entity {
 	private AbstractActionHandler actionHandler;
 	private World world;
 	private IPainter painter;
+	private IAutomaton automaton;
 
 	Entity(int x, int y, int health, Direction d, boolean moveable, World world, Kind kind) {
 		this.x = x;
@@ -26,17 +28,22 @@ public abstract class Entity {
 		this.moveable = moveable;
 		this.world = world;
 		this.kind = kind;
+		this.automaton = this.getWorld().getAutomata().get(0);
+		System.out.println(this.automaton.getName());
 	}
 
 	public void setActionHandler(AbstractActionHandler ac) {
 		this.actionHandler = ac;
 	}
-
-	public void paint(Graphics g) {
-		this.painter.paint(g);
+	
+	public void paint(Graphics g,int posX,int posY) {
+		this.painter.paint(g,posX,posY);
 	}
 
-	public abstract void step();
+	public void step(long now) {
+		System.out.println("Player: step");
+		this.automaton.step(this);
+	}
 
 	public int getX() {
 		return this.x;
@@ -85,6 +92,11 @@ public abstract class Entity {
 	public World getWorld() {
 		return this.world;
 	}
+	
+	public void moveToTile(int x, int y) {
+		this.world.getTile(this.getX(), this.getY()).remove(this);
+		this.world.getTile(x, y).add(this);
+	}
 
 	public Tile getTile(Direction d) {
 		Direction d2 = d;
@@ -99,9 +111,11 @@ public abstract class Entity {
 				d2 = this.getOrientation();
 			}
 		}
+		int newX=this.getX();
+		int newY=this.getY();
 
 		if (d2 == Direction.NORTH) {
-			if (this.getY() != 0) {
+			if (this.getY() > 0) {
 				return this.getWorld().getTile(this.getX(), this.getY() - 1);
 			} else {
 				return this.getWorld().getTile(this.getX(), this.getWorld().getHeight() - 1);
@@ -122,7 +136,7 @@ public abstract class Entity {
 			}
 		}
 		if (d2 == Direction.WEST) {
-			if (this.getY() != 0) {
+			if (this.getY() > 0) {
 				return this.getWorld().getTile(this.getX() - 1, this.getY());
 			} else {
 				return this.getWorld().getTile(this.getWorld().getWidth() - 1, this.getY());

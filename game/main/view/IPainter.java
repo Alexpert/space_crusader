@@ -7,5 +7,5 @@ public interface IPainter {
 
 	public void step(long now);
 	
-	public void paint(Graphics g);
+	public void paint(Graphics g, int posX, int posY);
 }

@@ -1,15 +1,20 @@
 package game.main.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import edu.ricm3.game.GameModel;
+import interpreter.Interpreter;
+import interpreter.IAutomaton;
 
 public class Model extends GameModel{
 
 	World currentWorld;
 	private HashMap<String, Boolean> map;
+	private String automataPath = "assets/player_key.txt";
+	private ArrayList<IAutomaton> automata;
 	
-	public Model() {
+	public Model() throws Exception {
 		//Initialization of the HashMap with the keyboard key :
 			//Initialization of the alphabet's letters
 		 	this.map = new HashMap<String, Boolean>();
@@ -37,8 +42,11 @@ public class Model extends GameModel{
 			this.map.put("FL".toLowerCase(), false);
 			
 		this.currentWorld = new World(20, 20, this);
-		//this.currentWorld.add(new Player(0, 0, 10, Direction.NORTH, true, currentWorld ,Kind.TEAM));
+		automata = Interpreter.initAutomata(this.automataPath);
+//		this.currentWorld.add(new Player(19, 0, 10, Direction.NORTH, true, currentWorld ,Kind.TEAM));
+		this.currentWorld.add(new Player(0, 0, 10, Direction.NORTH, true, currentWorld ,Kind.TEAM));
 		//this.currentWorld.add(new Player(1, 3, 10, Direction.NORTH, true, currentWorld ,Kind.TEAM));
+	
 	}
 	
 	public void writeHashMap(String key, boolean bool) {
@@ -50,8 +58,8 @@ public class Model extends GameModel{
 	}
 	@Override
 	public void step(long now) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Model: step");
+		this.getCurrentWorld().step(now);
 	}
 
 	@Override
@@ -62,6 +70,10 @@ public class Model extends GameModel{
 	
 	public World getCurrentWorld() {
 		return this.currentWorld;
+	}
+
+	public ArrayList<IAutomaton> getAutomata() {
+		return this.automata;
 	}
 
 }

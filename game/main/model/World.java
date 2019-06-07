@@ -2,6 +2,8 @@ package game.main.model;
 
 import java.util.ArrayList;
 
+import interpreter.IAutomaton;
+
 public class World {
 
 	private int width, height;
@@ -17,7 +19,7 @@ public class World {
 		this.map = new Tile[width][height];
 		for(int i = 0; i < width; i ++) {
 			for(int j = 0; j < height; j++) {
-				this.map[i][j] = new Tile(i, j);
+				this.map[i][j] = new Tile(i, j, this);
 			}
 		}
 	}
@@ -57,5 +59,15 @@ public class World {
 
 	public void setHeight(int height) {
 		this.height = height;
+	}
+
+	public ArrayList<IAutomaton> getAutomata() {
+		return this.model.getAutomata();
+	}
+
+	public void step(long now) {
+		for(Entity entity: this.entities)
+			entity.step(now);
+		
 	}
 }

@@ -9,12 +9,12 @@ import game.main.view.View;
 
 public class gameMain {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		Model model = new Model();
 	    View view = new View(model);
 	    Controller c = new Controller(model,view);
 	    
 	    Dimension d = new Dimension(1024, 768);
-	    new GameUI(model,view,c,d);
+	    new GameUI(model, view, c, d);
 	}
 }
