@@ -1,0 +1,5 @@
+package game.main.model;
+
+public enum Action {
+	PATIENT,WIZZ,POP,MOVE,JUMP,TURN,HIT,PROTECT,PICK,CAST,STORE,GET,POWER,KAMIKAZE,EGG;
+}
