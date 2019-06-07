@@ -12,6 +12,7 @@ public abstract class AbstractActionHandler {
 
 	public boolean move() {
 		Direction d = this.entity.getOrientation();
+		
 		if(d == Direction.EAST) {
 			this.entity.setX(this.entity.getX() + 32);
 		}
@@ -24,7 +25,11 @@ public abstract class AbstractActionHandler {
 		else if(d == Direction.SOUTH) {
 			this.entity.setY(this.entity.getY() + 32);
 		}
-		return false;
+		
+		System.out.println("Moved  " + d.name() + " to " +
+				this.entity.getX() + ", " + this.entity.getY());
+		
+		return true;
 	}
 	
 	public boolean move(Direction d) {
@@ -40,6 +45,9 @@ public abstract class AbstractActionHandler {
 		else if(d == Direction.SOUTH) {
 			this.entity.setY(this.entity.getY() + 32);
 		}
+		System.out.println("Moved  " + d.name() + " to " +
+				this.entity.getX() + ", " + this.entity.getY());
+		
 		return false;
 	}
 

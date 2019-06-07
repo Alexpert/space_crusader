@@ -27,8 +27,8 @@ public class Controller extends GameController {
 
 	@Override
 	public void step(long now) {
-		// TODO Auto-generated method stub
-
+		this.model.step(now);
+		this.view.step(now);
 	}
 
 	@Override

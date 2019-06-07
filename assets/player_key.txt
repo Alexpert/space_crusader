@@ -1,0 +1,5 @@
+Forward(Init){
+	* (Init):
+		| True ? Move(E) :(Init)
+}
+

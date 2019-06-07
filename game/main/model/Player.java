@@ -18,12 +18,6 @@ public class Player extends Entity {
 		this.setIPainter(new PlayerPainter(this));
 	}
 
-	@Override
-	public void step() {
-		// TODO Auto-generated method stub
-
-	}
-
 	public int getMoney() {
 		return this.money;
 	}
