@@ -1,11 +1,13 @@
 package game.main.model;
 
+import game.main.view.RabbitPainter;
 
 public class Rabbit extends Entity {
 	
-	Rabbit(int x, int y, int health, Direction d, boolean moveable, World world, Kind kind) {
-		super(x, y, health, d, moveable, world, kind);
-		// TODO Auto-generated constructor stub
+	
+	Rabbit(int x, int y, int health, Direction d, boolean moveable, World world) {
+		super(x, y, health, d, moveable, world);
+		this.setIPainter(new RabbitPainter(this));
 	}
 
 	@Override

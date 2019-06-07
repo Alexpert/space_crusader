@@ -10,11 +10,13 @@ public class Tile {
 	
 	private int x,y;
 	private ArrayList<Entity> entities;
-	private IPainter painter;
+	private TilePainter painter;
+	private World w;
 	
-	Tile(int x, int y) {
+	Tile(int x, int y, World w) {
 		this.x = x;
 		this.y = y;
+		this.w = w;
 		this.entities = new ArrayList<Entity>();
 		this.painter = new TilePainter(this);
 	}
@@ -47,8 +49,16 @@ public class Tile {
 		return this.entities.size();
 	}
 	
-	public void paint(Graphics g) {
-		this.painter.paint(g);
+	public void remove(Entity e) {
+		this.entities.remove(e);
+	}
+	
+	public void paint(Graphics g, int posCamX, int posCamY, int camWidth, int camHeight) {
+		this.painter.paint(g,posCamX,posCamY,camWidth,camHeight);
+	}
+	
+	public World getWorld() {
+		return this.w;
 	}
 
 }
