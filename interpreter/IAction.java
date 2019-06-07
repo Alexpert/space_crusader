@@ -26,10 +26,6 @@ public abstract class IAction {
 	public static class Wizz extends IAction {
 		private Direction direction;
 		
-		public Wizz(Direction direction){
-			this.setDirection(direction);
-		}
-		
 		public Wizz(){
 			this.setDirection(Direction.FRONT);
 		}
@@ -50,10 +46,6 @@ public abstract class IAction {
 	
 	public static class Pop extends IAction {
 		private Direction direction;
-		
-		public Pop(Direction direction){
-			this.direction = direction;
-		}
 		
 		public Pop(){
 			this.direction = Direction.FRONT;
@@ -76,9 +68,6 @@ public abstract class IAction {
 	public static class Move extends IAction {
 		private Direction direction ;
 		
-		public Move(Direction direction){
-			this.direction = direction ;
-		}
 		public Move(){
 			this.direction = Direction.FRONT;
 		}
@@ -100,9 +89,6 @@ public abstract class IAction {
 	public static class Jump extends IAction {
 		private Direction direction ;
 		
-		public Jump(Direction direction){
-			this.direction = direction ;
-		}
 		public Jump(){
 			this.direction = Direction.FRONT;
 		}
@@ -123,10 +109,7 @@ public abstract class IAction {
 	
 	public static class Turn extends IAction {
 		private Direction direction ;
-		
-		public Turn(Direction direction){
-			this.direction = direction ;
-		}
+
 		public Turn(){
 			this.direction = Direction.FRONT;
 		}
@@ -184,10 +167,7 @@ public abstract class IAction {
 	
 	public static class Protect extends IAction {
 		private Direction direction ;
-		
-		public Protect(Direction direction){
-			this.direction = direction ;
-		}
+
 		public Protect(){
 			this.direction = Direction.FRONT;
 		}
@@ -208,10 +188,7 @@ public abstract class IAction {
 	
 	public static class Pick extends IAction {
 		private Direction direction ;
-		
-		public Pick(Direction direction){
-			this.direction = direction ;
-		}
+
 		public Pick(){
 			this.direction = Direction.FRONT;
 		}
@@ -232,10 +209,7 @@ public abstract class IAction {
 	
 	public static class Throw extends IAction {
 		private Direction direction ;
-		
-		public Throw(Direction direction){
-			this.direction = direction ;
-		}
+
 		public Throw(){
 			this.direction = Direction.FRONT;
 		}

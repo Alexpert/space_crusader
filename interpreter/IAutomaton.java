@@ -1,21 +1,19 @@
 package interpreter;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.ListIterator;
 
 import game.main.model.Entity;
-import interpreter.IAction.Wait;
 
 /* Michael PÉRIN, Verimag / Univ. Grenoble Alpes, may 2019 */
 
 public class IAutomaton {
+	private String name;
 	private IState current;
 	private ArrayList<IBehaviour> behaviours;
 	private ArrayList<IState> states;
 
-	public IAutomaton(IState initial) {
+	public IAutomaton(String name, IState initial) {
+		this.setName(name);
 		this.setCurrent(initial);
 		this.setBehaviours(new ArrayList<>());
 		this.setStates(new ArrayList<>());
@@ -110,5 +108,13 @@ public class IAutomaton {
 
 	private void setStates(ArrayList<IState> states) {
 		this.states = states;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	private void setName(String name) {
+		this.name = name;
 	}
 }

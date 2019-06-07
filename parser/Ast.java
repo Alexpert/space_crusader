@@ -672,7 +672,7 @@ public class Ast {
 		public IAutomaton make() throws Exception {
 			IState istate_initial = entry.make();
 
-			IAutomaton iAutomaton = new IAutomaton(istate_initial);
+			IAutomaton iAutomaton = new IAutomaton(name.value, istate_initial);
 
 			// construction de la liste des IBehaviours
 			for (Behaviour behaviour : this.behaviours)

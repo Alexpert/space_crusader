@@ -2,8 +2,6 @@ package testUnitaire;
 
 import static org.junit.Assert.*;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.util.ArrayList;
 
 import org.junit.BeforeClass;
@@ -193,6 +191,9 @@ public class TestAutomate {
 	public static void init() throws Exception{
 		ast = new AutomataParser(new java.io.StringReader(TestAutomate.automata)).Run();
 		automatons = ((AI_Definitions) ast).make();
+		assertTrue(automatons.get(0).getName().equals("ReboundPW"));
+		assertTrue(automatons.get(1).getName().equals("Rebound"));
+		assertTrue(automatons.get(2).getName().equals("LittleTurn"));
 	}
 	
 	@Test
