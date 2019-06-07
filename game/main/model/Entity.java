@@ -19,6 +19,10 @@ public abstract class Entity {
 	private IPainter painter;
 	private IAutomaton automaton;
 	private boolean hasViewport;
+	private long currentTimeAction;
+	private long totalTimeAction;
+	private long beginTimeAction;
+	private Action currentAction;
 
 	Entity(int x, int y, int health, Direction d, boolean moveable, World world, Kind kind) {
 		this.x = x;
@@ -32,6 +36,8 @@ public abstract class Entity {
 		this.automaton = this.getWorld().getAutomata().get(0);
 		this.hasViewport = false;
 		System.out.println(this.automaton.getName());
+		this.totalTimeAction=0;
+		this.beginTimeAction=0;
 	}
 
 	public void setActionHandler(AbstractActionHandler ac) {
@@ -43,7 +49,14 @@ public abstract class Entity {
 	}
 
 	public void step(long now) {
-		this.automaton.step(this);
+		
+		if(now<this.beginTimeAction+this.totalTimeAction) {
+			this.currentTimeAction = this.beginTimeAction+this.totalTimeAction - now;
+		}
+		else {
+			this.beginTimeAction = this.beginTimeAction+this.totalTimeAction;
+			this.automaton.step(this);
+		}
 	}
 
 	public int getX() {
@@ -450,6 +463,10 @@ public abstract class Entity {
 
 	public void egg() {
 		this.actionHandler.egg();
+	}
+	
+	public void setActionTimer(long totalTimer) {
+		this.totalTimeAction = totalTimer;
 	}
 	
 	public void hasViewport(boolean bool) {

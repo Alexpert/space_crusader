@@ -8,7 +8,7 @@ public class ActionHandlerPlayer extends AbstractActionHandler {
 	
 	@Override
 	public void patient() {
-		// TODO Auto-generated method stub
+		this.entity.setActionTimer(500);
 		
 	}
 	

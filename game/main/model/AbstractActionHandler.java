@@ -11,6 +11,7 @@ public abstract class AbstractActionHandler {
 	public abstract void pop(Direction d);
 
 	public boolean move() {
+		this.entity.setActionTimer(500);
 		Direction d = this.entity.getOrientation();
 		int newX = this.entity.getX();
 		int newY = this.entity.getY();
