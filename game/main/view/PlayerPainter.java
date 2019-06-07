@@ -1,16 +1,19 @@
 package game.main.view;
 
-import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 
 import game.main.model.Entity;
+import game.main.model.TextureProvider;
 
 public class PlayerPainter  implements IPainter{
 
 	Entity entity;
+	Image texture;
 	
 	public PlayerPainter(Entity e) {
 		this.entity = e;
+		this.texture = TextureProvider.getInstance().getTexture("assets/entities/player.png");
 	}
 
 	@Override
@@ -21,8 +24,7 @@ public class PlayerPainter  implements IPainter{
 
 	@Override
 	public void paint(Graphics g,int posX,int posY) {
-		g.setColor(Color.BLUE);
-		g.fillRect(posX, posY, 32, 32);
+		g.drawImage(this.texture, posX, posY, 32, 32, null);
 	}
 	
 }
