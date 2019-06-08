@@ -56,10 +56,6 @@ public class World {
 		this.height = height;
 	}
 
-	public ArrayList<IAutomaton> getAutomata() {
-		return this.model.getAutomata();
-	}
-
 	public void step(long now) {
 		for(Entity entity: this.entities)
 			entity.step(now);

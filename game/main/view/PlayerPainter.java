@@ -4,7 +4,6 @@ import java.awt.Graphics;
 import java.awt.Image;
 
 import game.main.model.Entity;
-import game.main.model.TextureProvider;
 
 public class PlayerPainter  implements IPainter{
 

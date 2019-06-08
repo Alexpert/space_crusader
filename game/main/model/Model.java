@@ -12,7 +12,6 @@ public class Model extends GameModel{
 	World currentWorld;
 	private HashMap<String, Boolean> map;
 	private String automataPath = "assets/player_key.txt";
-	private ArrayList<IAutomaton> automata;
 	
 	public Model() {
 		//Initialization of the HashMap with the keyboard key :
@@ -42,8 +41,9 @@ public class Model extends GameModel{
 			this.map.put("FL".toLowerCase(), false);
 			
 		this.currentWorld = new World(200, 200, this);
+		
 		try {
-			automata = Interpreter.initAutomata(this.automataPath);
+			AutomatonProvider.getInstance().loadAutomataFromFile(automataPath);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -73,10 +73,6 @@ public class Model extends GameModel{
 	
 	public World getCurrentWorld() {
 		return this.currentWorld;
-	}
-
-	public ArrayList<IAutomaton> getAutomata() {
-		return this.automata;
 	}
 
 }

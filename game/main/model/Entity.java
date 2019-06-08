@@ -33,7 +33,7 @@ public abstract class Entity {
 		this.moveable = moveable;
 		this.world = world;
 		this.kind = kind;
-		this.automaton = this.getWorld().getAutomata().get(0);
+		this.automaton = AutomatonProvider.getInstance().getAutomaton("Playable");
 		this.hasViewport = false;
 		System.out.println(this.automaton.getName());
 		this.totalTimeAction=0;

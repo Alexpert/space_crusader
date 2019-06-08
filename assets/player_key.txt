@@ -1,4 +1,4 @@
-Forward(Init){
+Playable(Init){
 	* (Init):
 		| Key(z) ? Move(N) :(Init)
 		| Key(s) ? Move(S) :(Init)
