@@ -1,5 +1,7 @@
 package game.main.model;
 
+import java.util.HashMap;
+
 public enum TileBiome {
 	DESERT("assets/terrain/desert.png"), STONE("assets/terrain/stone.png"),
 	ICE("assets/terrain/ice.png"), DRYLAND("assets/terrain/dryland.png"),
@@ -11,6 +13,7 @@ public enum TileBiome {
 	
 	private TileBiome(String texturePath) {
 		this.texturePath = texturePath;
+		
 	}
 	
 	public String getTexturePath() {

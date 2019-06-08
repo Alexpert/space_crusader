@@ -1,6 +1,7 @@
 package game.main.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 public class WorldBuilder {
@@ -27,6 +28,7 @@ public class WorldBuilder {
 
 	private static void populate(Tile tile, ArrayList<Entity> entitiesList) {
 		Random random = new Random();
+		HashMap<TileBiome, HashMap<SpawnedEntities, Float>> spawnProbas = initSpawnProbas();
 		
 //		if (random.nextFloat() < tile.getBiome().getTreeProba()) {
 //			
@@ -34,6 +36,76 @@ public class WorldBuilder {
 		//TODO: Biome probability of spawning things
 			
 		
+	}
+
+	private static HashMap<TileBiome, HashMap<SpawnedEntities, Float>> initSpawnProbas() {
+		HashMap<TileBiome, HashMap<SpawnedEntities, Float>> spawnProbas = new HashMap<>();
+		
+//		DESERT
+		HashMap<SpawnedEntities, Float> desertProbas = new HashMap<>();
+		desertProbas.put(SpawnedEntities.TREE, 0.05F);
+		desertProbas.put(SpawnedEntities.FLOWER, 0.1F);
+		desertProbas.put(SpawnedEntities.ROCK, 0.3F);
+		desertProbas.put(SpawnedEntities.RABBIT, 0.35F);
+		spawnProbas.put(TileBiome.DESERT, desertProbas);
+//		STONE
+		HashMap<SpawnedEntities, Float> stoneProbas = new HashMap<>();
+		stoneProbas.put(SpawnedEntities.TREE, 0.05F);
+		stoneProbas.put(SpawnedEntities.FLOWER, 0.1F);
+		stoneProbas.put(SpawnedEntities.ROCK, 0.5F);
+		stoneProbas.put(SpawnedEntities.RABBIT, 0.55F);
+		spawnProbas.put(TileBiome.STONE, stoneProbas);
+//		ICE
+		HashMap<SpawnedEntities, Float> iceProbas = new HashMap<>();
+		iceProbas.put(SpawnedEntities.TREE, 0.0F);
+		iceProbas.put(SpawnedEntities.FLOWER, 0.F);
+		iceProbas.put(SpawnedEntities.ROCK, 0.05F);
+		iceProbas.put(SpawnedEntities.RABBIT, 0.1F);
+		spawnProbas.put(TileBiome.ICE, iceProbas);
+//		DRYLAND
+		HashMap<SpawnedEntities, Float> drylandProbas = new HashMap<>();
+		drylandProbas.put(SpawnedEntities.TREE, 0.1F);
+		drylandProbas.put(SpawnedEntities.FLOWER, 0.2F);
+		drylandProbas.put(SpawnedEntities.ROCK, 0.4F);
+		drylandProbas.put(SpawnedEntities.RABBIT, 0.6F);
+		spawnProbas.put(TileBiome.DRYLAND, drylandProbas);
+//		PLAIN
+		HashMap<SpawnedEntities, Float> plainProbas = new HashMap<>();
+		plainProbas.put(SpawnedEntities.TREE, 0.1F);
+		plainProbas.put(SpawnedEntities.FLOWER, 0.4F);
+		plainProbas.put(SpawnedEntities.ROCK, 0.5F);
+		plainProbas.put(SpawnedEntities.RABBIT, 0.6F);
+		spawnProbas.put(TileBiome.PLAIN, plainProbas);
+//		FOREST
+		HashMap<SpawnedEntities, Float> forestProbas = new HashMap<>();
+		forestProbas.put(SpawnedEntities.TREE, 0.5F);
+		forestProbas.put(SpawnedEntities.FLOWER, 0.6F);
+		forestProbas.put(SpawnedEntities.ROCK, 0.65F);
+		forestProbas.put(SpawnedEntities.RABBIT, 0.8F);
+		spawnProbas.put(TileBiome.FOREST, forestProbas);
+//		JUNGLE
+		HashMap<SpawnedEntities, Float> jungleProbas = new HashMap<>();
+		jungleProbas.put(SpawnedEntities.TREE, 0.5F);
+		jungleProbas.put(SpawnedEntities.FLOWER, 0.6F);
+		jungleProbas.put(SpawnedEntities.ROCK, 0.65F);
+		jungleProbas.put(SpawnedEntities.RABBIT, 0.7F);
+		spawnProbas.put(TileBiome.JUNGLE, jungleProbas);
+//		SWAMP
+		HashMap<SpawnedEntities, Float> swampProbas = new HashMap<>();
+		swampProbas.put(SpawnedEntities.TREE, 0.3F);
+		swampProbas.put(SpawnedEntities.FLOWER, 0.4F);
+		swampProbas.put(SpawnedEntities.ROCK, 0.5F);
+		swampProbas.put(SpawnedEntities.RABBIT, 0.6F);
+		spawnProbas.put(TileBiome.SWAMP, swampProbas);
+//		TAIGA
+		HashMap<SpawnedEntities, Float> taigaProbas = new HashMap<>();
+		taigaProbas.put(SpawnedEntities.TREE, 0.2F);
+		taigaProbas.put(SpawnedEntities.FLOWER, 0.25F);
+		taigaProbas.put(SpawnedEntities.ROCK, 0.4F);
+		taigaProbas.put(SpawnedEntities.RABBIT, 0.5F);
+		spawnProbas.put(TileBiome.TAIGA, taigaProbas);
+		
+		return spawnProbas;
 	}
 
 }
