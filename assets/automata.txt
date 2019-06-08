@@ -22,7 +22,11 @@ Idle(Wait0){
 		| True ? Wait : (Wait0)
 }
 
-Rabbit(Jump0) {
+Rabbit(Wait0) {
+	* (Wait0):
+		| True ? Wait : (Turn0)
+	* (Turn0):
+		| True ? Turn(R) : (Jump0)
 	* (Jump0):
 		| True ? Move(F) : (Jump1)
 	* (Jump1):
@@ -31,6 +35,4 @@ Rabbit(Jump0) {
 		| True ? Move(F) : (Wait0)
 	* (Wait0):
 		| True ? Wait : (Turn0)
-	* (Turn0):
-		| True ? Turn(R) : (Jump0)
 }

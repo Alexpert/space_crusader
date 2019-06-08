@@ -2,6 +2,7 @@ package game.main.view.painters;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.Random;
 
 import game.main.model.Entity;
 import game.main.view.IPainter;
@@ -14,7 +15,9 @@ public class FlowerPainter implements IPainter {
 
 	public FlowerPainter(Entity e) {
 		this.entity = e;
-		this.texture = TextureProvider.getInstance().getTexture("assets/entities/flower.png");
+		Random random = new Random();
+		this.texture = TextureProvider.getInstance().getTexture("assets/entities/flowers/flower"
+				+ random.nextInt(12) + ".png");
 	}
 
 	@Override
