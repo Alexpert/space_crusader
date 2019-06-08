@@ -3,6 +3,7 @@ package game.main.model;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
+import game.main.model.action_handler.AbstractActionHandler;
 import game.main.view.IPainter;
 import interpreter.IAutomaton;
 
@@ -17,7 +18,7 @@ public abstract class Entity {
 	private AbstractActionHandler actionHandler;
 	private World world;
 	private IPainter painter;
-	private IAutomaton automaton;
+	protected IAutomaton automaton;
 	private boolean hasViewport;
 	private long currentTimeAction;
 	private long totalTimeAction;
@@ -33,11 +34,26 @@ public abstract class Entity {
 		this.moveable = moveable;
 		this.world = world;
 		this.kind = kind;
-		this.automaton = AutomatonProvider.getInstance().getAutomaton("Playable");
+		this.automaton = AutomatonProvider.getInstance().getAutomaton("Default");
 		this.hasViewport = false;
-		System.out.println(this.automaton.getName());
 		this.totalTimeAction=0;
 		this.beginTimeAction=0;
+	}
+
+	protected Entity(Tile tile, int health, boolean moveable, Kind kind, IAutomaton automaton) {
+		this.x = tile.getX();
+		this.y = tile.getY();
+		this.health = health;
+		this.maxHealth = health;
+		this.orientation = Direction.NORTH;
+		this.moveable = moveable;
+		this.world = tile.getWorld();
+		this.kind = kind;
+		this.automaton = automaton;
+		this.hasViewport = false;
+		this.totalTimeAction=0;
+		this.beginTimeAction=0;
+		
 	}
 
 	public void setActionHandler(AbstractActionHandler ac) {

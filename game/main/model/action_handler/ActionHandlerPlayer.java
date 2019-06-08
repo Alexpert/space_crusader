@@ -1,6 +1,5 @@
 package game.main.model.action_handler;
 
-import game.main.model.AbstractActionHandler;
 import game.main.model.Direction;
 import game.main.model.Entity;
 import game.main.model.Tile;
@@ -14,7 +13,6 @@ public class ActionHandlerPlayer extends AbstractActionHandler {
 	@Override
 	public void patient() {
 		this.entity.setActionTimer(500);
-		
 	}
 	
 	@Override

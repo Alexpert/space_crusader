@@ -58,6 +58,7 @@ public class World {
 	}
 
 	public void step(long now) {
+		System.out.println(this.entities.size());
 		for(Entity entity: this.entities)
 			entity.step(now);
 		

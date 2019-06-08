@@ -16,8 +16,9 @@ public class AutomatonProvider {
 	}
 	
 	public static AutomatonProvider getInstance() {
-		if (instance == null)
+		if (instance == null) {
 			instance = new AutomatonProvider();
+		}
 		
 		return instance;
 	}
@@ -25,15 +26,20 @@ public class AutomatonProvider {
 	public void loadAutomataFromFile(String path) throws Exception {
 		ArrayList<IAutomaton> newAutomata = Interpreter.initAutomata(path);
 		
-		for (IAutomaton iAutomaton: newAutomata)
+		for (IAutomaton iAutomaton: newAutomata) {
 			this.automata.put(iAutomaton.getName(), iAutomaton);
+			System.out.println("loaded automaton '" + iAutomaton.getName() + "' from '" + path +"'");
+		}
 	}
 	
 	public IAutomaton getAutomaton(String name) {
 		IAutomaton refAutomaton = this.automata.get(name);
 		
-		if (refAutomaton == null)
+		if (refAutomaton == null) {
+			System.out.println("Automaton not found: " + name);
+			System.out.println(this.automata);
 			return null;
+		}
 		
 		return new IAutomaton(refAutomaton);
 	}
