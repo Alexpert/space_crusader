@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
+import game.main.model.entities.Rabbit;
+
 public class WorldBuilder {
 	public static Tile[][] createTiles(int width, int height, World world) {
 		Tile[][] tiles = new Tile[width][height];
@@ -21,21 +23,33 @@ public class WorldBuilder {
 	}
 
 	public static void populate(Tile[][] map, ArrayList<Entity> entitiesList) {
-		for (Tile[] tileArray: map)
-			for (Tile tile: tileArray)
-				populate(tile, entitiesList);
-	}
-
-	private static void populate(Tile tile, ArrayList<Entity> entitiesList) {
 		Random random = new Random();
 		HashMap<TileBiome, HashMap<SpawnedEntities, Float>> spawnProbas = initSpawnProbas();
 		
-//		if (random.nextFloat() < tile.getBiome().getTreeProba()) {
-//			
-//		}
-		//TODO: Biome probability of spawning things
-			
+		for (Tile[] tileArray: map) {
+			for (Tile tile: tileArray) {
+				HashMap<SpawnedEntities, Float> tileProbas = spawnProbas.get(tile.getBiome());
+				float randomFloat = random.nextFloat();
+				Entity addedEntity = null;
+				
+				if (randomFloat < tileProbas.get(SpawnedEntities.TREE)) {
+					addedEntity = new Tree(tile.getBiome());
+				} else if (randomFloat < tileProbas.get(SpawnedEntities.FLOWER)) {
+					addedEntity = new Flower();
+				} else if (randomFloat < tileProbas.get(SpawnedEntities.ROCK)) {
+					addedEntity = new Rock();
+				} else if (randomFloat < tileProbas.get(SpawnedEntities.RABBIT)) {
+					addedEntity = new Rabbit(tile.getX(), tile.getY(), 10, Direction.NORTH, false, tile.getWorld());
+				}
+				
+				if (addedEntity != null) {
+					tile.add(addedEntity);
+					entitiesList.add(addedEntity);
+				}
+			}
+		}
 		
+		return;
 	}
 
 	private static HashMap<TileBiome, HashMap<SpawnedEntities, Float>> initSpawnProbas() {
