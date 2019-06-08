@@ -15,8 +15,9 @@ public class World {
 		this.width = width;
 		this.height = height;
 		this.model = model;
-		this.map = WorldBuilder.createTiles(width, height, this);
 		this.entities = new ArrayList<Entity>();
+		this.map = WorldBuilder.createTiles(width, height, this);
+		WorldBuilder.populate(this.map, this.entities);
 	}
 	
 	public void add(Entity e) {
@@ -56,11 +57,8 @@ public class World {
 		this.height = height;
 	}
 
-	public ArrayList<IAutomaton> getAutomata() {
-		return this.model.getAutomata();
-	}
-
 	public void step(long now) {
+		System.out.println(this.entities.size());
 		for(Entity entity: this.entities)
 			entity.step(now);
 		

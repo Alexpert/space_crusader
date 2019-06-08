@@ -1,0 +1,38 @@
+Default(Init){
+	* (Init):
+}
+
+Playable(Init){
+	* (Init):
+		| Key(z) ? Move(N) : (Init)
+		| Key(s) ? Move(S) : (Init)
+		| Key(d) ? Move(E) : (Init)
+		| Key(q) ? Move(O) : (Init)
+		| True ? Wait : (Init)
+}
+
+Idle(Wait0){
+	* (Wait0):
+		| True ? Wait : (Wait1)
+	* (Wait1):
+		| True ? Wait : (Wait2)
+	* (Wait2):
+		| True ? Wait : (Pop0)
+	* (Pop0):
+		| True ? Wait : (Wait0)
+}
+
+Rabbit(Wait0) {
+	* (Wait0):
+		| True ? Wait : (Turn0)
+	* (Turn0):
+		| True ? Turn(R) : (Jump0)
+	* (Jump0):
+		| True ? Move(F) : (Jump1)
+	* (Jump1):
+		| True ? Move(F) : (Jump2)
+	* (Jump2):
+		| True ? Move(F) : (Wait0)
+	* (Wait0):
+		| True ? Wait : (Turn0)
+}

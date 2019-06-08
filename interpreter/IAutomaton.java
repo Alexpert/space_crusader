@@ -20,6 +20,13 @@ public class IAutomaton {
 		this.getStates().add(initial);
 	}
 
+	public IAutomaton(IAutomaton iAutomaton) {
+		this.setName(iAutomaton.getName());
+		this.setCurrent(iAutomaton.getCurrent());
+		this.setBehaviours(iAutomaton.getBehaviours());
+		this.setStates(iAutomaton.getStates());
+	}
+
 	public void addBehaviour(IBehaviour behaviour) {
 		IState foundState = this.getState(behaviour.getSource().getName());
 		

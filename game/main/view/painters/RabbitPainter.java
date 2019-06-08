@@ -1,16 +1,21 @@
-package game.main.view;
+package game.main.view.painters;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 
 import game.main.model.Entity;
+import game.main.view.IPainter;
+import game.main.view.TextureProvider;
 
 public class RabbitPainter implements IPainter {
 
 	Entity entity;
+	Image texture;
 
 	public RabbitPainter(Entity e) {
 		this.entity = e;
+		this.texture = TextureProvider.getInstance().getTexture("assets/entities/rabbit.png");
 	}
 
 	@Override
@@ -21,8 +26,7 @@ public class RabbitPainter implements IPainter {
 
 	@Override
 	public void paint(Graphics g ,int posX,int posY) {
-		g.setColor(Color.WHITE);
-		g.fillRect(posX, posY, 32, 32);
+		g.drawImage(this.texture, posX, posY, 32, 32, null);
 	}
 
 }

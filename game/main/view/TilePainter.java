@@ -4,7 +4,6 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.util.ArrayList;
 
-import game.main.model.TextureProvider;
 import game.main.model.Tile;
 
 public class TilePainter{

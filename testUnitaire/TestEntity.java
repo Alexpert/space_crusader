@@ -8,8 +8,8 @@ import org.junit.Test;
 import game.main.model.Direction;
 import game.main.model.Kind;
 import game.main.model.Model;
-import game.main.model.Player;
 import game.main.model.World;
+import game.main.model.entities.Player;
 
 
 public class TestEntity {

@@ -1,4 +1,4 @@
-package game.main.model;
+package game.main.view;
 
 import java.awt.Image;
 import java.io.File;

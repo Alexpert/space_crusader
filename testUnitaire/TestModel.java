@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import game.main.controller.Controller;
 import game.main.model.*;
+import game.main.model.entities.Player;
 import game.main.view.View;
 
 

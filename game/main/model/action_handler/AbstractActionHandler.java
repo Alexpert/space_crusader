@@ -1,4 +1,7 @@
-package game.main.model;
+package game.main.model.action_handler;
+
+import game.main.model.Direction;
+import game.main.model.Entity;
 
 public abstract class AbstractActionHandler {
 

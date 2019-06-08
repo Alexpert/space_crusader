@@ -1,4 +1,9 @@
-package game.main.model;
+package game.main.model.action_handler;
+
+import java.util.Random;
+
+import game.main.model.Direction;
+import game.main.model.Entity;
 
 public class ActionHandlerRabbit extends AbstractActionHandler {
 	
@@ -7,8 +12,16 @@ public class ActionHandlerRabbit extends AbstractActionHandler {
 	}
 	
 	@Override
+	public boolean move(Direction d) {
+		super.move(d);
+		this.entity.setActionTimer(500);
+		return true;
+	}
+	
+	@Override
 	public void patient() {
-		return;
+		Random random = new Random();
+		this.entity.setActionTimer(random.nextInt(10000));
 	}
 	
 	@Override
