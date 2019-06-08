@@ -4,7 +4,7 @@ import game.main.model.Direction;
 import game.main.model.Entity;
 import game.main.model.Kind;
 import game.main.model.World;
-import game.main.view.RabbitPainter;
+import game.main.view.painters.RabbitPainter;
 
 public class Rabbit extends Entity {
 	

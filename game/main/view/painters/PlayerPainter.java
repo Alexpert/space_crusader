@@ -1,9 +1,11 @@
-package game.main.view;
+package game.main.view.painters;
 
 import java.awt.Graphics;
 import java.awt.Image;
 
 import game.main.model.Entity;
+import game.main.view.IPainter;
+import game.main.view.TextureProvider;
 
 public class PlayerPainter  implements IPainter{
 

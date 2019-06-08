@@ -1,9 +1,10 @@
-package game.main.view;
+package game.main.view.painters;
 
 import java.awt.Color;
 import java.awt.Graphics;
 
 import game.main.model.Entity;
+import game.main.view.IPainter;
 
 public class AdultRabbitPainter implements IPainter {
 

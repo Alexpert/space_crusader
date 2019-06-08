@@ -12,7 +12,7 @@ public class Model extends GameModel{
 
 	World currentWorld;
 	private HashMap<String, Boolean> map;
-	private String automataPath = "assets/player_key.txt";
+	private String automataPath = "assets/automata.txt";
 	
 	public Model() {
 		//Initialization of the HashMap with the keyboard key :

@@ -1,8 +1,0 @@
-Playable(Init){
-	* (Init):
-		| Key(z) ? Move(N) :(Init)
-		| Key(s) ? Move(S) :(Init)
-		| Key(d) ? Move(E) :(Init)
-		| Key(q) ? Move(O) :(Init)
-		| True ? Wait :(Init)
-}

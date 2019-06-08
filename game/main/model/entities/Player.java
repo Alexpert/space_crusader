@@ -9,7 +9,7 @@ import game.main.model.Item;
 import game.main.model.Kind;
 import game.main.model.World;
 import game.main.model.action_handler.ActionHandlerPlayer;
-import game.main.view.PlayerPainter;
+import game.main.view.painters.PlayerPainter;
 
 public class Player extends Entity {
 	

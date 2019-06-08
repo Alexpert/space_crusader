@@ -18,10 +18,22 @@ public class WorldBuilder {
 		
 		return tiles;
 	}
-	
-	public ArrayList<Entity> generateEntities(Tile[][] tiles, int width, int height) {
-		//TODO
-		return new ArrayList<Entity>();
+
+	public static void populate(Tile[][] map, ArrayList<Entity> entitiesList) {
+		for (Tile[] tileArray: map)
+			for (Tile tile: tileArray)
+				populate(tile, entitiesList);
+	}
+
+	private static void populate(Tile tile, ArrayList<Entity> entitiesList) {
+		Random random = new Random();
+		
+//		if (random.nextFloat() < tile.getBiome().getTreeProba()) {
+//			
+//		}
+		//TODO: Biome probability of spawning things
+			
+		
 	}
 
 }
@@ -48,11 +60,6 @@ class ToreNoise {
 		if (width <= 1 && height <= 1)
 			return;
 		float[] sides = new float[4];
-
-//		sides[0] = values[y * maxWidth + x];
-//		sides[1] = values[y * maxWidth + (x + width) % maxWidth];
-//		sides[2] = values[((y + height) % maxHeight) * maxWidth + (x + width) % maxWidth];
-//		sides[3] = values[((y + height) % maxHeight) * maxWidth + x];
 
 		sides[0] = values[y * maxWidth + x + width / 2];
 		sides[1] = values[(y + height / 2) * maxWidth + (x + width) % maxWidth];
