@@ -24,7 +24,7 @@ public abstract class Entity {
 	private long beginTimeAction;
 	private Action currentAction;
 
-	Entity(int x, int y, int health, Direction d, boolean moveable, World world, Kind kind) {
+	protected Entity(int x, int y, int health, Direction d, boolean moveable, World world, Kind kind) {
 		this.x = x;
 		this.y = y;
 		this.health = health;

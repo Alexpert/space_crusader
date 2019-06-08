@@ -1,32 +1,41 @@
-package game.main.model;
+package game.main.model.action_handler;
 
-public class ActionHandlerAdultRabbit extends AbstractActionHandler{
+import game.main.model.AbstractActionHandler;
+import game.main.model.Direction;
+import game.main.model.Entity;
+import game.main.model.Tile;
 
+public class ActionHandlerPlayer extends AbstractActionHandler {
+	
+	public ActionHandlerPlayer(Entity e) {
+		this.entity = e;
+	}
+	
 	@Override
 	public void patient() {
-		// TODO Auto-generated method stub
-		return;
+		this.entity.setActionTimer(500);
+		
 	}
-
+	
 	@Override
 	public void wizz(Direction d) {
-		// TODO move faster
-		
+		System.out.println("wizz direction"+d+"");
+
 	}
 
 	@Override
 	public void pop(Direction d) {
-		// TODO laser
-		
+		System.out.println("pop direction"+d+"");
+
 	}
 
 	@Override
 	public boolean jump(Direction d) {
-		// TODO don't jump
+		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
+	@Override			// return false has nothing was on the tile
 	public boolean hit(Direction d) {
 		Tile t = this.entity.getTile(d);
 		if(t.isEmpty()) {
@@ -34,7 +43,7 @@ public class ActionHandlerAdultRabbit extends AbstractActionHandler{
 		}
 		else {
 			for(int i = 0; i < t.nbEntity(); i ++) {
-				t.getEntity(i).addHealth(-10);
+				t.getEntity(i).addHealth(-5);
 			}
 			return true;
 		}
@@ -42,31 +51,25 @@ public class ActionHandlerAdultRabbit extends AbstractActionHandler{
 
 	@Override
 	public boolean protect(Direction d) {
-		// TODO don't protect
+		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean pick(Direction d) {
-		// TODO don't pick
-		return false;
-	}
-
-	@Override
-	public boolean cast(Direction d) {
-		// TODO don't cast
+		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean store() {
-		// TODO don't store
+		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean get() {
-		// TODO don't get
+		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -87,7 +90,14 @@ public class ActionHandlerAdultRabbit extends AbstractActionHandler{
 
 	@Override
 	public boolean egg() {
-		// TODO don't egg
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public boolean cast(Direction d) {
+		// TODO Auto-generated method stub
 		return false;
 	}
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import edu.ricm3.game.GameModel;
+import game.main.model.entities.Player;
 import interpreter.Interpreter;
 import interpreter.IAutomaton;
 
