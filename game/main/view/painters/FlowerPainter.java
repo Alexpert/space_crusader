@@ -17,7 +17,7 @@ public class FlowerPainter implements IPainter {
 		this.entity = e;
 		Random random = new Random();
 		this.texture = TextureProvider.getInstance().getTexture("assets/entities/flowers/flower"
-				+ random.nextInt(12) + ".png");
+				+ random.nextInt(11) + ".png");
 	}
 
 	@Override
