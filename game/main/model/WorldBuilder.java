@@ -22,7 +22,7 @@ public class WorldBuilder {
 		return tiles;
 	}
 
-	public static void populate(Tile[][] map, ArrayList<Entity> entitiesList) {
+	public static void populate(Tile[][] map) {
 		Random random = new Random();
 		HashMap<TileBiome, HashMap<SpawnedEntities, Float>> spawnProbas = initSpawnProbas();
 		
@@ -44,7 +44,6 @@ public class WorldBuilder {
 				
 				if (addedEntity != null) {
 					tile.add(addedEntity);
-					entitiesList.add(addedEntity);
 				}
 			}
 		}

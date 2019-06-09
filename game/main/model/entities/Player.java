@@ -19,16 +19,9 @@ public class Player extends Entity {
 	private int money;
 	private ArrayList<Item> inventary;
 
-	public Player(int x, int y, int health, Direction d, boolean moveable, World world, Kind kind) {
-		super(x, y, health, d, moveable, world,kind);
-		this.money = 0;
-		this.inventary = new ArrayList<Item>();
-		this.setActionHandler(new ActionHandlerPlayer(this));
-		this.setIPainter(new PlayerPainter(this));
-	}
-
 	public Player(Tile tile) {
-		super(tile, 10, false, Kind.PLAYER, AutomatonProvider.getInstance().getAutomaton("Playable"));
+		super(tile, AutomatonProvider.getInstance().getAutomaton("Playable"));
+		this.setKind(Kind.PLAYER);
 		this.setIPainter(new PlayerPainter(this));
 		this.setActionHandler(new ActionHandlerPlayer(this));
 	}

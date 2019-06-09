@@ -46,8 +46,6 @@ public abstract class AbstractActionHandler {
 		}
 		
 		this.entity.moveToTile(newX, newY);
-		this.entity.setX(newX);
-		this.entity.setY(newY);
 		
 		return false;
 	}

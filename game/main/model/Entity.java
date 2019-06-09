@@ -9,56 +9,30 @@ import interpreter.IAutomaton;
 
 public abstract class Entity {
 
-	private int health;
-	private int maxHealth;
-	private int x, y;
-	private Direction orientation;
-	private Kind kind;
-	private boolean moveable;
+	private int health = 10;
+	private int maxHealth = 10;
+	private Direction orientation = Direction.NORTH;
+	private Kind kind = Kind.ANYTHING;
+	private boolean moveable = false;
+	
+	private boolean hasViewport = false;
+	private long currentTimeAction = 0;
+	private long totalTimeAction = 0;
+	private long beginTimeAction = 0;
+	private Action currentAction = null;
+	
 	private AbstractActionHandler actionHandler;
-	private World world;
-	private IPainter painter;
 	protected IAutomaton automaton;
-	private boolean hasViewport;
-	private long currentTimeAction;
-	private long totalTimeAction;
-	private long beginTimeAction;
-	private Action currentAction;
+	private IPainter painter;
+	
+	private Tile tile;
 
-	protected Entity(int x, int y, int health, Direction d, boolean moveable, World world, Kind kind) {
-		this.x = x;
-		this.y = y;
-		this.health = health;
-		this.maxHealth = health;
-		this.orientation = d;
-		this.moveable = moveable;
-		this.world = world;
-		this.kind = kind;
-		this.automaton = AutomatonProvider.getInstance().getAutomaton("Default");
-		this.hasViewport = false;
-		this.totalTimeAction=0;
-		this.beginTimeAction=0;
-	}
-
-	protected Entity(Tile tile, int health, boolean moveable, Kind kind, IAutomaton automaton) {
-		this.x = tile.getX();
-		this.y = tile.getY();
-		this.health = health;
-		this.maxHealth = health;
-		this.orientation = Direction.NORTH;
-		this.moveable = moveable;
-		this.world = tile.getWorld();
-		this.kind = kind;
+	protected Entity(Tile tile, IAutomaton automaton) {
+		this.setTile(tile);
 		this.automaton = automaton;
-		this.hasViewport = false;
-		this.totalTimeAction=0;
-		this.beginTimeAction=0;
-		
 	}
-
-	public void setActionHandler(AbstractActionHandler ac) {
-		this.actionHandler = ac;
-	}
+	
+	
 	
 	public void paint(Graphics g,int posX,int posY) {
 		this.painter.paint(g,posX,posY);
@@ -75,28 +49,29 @@ public abstract class Entity {
 		}
 	}
 
-	public int getX() {
-		return this.x;
+	public void addHealth(int healthpoints) {
+		this.health += healthpoints;
 	}
 
-	public void setX(int x) {
-		this.x = x;
+	
+	protected void setKind(Kind kind) {
+		this.kind = kind;
+	}
+	
+	public void setActionHandler(AbstractActionHandler ac) {
+		this.actionHandler = ac;
+	}
+
+	public int getX() {
+		return this.getTile().getX();
 	}
 
 	public int getY() {
-		return this.y;
-	}
-
-	public void setY(int y) {
-		this.y = y;
+		return this.getTile().getY();
 	}
 
 	public int getHealth() {
 		return this.health;
-	}
-
-	public void addHealth(int healthpoints) {
-		this.health += healthpoints;
 	}
 
 	public Direction getOrientation() {
@@ -120,12 +95,14 @@ public abstract class Entity {
 	}
 
 	public World getWorld() {
-		return this.world;
+		return this.getTile().getWorld();
 	}
 	
 	public void moveToTile(int x, int y) {
-		this.world.getTile(this.getX(), this.getY()).remove(this);
-		this.world.getTile(x, y).add(this);
+		this.getTile().remove(this);
+		Tile tile = this.getWorld().getTile(x, y);
+		tile.add(this);
+		this.setTile(tile);
 	}
 
 	public Tile getTile(Direction d) {
@@ -194,7 +171,7 @@ public abstract class Entity {
 	// Condition
 
 	public boolean key(String key) {
-		return world.getModel().getBoolHashMap(key);
+		return getWorld().getModel().getBoolHashMap(key);
 	}
 
 	public boolean myDir(Direction d) {
@@ -211,8 +188,8 @@ public abstract class Entity {
 		}
 		int nbTile = 1 + (distance-1) * 2;
 		int n = 0;
-		int worldWidth = this.world.getWidth();
-		int worldHeight = this.world.getHeight();
+		int worldWidth = this.getWorld().getWidth();
+		int worldHeight = this.getWorld().getHeight();
 		Direction d2 = d;
 		boolean res = false;
 		if (d.ordinal() < 4) { // if the direction is not absolute
@@ -227,16 +204,16 @@ public abstract class Entity {
 			}
 		}
 		if (d2 == Direction.NORTH) {
-			int i = this.x - distance + 1;
+			int i = this.getX() - distance + 1;
 			if (i < 0) {
 				i = worldWidth + (i % worldWidth);
 			}
-			int j = this.y - 1;
+			int j = this.getY() - 1;
 			if (j < 0) {
 				j = worldHeight + (j % worldHeight);
 			}
 			while (n < nbTile && !res) {
-				Tile tile = this.world.getTile(i, j);
+				Tile tile = this.getWorld().getTile(i, j);
 				if (!tile.isEmpty()) {
 					for (int k = 0; k < tile.nbEntity(); k++) {
 						if (tile.getEntity(k).kind == e) {
@@ -264,18 +241,18 @@ public abstract class Entity {
 		}
 		if (d2 == Direction.SOUTH) {
 			
-			int i = this.x - distance + 1;
+			int i = this.getX() - distance + 1;
 			if (i < 0) {
 				i = worldWidth + (i % worldWidth);
 			}
 			
-			int j = this.y + 1;
+			int j = this.getY() + 1;
 			if (j >= worldHeight) {
 				j =	-(j % worldHeight);
 			}
 			
 			while (n < nbTile && !res) {
-				Tile tile = this.world.getTile(i, j);
+				Tile tile = this.getWorld().getTile(i, j);
 				if (!tile.isEmpty()) {
 					for (int k = 0; k < tile.nbEntity(); k++) {
 						if (tile.getEntity(k).kind == e) {
@@ -304,18 +281,18 @@ public abstract class Entity {
 		
 		if (d2 == Direction.EAST) {
 			
-			int i = this.x + 1;
+			int i = this.getX() + 1;
 			if (i >= worldWidth) {
 				i =	-(i % worldWidth);
 			}
 			
-			int j = this.y - distance + 1;
+			int j = this.getY() - distance + 1;
 			if (j < 0) {
 				j = worldHeight + (j % worldHeight);
 			}
 			
 			while (n < nbTile && !res) {
-				Tile tile = this.world.getTile(i, j);
+				Tile tile = this.getWorld().getTile(i, j);
 				if (!tile.isEmpty()) {
 					for (int k = 0; k < tile.nbEntity(); k++) {
 						if (tile.getEntity(k).kind == e) {
@@ -344,18 +321,18 @@ public abstract class Entity {
 		
 		if (d2 == Direction.WEST) {
 			
-			int i = this.x - 1;
+			int i = this.getX() - 1;
 			if (i < 0) {
 				i = worldWidth + (i % worldWidth);
 			}
 			
-			int j = this.y - distance + 1;
+			int j = this.getY() - distance + 1;
 			if (j < 0) {
 				j = worldHeight + (j % worldHeight);
 			}
 			
 			while (n < nbTile && !res) {
-				Tile tile = this.world.getTile(i, j);
+				Tile tile = this.getWorld().getTile(i, j);
 				if (!tile.isEmpty()) {
 					for (int k = 0; k < tile.nbEntity(); k++) {
 						if (tile.getEntity(k).kind == e) {
@@ -385,7 +362,7 @@ public abstract class Entity {
 	}
 
 	public boolean closest(Kind e, Direction d) {
-		ArrayList<Entity> entities = this.world.getEntities();
+		ArrayList<Entity> entities = this.getWorld().getEntities();
 		int k = 0;
 		boolean isPresent = false;
 		while (k < entities.size() && !isPresent) {
@@ -495,6 +472,14 @@ public abstract class Entity {
 	
 	public Kind getKind() {
 		return this.kind;
+	}
+
+	private Tile getTile() {
+		return tile;
+	}
+
+	private void setTile(Tile tile) {
+		this.tile = tile;
 	}
 
 }
