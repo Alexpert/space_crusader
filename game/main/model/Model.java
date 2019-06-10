@@ -10,7 +10,7 @@ import interpreter.IAutomaton;
 
 public class Model extends GameModel {
 
-	World currentWorld;
+	World currentWorld = null;
 	private HashMap<String, Boolean> map;
 	private String automataPath = "assets/automata.txt";
 
@@ -47,11 +47,10 @@ public class Model extends GameModel {
 			e.printStackTrace();
 		}
 
-		this.currentWorld = new World(200, 200, this);
-//		this.currentWorld.add(new Player(19, 0, 10, Direction.NORTH, true, currentWorld ,Kind.TEAM));
-		this.currentWorld.add(new Player(this.currentWorld.getTile(0, 0)));
-		// this.currentWorld.add(new Player(1, 3, 10, Direction.NORTH, true,
-		// currentWorld ,Kind.TEAM));
+		World newWorld = new World(200, 200, this);
+		newWorld.add(new Player(newWorld.getTile(0, 0)));
+		
+		this.currentWorld = newWorld;
 
 	}
 

@@ -2,6 +2,7 @@ package game.main.model;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import game.main.view.TilePainter;
 
@@ -47,7 +48,12 @@ public class Tile {
 	}
 	
 	public void clear() {
-		this.entities.clear();
+		int i = this.getEntities().size() - 1;
+		while(i >= 0) {
+			this.getEntities().get(i).removeTile();
+			this.getEntities().remove(i);
+			i--;
+		}
 	}
 	
 	public int nbEntity() {
@@ -64,6 +70,21 @@ public class Tile {
 	
 	public World getWorld() {
 		return this.w;
+	}
+
+	public void step(long now) {
+		int i = this.getEntities().size() - 1;
+		
+		//A dirty way to go through the array knowing that the
+		//current element could quit the array at any moment
+		while(i >= 0) {
+			this.getEntities().get(i).step(now);
+			i--;
+		}
+	}
+
+	ArrayList<Entity> getEntities() {
+		return this.entities;
 	}
 
 }

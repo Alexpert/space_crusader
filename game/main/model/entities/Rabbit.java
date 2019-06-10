@@ -11,14 +11,10 @@ import game.main.model.action_handler.ActionHandlerRabbit;
 import game.main.view.painters.RabbitPainter;
 
 public class Rabbit extends Entity {
-	public Rabbit(int x, int y, int health, Direction d, boolean moveable, World world) {
-		super(x, y, health, d, moveable, world, Kind.MONSTER);
-		this.setIPainter(new RabbitPainter(this));
-		this.setActionHandler(new ActionHandlerRabbit(this));
-	}
 
 	public Rabbit(Tile tile) {
-		super(tile, 10, false, Kind.MONSTER, AutomatonProvider.getInstance().getAutomaton("Rabbit"));
+		super(tile, AutomatonProvider.getInstance().getAutomaton("Rabbit"));
+		this.setKind(Kind.MONSTER);
 		this.setIPainter(new RabbitPainter(this));
 		this.setActionHandler(new ActionHandlerRabbit(this));
 	}

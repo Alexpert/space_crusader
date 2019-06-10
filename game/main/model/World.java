@@ -7,7 +7,6 @@ import interpreter.IAutomaton;
 public class World {
 
 	private int width, height;
-	private ArrayList<Entity> entities;
 	private Tile[][] map;
 	private Model model;
 	
@@ -15,13 +14,11 @@ public class World {
 		this.width = width;
 		this.height = height;
 		this.model = model;
-		this.entities = new ArrayList<Entity>();
 		this.map = WorldBuilder.createTiles(width, height, this);
-		WorldBuilder.populate(this.map, this.entities);
+		WorldBuilder.populate(map);
 	}
 	
 	public void add(Entity e) {
-		this.entities.add(e);
 		this.map[e.getX()][e.getY()].add(e);
 	}
 	
@@ -41,10 +38,6 @@ public class World {
 		return width;
 	}
 	
-	public ArrayList<Entity> getEntities() {
-		return this.entities;
-	}
-	
 	public void setWidth(int width) {
 		this.width = width;
 	}
@@ -56,11 +49,24 @@ public class World {
 	public void setHeight(int height) {
 		this.height = height;
 	}
+	
+	public ArrayList<Entity> getEntities() {
+		ArrayList<Entity> entities = new ArrayList<>();
+		
+		for(Tile[] tileArray: this.map) {
+			for (Tile tile: tileArray) {
+				entities.addAll(tile.getEntities());
+			}
+		}
+		
+		return entities;
+	}
 
 	public void step(long now) {
-		System.out.println(this.entities.size());
-		for(Entity entity: this.entities)
-			entity.step(now);
-		
+		for(Tile[] tileArray: this.map) {
+			for (Tile tile: tileArray) {
+				tile.step(now);
+			}
+		}
 	}
 }

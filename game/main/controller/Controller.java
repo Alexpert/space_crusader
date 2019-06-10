@@ -27,8 +27,10 @@ public class Controller extends GameController {
 
 	@Override
 	public void step(long now) {
-		this.model.step(now);
-		this.view.step(now);
+		if (this.model.getCurrentWorld() != null) {
+			this.model.step(now);
+			this.view.step(now);
+		}
 	}
 
 	@Override
