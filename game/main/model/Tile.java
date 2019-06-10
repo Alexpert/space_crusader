@@ -48,7 +48,12 @@ public class Tile {
 	}
 	
 	public void clear() {
-		this.entities.clear();
+		int i = this.getEntities().size() - 1;
+		while(i >= 0) {
+			this.getEntities().get(i).removeTile();
+			this.getEntities().remove(i);
+			i--;
+		}
 	}
 	
 	public int nbEntity() {

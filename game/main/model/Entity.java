@@ -483,4 +483,10 @@ public abstract class Entity {
 		tile.add(this);
 	}
 
+
+
+	public void removeTile() {
+		this.tile = null;
+	}
+
 }
