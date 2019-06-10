@@ -41,12 +41,13 @@ public abstract class Entity {
 	public void step(long now) {
 		
 		if(now<this.beginTimeAction+this.totalTimeAction) {
-			this.currentTimeAction = this.beginTimeAction+this.totalTimeAction - now;
+			this.currentTimeAction = now- this.beginTimeAction;
 		}
 		else {
 			this.beginTimeAction = this.beginTimeAction+this.totalTimeAction;
 			this.automaton.step(this);
 		}
+		this.painter.step(now);
 	}
 
 	public void addHealth(int healthpoints) {
@@ -481,5 +482,14 @@ public abstract class Entity {
 	private void setTile(Tile tile) {
 		this.tile = tile;
 	}
+
+	public long getCurrentTimeAction() {
+		return currentTimeAction;
+	}
+
+	public long getTotalTimeAction() {
+		return totalTimeAction;
+	}
+
 
 }
