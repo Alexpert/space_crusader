@@ -480,6 +480,7 @@ public abstract class Entity {
 
 	private void setTile(Tile tile) {
 		this.tile = tile;
+		tile.add(this);
 	}
 
 }
