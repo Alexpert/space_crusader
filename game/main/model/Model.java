@@ -47,7 +47,7 @@ public class Model extends GameModel {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		this.initGame();
 	}
 	
 	public void initGame() {

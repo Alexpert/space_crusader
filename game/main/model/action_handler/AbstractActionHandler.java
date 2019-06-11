@@ -19,18 +19,37 @@ public abstract class AbstractActionHandler {
 		Direction d = this.entity.getOrientation();
 		int newX = this.entity.getX();
 		int newY = this.entity.getY();
-		
 		if(d == Direction.EAST) {
-			newX++;
+			if(this.entity.getTile(d).isEmpty()) {
+				newX++;
+			}
+			else {
+				this.entity.setAction(Action.PATIENT);
+			}
 		}
 		else if(d == Direction.WEST) {
-			newX--;
+			if(this.entity.getTile(d).isEmpty()) {
+				newX--;
+			}
+			else {
+				this.entity.setAction(Action.PATIENT);
+			}
 		}
 		else if(d == Direction.NORTH) {
-			newY--;
+			if(this.entity.getTile(d).isEmpty()) {
+				newY--;
+			}
+			else {
+				this.entity.setAction(Action.PATIENT);
+			}
 		}
 		else if(d == Direction.SOUTH) {
-			newY++;
+			if(this.entity.getTile(d).isEmpty()) {
+				newY++;
+			}
+			else {
+				this.entity.setAction(Action.PATIENT);
+			}
 		}
 		this.entity.changeActionAnimation(Action.MOVE, d);
 		
@@ -49,7 +68,7 @@ public abstract class AbstractActionHandler {
 		
 		this.entity.moveToTile(newX, newY);
 		
-		return false;
+		return true;
 	}
 	
 	public boolean move(Direction d) {

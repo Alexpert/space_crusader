@@ -138,21 +138,22 @@ public abstract class Entity {
 			}
 		}
 		if (d2 == Direction.SOUTH) {
-			if (this.getY() != this.getWorld().getHeight() + 1) {
+			if (this.getY() < this.getWorld().getHeight()-1) {
 				return this.getWorld().getTile(this.getX(), this.getY() + 1);
 			} else {
 				return this.getWorld().getTile(this.getX(), 0);
 			}
 		}
 		if (d2 == Direction.EAST) {
-			if (this.getX() != this.getWorld().getWidth() - 1) {
+			if (this.getX() < this.getWorld().getWidth() - 1) {
 				return this.getWorld().getTile(this.getX() + 1, this.getY());
 			} else {
 				return this.getWorld().getTile(0, this.getY());
 			}
 		}
 		if (d2 == Direction.WEST) {
-			if (this.getY() > 0) {
+			System.out.println(this.getY());
+			if (this.getX() > 0) {
 				return this.getWorld().getTile(this.getX() - 1, this.getY());
 			} else {
 				return this.getWorld().getTile(this.getWorld().getWidth() - 1, this.getY());
@@ -162,13 +163,13 @@ public abstract class Entity {
 	}
 
 	public void move() {
-		this.getActionHandler().move();
 		this.currentAction = Action.MOVE;
+		this.getActionHandler().move();
 	}
 
 	public void move(Direction d) {
-		this.getActionHandler().move(d);
 		this.currentAction = Action.MOVE;
+		this.getActionHandler().move(d);
 	}
 
 	public void turn(Direction d) {
@@ -497,8 +498,6 @@ public abstract class Entity {
 		tile.add(this);
 	}
 
-
-
 	public void removeTile() {
 		this.tile = null;
 	}
@@ -519,5 +518,8 @@ public abstract class Entity {
 		return currentAction;
 	}
 	
+	public void setAction(Action a) {
+		this.currentAction= a;
+	}
 	
 }

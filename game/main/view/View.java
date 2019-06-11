@@ -73,12 +73,13 @@ public class View extends GameView {
 				
 		g.setColor(m_background);
 		g.fillRect(0, 0, getWidth(), getHeight());
-		if(this.m_model.isInGame) {
+		viewport.paint(g);
+		/*if(this.m_model.isInGame) {
 			viewport.paint(g);
 		}
 		else {	//menu de demarage
 			
-		}
+		}*/
 		
 	}
 }
