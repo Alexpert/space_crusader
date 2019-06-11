@@ -17,7 +17,7 @@ import game.main.view.painters.RabbitPainter;
 public class Player extends Entity {
 	
 	private int money;
-	private ArrayList<Item> inventary;
+	private ArrayList<Item> inventory;
 
 	public Player(Tile tile) {
 		super(tile, AutomatonProvider.getInstance().getAutomaton("Playable"));
@@ -33,7 +33,16 @@ public class Player extends Entity {
 	}
 	
 	public void add(Item item) {
-		this.inventary.add(item);
+		this.inventory.add(item);
+	}
+	
+	public ArrayList<Item> getInventory(){
+		return this.inventory;
+	}
+	
+	@Override
+	public void step(long now) {
+		super.step(now);
 	}
 	
 	@Override
