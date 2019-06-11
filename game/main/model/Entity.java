@@ -28,8 +28,8 @@ public abstract class Entity {
 	private Tile tile;
 
 	protected Entity(Tile tile, IAutomaton automaton) {
-		this.setTile(tile);
 		this.automaton = automaton;
+		this.setTile(tile);
 	}
 	
 	
