@@ -19,7 +19,7 @@ public abstract class Entity {
 	private long currentTimeAction = 0;
 	private long totalTimeAction = 0;
 	private long beginTimeAction = 0;
-	private Action currentAction = null;
+	private Action currentAction = Action.PATIENT;
 	
 	private AbstractActionHandler actionHandler;
 	protected IAutomaton automaton;
@@ -119,8 +119,6 @@ public abstract class Entity {
 				d2 = this.getOrientation();
 			}
 		}
-		int newX=this.getX();
-		int newY=this.getY();
 
 		if (d2 == Direction.NORTH) {
 			if (this.getY() > 0) {
@@ -155,10 +153,12 @@ public abstract class Entity {
 
 	public void move() {
 		this.getActionHandler().move();
+		this.currentAction = Action.MOVE;
 	}
 
 	public void move(Direction d) {
 		this.getActionHandler().move(d);
+		this.currentAction = Action.MOVE;
 	}
 
 	public void turn(Direction d) {
@@ -415,14 +415,17 @@ public abstract class Entity {
 
 	public void patient() {
 		this.actionHandler.patient();
+		this.currentAction = Action.PATIENT;
 	}
 
 	public void wizz(Direction direction) {
 		this.actionHandler.wizz(direction);
+		this.currentAction = Action.WIZZ;
 	}
 
 	public void pop(Direction direction) {
 		this.actionHandler.pop(direction);
+		this.currentAction = Action.POP;
 	}
 
 	public void jump(Direction direction) {
@@ -491,5 +494,13 @@ public abstract class Entity {
 		return totalTimeAction;
 	}
 
+	public void changeActionAnimation(Action a, Direction d) {
+		this.painter.changeActionAnimation(a, d);
+	}
 
+	public Action getCurrentAction() {
+		return currentAction;
+	}
+	
+	
 }

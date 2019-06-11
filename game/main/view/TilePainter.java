@@ -22,7 +22,7 @@ public class TilePainter{
 		
 	}
 
-	public void paint(Graphics g, int posCamX, int posCamY, int camWidth, int camHeight) {
+	public void paint(Graphics g, int posCamX, int posCamY, int camWidth, int camHeight, boolean paintOnlyBackground) {
 		ArrayList<Integer> allPosX = new ArrayList<>();
 		ArrayList<Integer> allPosY = new ArrayList<>();
 		
@@ -42,9 +42,13 @@ public class TilePainter{
 		
 		for (int px: allPosX) {
 			for (int py: allPosY) {
-				g.drawImage(this.texture, px, py, 32, 32, null);
-				for(int k = 0; k < tile.nbEntity(); k++) {
-					tile.getEntity(k).paint(g,px,py);
+				if(paintOnlyBackground) {
+					g.drawImage(this.texture, px, py, 32, 32, null);
+				}
+				else {
+					for(int k = 0; k < tile.nbEntity(); k++) {
+						tile.getEntity(k).paint(g,px,py);
+					}
 				}
 			}	
 		}

@@ -59,8 +59,8 @@ public class Tile {
 		this.entities.remove(e);
 	}
 	
-	public void paint(Graphics g, int posCamX, int posCamY, int camWidth, int camHeight) {
-		this.painter.paint(g,posCamX,posCamY,camWidth,camHeight);
+	public void paint(Graphics g, int posCamX, int posCamY, int camWidth, int camHeight, boolean paintOnlyBackground) {
+		this.painter.paint(g,posCamX,posCamY,camWidth,camHeight, paintOnlyBackground);
 	}
 	
 	public World getWorld() {
