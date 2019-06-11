@@ -483,7 +483,11 @@ public abstract class Entity {
 	public Kind getKind() {
 		return this.kind;
 	}
-
+	
+	public boolean getCollidable() {
+		return this.collidable;
+	}
+	
 	private Tile getTile() {
 		return tile;
 	}
