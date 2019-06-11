@@ -13,7 +13,7 @@ public class ActionHandlerRabbit extends AbstractActionHandler {
 	
 	@Override
 	public boolean move(Direction d) {
-		//super.move(d);
+		super.move(d);
 		this.entity.setActionTimer(500);
 		return true;
 	}
@@ -24,10 +24,6 @@ public class ActionHandlerRabbit extends AbstractActionHandler {
 		this.entity.setActionTimer(random.nextInt(10000));
 	}
 	
-	@Override
-	public boolean move() {
-		return false;
-	}
 	
 	@Override
 	public void wizz(Direction d) {

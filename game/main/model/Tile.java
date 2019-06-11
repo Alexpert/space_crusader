@@ -86,5 +86,14 @@ public class Tile {
 	ArrayList<Entity> getEntities() {
 		return this.entities;
 	}
+	
+	public boolean isCollidable() {
+		for(int i = 0; i < this.nbEntity(); i ++) {
+			if(this.entities.get(i).collidable) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 }

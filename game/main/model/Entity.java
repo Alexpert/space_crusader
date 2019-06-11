@@ -152,7 +152,6 @@ public abstract class Entity {
 			}
 		}
 		if (d2 == Direction.WEST) {
-			System.out.println(this.getY());
 			if (this.getX() > 0) {
 				return this.getWorld().getTile(this.getX() - 1, this.getY());
 			} else {
