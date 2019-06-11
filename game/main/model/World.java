@@ -2,6 +2,7 @@ package game.main.model;
 
 import java.util.ArrayList;
 
+import game.main.model.entities.Gate;
 import interpreter.IAutomaton;
 
 public class World {

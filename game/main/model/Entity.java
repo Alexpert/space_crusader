@@ -484,19 +484,21 @@ public abstract class Entity {
 		return this.kind;
 	}
 
-	private Tile getTile() {
+	public Tile getTile() {
 		return tile;
 	}
 
-	private void setTile(Tile tile) {
+	public void setTile(Tile tile) {
 		this.tile = tile;
 		tile.add(this);
 	}
 
-
-
 	public void removeTile() {
 		this.tile = null;
+	}
+	
+	public long getTotalTimeAction() {
+		return this.totalTimeAction;
 	}
 
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import edu.ricm3.game.GameModel;
+import game.main.model.entities.Gate;
 import game.main.model.entities.Player;
 import interpreter.Interpreter;
 import interpreter.IAutomaton;
@@ -11,8 +12,10 @@ import interpreter.IAutomaton;
 public class Model extends GameModel {
 
 	World currentWorld = null;
+	private ArrayList<World> worlds;
 	private HashMap<String, Boolean> map;
 	private String automataPath = "assets/automata.txt";
+	private Player player;
 
 	public Model() {
 		// Initialization of the HashMap with the keyboard key :
@@ -47,8 +50,15 @@ public class Model extends GameModel {
 			e.printStackTrace();
 		}
 
+		//Initialization of the arraylist of worlds
+		this.worlds = new ArrayList<World>();
+		
 		World newWorld = new World(200, 200, this);
-		new Player(newWorld.getTile(0, 0));
+		this.worlds.add(newWorld);
+		
+		this.player = new Player(newWorld.getTile(0, 0));
+		
+		new Gate(newWorld.getTile(1, 0));
 		
 		this.currentWorld = newWorld;
 
@@ -75,6 +85,19 @@ public class Model extends GameModel {
 
 	public World getCurrentWorld() {
 		return this.currentWorld;
+	}
+	
+	public void setCurrenWorld(World world) {
+		this.currentWorld = world;
+		this.worlds.add(world);
+	}
+	
+	public ArrayList<World> getWorlds() {
+		return this.worlds;
+	}
+	
+	public Player getPlayer() {
+		return this.player;
 	}
 
 }

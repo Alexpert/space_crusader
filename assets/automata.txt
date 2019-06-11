@@ -36,3 +36,20 @@ Rabbit(Wait0) {
 	* (Wait0):
 		| True ? Wait : (Turn0)
 }
+
+Test(Init1){
+  * (Init1): True ? Pop : (Init2)
+  * (Init2): True ? Move(F) : (Init3)
+  * (Init3): True ? Move(F) : (Init4)
+  * (Init4): True ? Move(R) : (Init5)
+  * (Init5): True ? Pop : (Init6)
+  * (Init6): True ? Move(F) : (Init7)
+  * (Init7): True ? Move(F) : (Init8)
+  * (Init8): True ? Move(R) : (Init9)
+  * (Init9): True ? Wizz : (Init10)
+  * (Init10): True ? Move(F) : (Init11)
+  * (Init11): True ? Move(F) : (Init12)
+  * (Init12): True ? Move(R) : (Init13)
+  * (Init13): True ? Wizz : (Init14)
+  * (Init14): True ? Move(F) : (Init1)
+}
