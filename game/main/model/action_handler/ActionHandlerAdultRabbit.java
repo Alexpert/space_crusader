@@ -20,7 +20,7 @@ public class ActionHandlerAdultRabbit extends AbstractActionHandler{
 	@Override
 	public void pop(Direction d) {
 		// TODO laser
-		
+		return;
 	}
 
 	@Override

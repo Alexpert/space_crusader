@@ -22,7 +22,25 @@ Idle(Wait0){
 		| True ? Wait : (Wait0)
 }
 
-Rabbit(Wait0) {
+Rabbit(Init1) {
+  * (Init1): 
+	| True ? Pop(F) : (Init2)
+  * (Init2): 
+	| True ? Move(F) : (Init3)
+  * (Init3): 
+	| True ? Move(F) : (Init4)
+  * (Init4):
+	| True ? Move(R) : (Init5)
+  * (Init5): 
+	| True ? Pop(F) : (Init6)
+  * (Init6): 
+	| True ? Move(F) : (Init7)
+  * (Init7): 
+	| True ? Move(F) : (Init8)
+  * (Init8)
+}
+
+Test(Wait0){
 	* (Wait0):
 		| True ? Wait : (Turn0)
 	* (Turn0):
@@ -36,3 +54,4 @@ Rabbit(Wait0) {
 	* (Wait0):
 		| True ? Wait : (Turn0)
 }
+

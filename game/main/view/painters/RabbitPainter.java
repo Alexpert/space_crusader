@@ -26,7 +26,9 @@ public class RabbitPainter implements IPainter {
 
 	@Override
 	public void paint(Graphics g ,int posX,int posY) {
-		g.drawImage(this.texture, posX, posY, 32, 32, null);
+		if (this.entity.getIsVisible()) {
+			g.drawImage(this.texture, posX, posY, 32, 32, null);
+		}
 	}
 
 }

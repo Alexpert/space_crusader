@@ -12,8 +12,10 @@ import game.main.view.painters.RabbitPainter;
 
 public class AdultRabbit extends Entity {
 
-	AdultRabbit(Tile tile) {
-		super(tile, AutomatonProvider.getInstance().getAutomaton("Rabbit"));
+	public AdultRabbit(Tile tile) {
+		super(tile, AutomatonProvider.getInstance().getAutomaton("Idle"));
+		this.moveable = true;
+		System.out.println("Adult");
 		this.collidable = true;
 		this.setKind(Kind.MONSTER);
 		this.setIPainter(new RabbitPainter(this));
