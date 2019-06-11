@@ -30,20 +30,15 @@ public class WorldBuilder {
 			for (Tile tile: tileArray) {
 				HashMap<SpawnedEntities, Float> tileProbas = spawnProbas.get(tile.getBiome());
 				float randomFloat = random.nextFloat();
-				Entity addedEntity = null;
 				
 				if (randomFloat < tileProbas.get(SpawnedEntities.TREE)) {
-					addedEntity = new Tree(tile);
+					new Tree(tile);
 				} else if (randomFloat < tileProbas.get(SpawnedEntities.FLOWER)) {
-					addedEntity = new Flower(tile);
+					new Flower(tile);
 				} else if (randomFloat < tileProbas.get(SpawnedEntities.ROCK)) {
-					addedEntity = new Rock(tile);
+					new Rock(tile);
 				} else if (randomFloat < tileProbas.get(SpawnedEntities.RABBIT)) {
-					addedEntity = new Rabbit(tile);
-				}
-				
-				if (addedEntity != null) {
-					tile.add(addedEntity);
+					new Rabbit(tile);
 				}
 			}
 		}
