@@ -101,7 +101,6 @@ public abstract class Entity {
 	public void moveToTile(int x, int y) {
 		this.getTile().remove(this);
 		Tile tile = this.getWorld().getTile(x, y);
-		tile.add(this);
 		this.setTile(tile);
 	}
 
