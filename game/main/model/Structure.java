@@ -6,6 +6,7 @@ import java.util.Stack;
 
 import game.main.model.entities.Flower;
 import game.main.model.entities.Rock;
+import game.main.model.entities.Wall;
 
 public class Structure {
 	private ArrayList<Tile> tiles;
@@ -30,7 +31,7 @@ public class Structure {
 						Tile tile = new Tile(x * 4 + dx, y * 4 + dy, TileBiome.STONE, null);
 						if ((dx == 0 || dy == 0) && (dx != 2 || grid.get(x, y).openTop == false)
 												 && (dy != 2 || grid.get(x, y).openLeft == false))
-							new Rock(tile);
+							new Wall(tile, WallType.DUNGEON);
 						this.tiles.add(tile);
 					}
 				}
@@ -41,13 +42,13 @@ public class Structure {
 		
 		for (int x = 0; x < labWidth * 4; x++) {
 			Tile tile = new Tile(x, labHeight * 4, TileBiome.STONE, null);
-			new Rock(tile);
+			new Wall(tile, WallType.DUNGEON);
 			this.tiles.add(tile);
 		}
 		
 		for (int y = 0; y < labHeight * 4 + 1; y++) {
 			Tile tile = new Tile(labWidth * 4, y, TileBiome.STONE, null);
-			new Rock(tile);
+			new Wall(tile, WallType.DUNGEON);
 			this.tiles.add(tile);
 		}
 		

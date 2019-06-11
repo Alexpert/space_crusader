@@ -3,8 +3,6 @@ package game.main.model;
 import java.util.ArrayList;
 import java.util.Random;
 
-import interpreter.IAutomaton;
-
 public class World {
 
 	private int width, height;
