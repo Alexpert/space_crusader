@@ -55,10 +55,9 @@ public class ActionHandlerRabbit extends AbstractActionHandler {
 
 	@Override
 	public void pop(Direction d) {
-		this.entity.setActionTimer(50000);
 		Tile tile = this.entity.getTile();
 		tile.remove(this.entity);
-		new AdultRabbit(tile);
+		new AdultRabbit(tile).setActionTimer(5000);;
 		return;
 	}
 
