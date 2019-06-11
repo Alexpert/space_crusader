@@ -159,7 +159,7 @@ Parameters
   |  "_"
   
 Direction
-  | "N" | "S" | "O" | "E"
+  | "N" | "S" | "W" | "E"
   | "F" = Front
   | "B" = Back
   | "L" = Left
@@ -195,7 +195,7 @@ Entity
   }
 
 /* Direction
- * | "N" | "S" | "O" | "E" | "F" | "B" | "L" | "R"
+ * | "N" | "S" | "W" | "E" | "F" | "B" | "L" | "R"
  * | "d"
  */
   static final public Direction P_Direction() throws ParseException {
@@ -406,14 +406,14 @@ Entity
   }
 
 /* Transition
- * | Opt_Bar  Condition "?" Action ":"  State
+ * | Opt_Bar  Condition "?" Opt_Action ":"  State
  */
   static final public Transition P_Transition() throws ParseException {
   Condition condition ; Action action ; State state ;
     P_Opt_Bar();
     condition = P_Condition();
     jj_consume_token(27);
-    action = P_Action();
+    action = P_Opt_Action();
     jj_consume_token(25);
     state = P_State();
           {if (true) return new Transition(condition,action,state) ;}
@@ -447,13 +447,24 @@ Entity
     throw new Error("Missing return statement in function");
   }
 
-/* Action
+/* Opt_Action
    | Expression
 */
-  static final public Action P_Action() throws ParseException {
+  static final public Action P_Opt_Action() throws ParseException {
   Expression expression ;
-    expression = P_Expression();
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case CONDITION:
+    case ACTION:
+    case UNARY:
+    case 20:
+    case 29:
+      expression = P_Expression();
           {if (true) return new Action(expression) ;}
+      break;
+    default:
+      jj_la1[8] = jj_gen;
+          {if (true) return new Action() ;}
+    }
     throw new Error("Missing return statement in function");
   }
 
@@ -485,7 +496,7 @@ Entity
           {if (true) return expression ;}
       break;
     default:
-      jj_la1[8] = jj_gen;
+      jj_la1[9] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -505,7 +516,7 @@ Entity
           {if (true) return new BinaryOp(e1,token.image,e2) ;}
       break;
     default:
-      jj_la1[9] = jj_gen;
+      jj_la1[10] = jj_gen;
           {if (true) return e1 ;}
     }
     throw new Error("Missing return statement in function");
@@ -536,7 +547,7 @@ Entity
           {if (true) return new FunCall(token.image, parameters) ;}
       break;
     default:
-      jj_la1[10] = jj_gen;
+      jj_la1[11] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -578,7 +589,7 @@ Entity
           {if (true) return new Key("_") ;}
       break;
     default:
-      jj_la1[11] = jj_gen;
+      jj_la1[12] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -599,7 +610,7 @@ Entity
           {if (true) return list ;}
       break;
     default:
-      jj_la1[12] = jj_gen;
+      jj_la1[13] = jj_gen;
           {if (true) return input_list ;}
     }
     throw new Error("Missing return statement in function");
@@ -623,7 +634,7 @@ Entity
           list.add(0,parameter) ; {if (true) return list ;}
       break;
     default:
-      jj_la1[13] = jj_gen;
+      jj_la1[14] = jj_gen;
           {if (true) return input_list ;}
     }
     throw new Error("Missing return statement in function");
@@ -643,7 +654,7 @@ Entity
           list.add(0,parameter) ; {if (true) return list ;}
       break;
     default:
-      jj_la1[14] = jj_gen;
+      jj_la1[15] = jj_gen;
           {if (true) return input_list ;}
     }
     throw new Error("Missing return statement in function");
@@ -677,7 +688,7 @@ Entity
           {if (true) return new Underscore() ;}
       break;
     default:
-      jj_la1[15] = jj_gen;
+      jj_la1[16] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -694,13 +705,13 @@ Entity
   static public Token jj_nt;
   static private int jj_ntk;
   static private int jj_gen;
-  static final private int[] jj_la1 = new int[16];
+  static final private int[] jj_la1 = new int[17];
   static private int[] jj_la1_0;
   static {
       jj_la1_init_0();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x500,0xa00,0x40000,0x1000000,0x2000000,0x4040000,0x30110060,0x10000000,0x20110060,0x20000,0x20000060,0x4082380,0x100000,0x4080f00,0x40000000,0x4080f00,};
+      jj_la1_0 = new int[] {0x500,0xa00,0x40000,0x1000000,0x2000000,0x4040000,0x30110060,0x10000000,0x20110060,0x20110060,0x20000,0x20000060,0x4082380,0x100000,0x4080f00,0x40000000,0x4080f00,};
    }
 
   /** Constructor with InputStream. */
@@ -721,7 +732,7 @@ Entity
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 16; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 17; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -735,7 +746,7 @@ Entity
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 16; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 17; i++) jj_la1[i] = -1;
   }
 
   /** Constructor. */
@@ -752,7 +763,7 @@ Entity
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 16; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 17; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -762,7 +773,7 @@ Entity
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 16; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 17; i++) jj_la1[i] = -1;
   }
 
   /** Constructor with generated Token Manager. */
@@ -778,7 +789,7 @@ Entity
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 16; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 17; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -787,7 +798,7 @@ Entity
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 16; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 17; i++) jj_la1[i] = -1;
   }
 
   static private Token jj_consume_token(int kind) throws ParseException {
@@ -843,7 +854,7 @@ Entity
       la1tokens[jj_kind] = true;
       jj_kind = -1;
     }
-    for (int i = 0; i < 16; i++) {
+    for (int i = 0; i < 17; i++) {
       if (jj_la1[i] == jj_gen) {
         for (int j = 0; j < 32; j++) {
           if ((jj_la1_0[i] & (1<<j)) != 0) {

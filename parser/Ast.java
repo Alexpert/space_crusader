@@ -216,7 +216,7 @@ public class Ast {
 			case ("s"):
 				direction = game.main.model.Direction.SOUTH;
 				break;
-			case ("o"):
+			case ("w"):
 				direction = game.main.model.Direction.WEST;
 				break;
 
@@ -294,6 +294,13 @@ public class Ast {
 	public static abstract class Expression extends Ast {
 		public abstract String toString();
 	}
+	
+	public static class None extends Expression {
+		None(){}
+		public final String toString() { return "none" ; }
+		public String tree_edges() { return "" ; } 
+	}
+	
 
 	public static class UnaryOp extends Expression {
 
@@ -445,9 +452,6 @@ public class Ast {
 						throw new Exception("Not a Direction");
 					//C'est pas joli mais le parser reconnais "O" comme Direction et non comme en entité
 					if (exprAsFunCall.parameters.get(1).kind != "Entity"
-							&& !(exprAsFunCall.parameters.get(1).kind == "Direction"
-							&& ((Direction)exprAsFunCall.parameters.get(1)).getDirection() ==
-							game.main.model.Direction.WEST)
 							&& exprAsFunCall.parameters.get(1).kind != "Underscore")
 						throw new Exception("Not an Entity");
 					Kind entity;
@@ -482,6 +486,11 @@ public class Ast {
 	public static class Action extends Ast {
 
 		Expression expression;
+		
+		Action(){
+			this.kind = "Action" ;
+			this.expression = new None();
+		}
 
 		Action(Expression expression) {
 			this.kind = "Action";
@@ -497,10 +506,14 @@ public class Ast {
 		}
 
 		public IAction make() throws Exception {
-			if (this.expression.kind != "FunCall")
+			if (this.expression.kind != "FunCall" && this.expression.kind != null)
 				throw new Exception("IAction can only be built unsing a FunCall Expression");
 
 			IAction iAction;
+			
+			if(this.expression.kind == null)
+				return null;
+			
 			FunCall exprAsFunCall = (FunCall) this.expression;
 
 			game.main.model.Direction direction = null;
