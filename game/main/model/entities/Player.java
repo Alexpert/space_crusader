@@ -21,6 +21,7 @@ public class Player extends Entity {
 
 	public Player(Tile tile) {
 		super(tile, AutomatonProvider.getInstance().getAutomaton("Playable"));
+		this.collidable = true;
 		this.setKind(Kind.PLAYER);
 		this.setIPainter(new PlayerPainter(this));
 		this.setActionHandler(new ActionHandlerPlayer(this));

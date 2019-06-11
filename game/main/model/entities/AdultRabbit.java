@@ -14,6 +14,7 @@ public class AdultRabbit extends Entity {
 
 	AdultRabbit(Tile tile) {
 		super(tile, AutomatonProvider.getInstance().getAutomaton("Rabbit"));
+		this.collidable = true;
 		this.setKind(Kind.MONSTER);
 		this.setIPainter(new RabbitPainter(this));
 		this.setActionHandler(new ActionHandlerRabbit(this));

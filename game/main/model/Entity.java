@@ -14,6 +14,7 @@ public abstract class Entity {
 	private Direction orientation = Direction.NORTH;
 	private Kind kind = Kind.ANYTHING;
 	private boolean moveable = false;
+	protected boolean collidable = false;
 	
 	private boolean hasViewport = false;
 	private long currentTimeAction = 0;
@@ -99,9 +100,19 @@ public abstract class Entity {
 	}
 	
 	public void moveToTile(int x, int y) {
-		this.getTile().remove(this);
 		Tile tile = this.getWorld().getTile(x, y);
-		this.setTile(tile);
+		int i = 0;
+		boolean collide = false;
+		while (i < tile.nbEntity() && !collide) {
+			if (tile.getEntity(i).collidable) {
+				collide = true;
+			}
+			i++;
+		}
+		if (!collide) {
+			this.getTile().remove(this);
+			this.setTile(tile);
+		}
 	}
 
 	public Tile getTile(Direction d) {
