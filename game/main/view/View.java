@@ -1,5 +1,6 @@
 package game.main.view;
 
+import java.awt.Button;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -8,8 +9,6 @@ import edu.ricm3.game.GameView;
 import game.main.model.Entity;
 import game.main.model.Kind;
 import game.main.model.Model;
-import game.main.model.Tile;
-import game.main.model.World;
 
 public class View extends GameView {
 
@@ -21,6 +20,7 @@ public class View extends GameView {
 	int m_fps;
 	Model m_model;
 	Viewport viewport;
+	HUDView hud;
 	//Viewport viewport2;
 	// Controller m_ctr;
 
@@ -35,18 +35,6 @@ public class View extends GameView {
 		if(i < entities.size()) {
 			this.viewport.setEntity(entities.get(i));
 		}
-		/* Case with second Player
-		Viewport viewport2 = new Viewport(this.m_model.getCurrentWorld(), 1280, 640); 
-		i = 0;
-		while(i < entities.size() && entities.get(i).getKind() != Kind.PLAYER && entities.get(i).getHasViewport()) {
-			i++;
-		}
-		if(i < entities.size()) {
-			this.viewport2.setEntity(entities.get(i));
-		}
-		*/
-		
-		// m_ctr = c;
 	}
 
 	public void step(long now) {
@@ -81,5 +69,10 @@ public class View extends GameView {
 			
 		}*/
 		
+	}
+
+	public void setHUD() {
+		this.hud = new HUDView(viewport.getEntity());
+		this.m_game.addSouth(this.hud);
 	}
 }
