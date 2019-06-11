@@ -7,6 +7,7 @@ public class Rock extends Entity {
 
 	public Rock(Tile tile) {
 		super(tile, AutomatonProvider.getInstance().getAutomaton("Idle"));
+		this.collidable = true;
 		this.setKind(Kind.OBSTACLE);
 		this.setIPainter(new RockPainter(this));
 	}
