@@ -1,13 +1,22 @@
 package game.main.view.painters;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 
 import game.main.model.Action;
 import game.main.model.Direction;
+import game.main.model.Entity;
 import game.main.view.IPainter;
 
 public class LaserPainter implements IPainter{
-
+	
+	Entity entity;
+	//Image texture;
+	
+	public LaserPainter(Entity e) {
+		this.entity = e;
+	}
 	@Override
 	public void step(long now) {
 		// TODO Auto-generated method stub
@@ -16,7 +25,10 @@ public class LaserPainter implements IPainter{
 
 	@Override
 	public void paint(Graphics g, int posX, int posY) {
-		// TODO Auto-generated method stub
+		if (this.entity.getIsVisible()) {
+			g.setColor(Color.BLUE);
+			g.fillRect(posX + 14, posY + 14, 4, 4);
+		}
 		
 	}
 
