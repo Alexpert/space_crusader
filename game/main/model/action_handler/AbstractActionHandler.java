@@ -1,5 +1,6 @@
 package game.main.model.action_handler;
 
+import game.main.model.Action;
 import game.main.model.Direction;
 import game.main.model.Entity;
 
@@ -14,7 +15,7 @@ public abstract class AbstractActionHandler {
 	public abstract void pop(Direction d);
 
 	public boolean move() {
-		this.entity.setActionTimer(100);
+		this.entity.setActionTimer(300);
 		Direction d = this.entity.getOrientation();
 		int newX = this.entity.getX();
 		int newY = this.entity.getY();
@@ -31,6 +32,7 @@ public abstract class AbstractActionHandler {
 		else if(d == Direction.SOUTH) {
 			newY++;
 		}
+		this.entity.changeActionAnimation(Action.MOVE, d);
 		
 		if(newX >= this.entity.getWorld().getWidth()) {		//controlling the torus property
 			newX -= this.entity.getWorld().getWidth();
@@ -51,10 +53,8 @@ public abstract class AbstractActionHandler {
 	}
 	
 	public boolean move(Direction d) {
-		Direction lastDirection = this.entity.getOrientation();
 		this.entity.turn(d);
 		this.move();
-		this.entity.turn(lastDirection);
 		return false;
 	}
 

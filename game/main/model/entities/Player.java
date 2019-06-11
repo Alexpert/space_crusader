@@ -34,4 +34,10 @@ public class Player extends Entity {
 	public void add(Item item) {
 		this.inventary.add(item);
 	}
+	
+	@Override
+	public void step(long now) {
+		super.step(now);
+		
+	}
 }
