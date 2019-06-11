@@ -23,6 +23,22 @@ Idle(Wait0){
 }
 
 Rabbit(Wait0) {
+* (Wait0):
+		| True ? Wait : (Turn0)
+	* (Turn0):
+		| True ? Turn(R) : (Jump0)
+	* (Jump0):
+		| True ? Move(F) : (Jump1)
+	* (Jump1):
+		| True ? Move(F) : (Jump2)
+	* (Jump2):
+		| True ? Move(F) : (Init1)
+  * (Init1): 
+	| True ? Pop(F) : (Init2)
+  * (Init2)
+}
+
+Test(Wait0){
 	* (Wait0):
 		| True ? Wait : (Turn0)
 	* (Turn0):
@@ -36,3 +52,4 @@ Rabbit(Wait0) {
 	* (Wait0):
 		| True ? Wait : (Turn0)
 }
+

@@ -14,6 +14,7 @@ public class Rabbit extends Entity {
 
 	public Rabbit(Tile tile) {
 		super(tile, AutomatonProvider.getInstance().getAutomaton("Rabbit"));
+		this.moveable = true;
 		this.collidable = true;
 		this.setKind(Kind.MONSTER);
 		this.setIPainter(new RabbitPainter(this));

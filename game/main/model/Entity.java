@@ -13,8 +13,9 @@ public abstract class Entity {
 	private int maxHealth = 10;
 	private Direction orientation = Direction.NORTH;
 	private Kind kind = Kind.ANYTHING;
-	private boolean moveable = false;
+	protected boolean moveable = false;
 	protected boolean collidable = false;
+	private boolean isVisible = true;
 	
 	private boolean hasViewport = false;
 	private long currentTimeAction = 0;
@@ -31,6 +32,7 @@ public abstract class Entity {
 	protected Entity(Tile tile, IAutomaton automaton) {
 		this.automaton = automaton;
 		this.setTile(tile);
+		System.out.println(this.automaton.getName());
 	}
 	
 	
@@ -86,6 +88,9 @@ public abstract class Entity {
 
 	public boolean moveable() {
 		return this.moveable;
+	}
+	public void updateMoveable(boolean moveable) {
+		this.moveable = moveable;
 	}
 
 	protected AbstractActionHandler getActionHandler() {
@@ -488,8 +493,16 @@ public abstract class Entity {
 	public Kind getKind() {
 		return this.kind;
 	}
-
-	private Tile getTile() {
+	
+	public boolean getCollidable() {
+		return this.collidable;
+	}
+	
+	public void updateCollidable(boolean collidable) {
+		this.collidable = collidable;
+	}
+	
+	public Tile getTile() {
 		return tile;
 	}
 
@@ -500,6 +513,14 @@ public abstract class Entity {
 
 	public void removeTile() {
 		this.tile = null;
+	}
+	
+	public boolean getIsVisible() {
+		return this.isVisible;
+	}
+	
+	public void updateIsVisible(boolean isVisible) {
+		this.isVisible = isVisible;
 	}
 
 	public long getCurrentTimeAction() {
