@@ -31,7 +31,7 @@ public class AdultRabbitPainter implements IPainter {
 		@Override
 		public void changeActionAnimation(Action a, Direction d) {
 			// TODO Auto-generated method stub
-			
+		
 		}
 		
 		

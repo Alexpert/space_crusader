@@ -11,6 +11,7 @@ import interpreter.IAutomaton;
 public class Model extends GameModel {
 
 	World currentWorld = null;
+	public boolean isInGame = false;
 	private HashMap<String, Boolean> map;
 	private String automataPath = "assets/automata.txt";
 
@@ -47,11 +48,13 @@ public class Model extends GameModel {
 			e.printStackTrace();
 		}
 
+	}
+	
+	public void initGame() {
 		World newWorld = new World(200, 200, this);
 		newWorld.add(new Player(newWorld.getTile(0, 0)));
 		
 		this.currentWorld = newWorld;
-
 	}
 
 	public void writeHashMap(String key, boolean bool) {
