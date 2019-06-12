@@ -21,8 +21,6 @@ public class View extends GameView {
 	int m_fps;
 	Model m_model;
 	Viewport viewport;
-	//Viewport viewport2;
-	// Controller m_ctr;
 
 	public View(Model m) {
 		m_model = m;

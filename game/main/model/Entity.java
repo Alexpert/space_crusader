@@ -32,7 +32,6 @@ public abstract class Entity {
 	protected Entity(Tile tile, IAutomaton automaton) {
 		this.automaton = automaton;
 		this.setTile(tile);
-		System.out.println(this.automaton.getName());
 	}
 	
 	
