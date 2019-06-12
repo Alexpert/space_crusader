@@ -30,6 +30,11 @@ public class World {
 		}
 	}
 	
+	public void generate() {
+		this.map = WorldBuilder.createTiles(width, height, this);
+		WorldBuilder.populate(map);
+	}
+	
 	public void add(Entity e) {
 		this.map[e.getX()][e.getY()].add(e);
 	}

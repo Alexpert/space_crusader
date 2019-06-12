@@ -13,8 +13,10 @@ import game.main.view.painters.RabbitPainter;
 
 public class Rabbit extends Entity {
 
+	public static String nameAtomaton = "Rabbit";
+	
 	public Rabbit(Tile tile) {
-		super(tile, AutomatonProvider.getInstance().getAutomaton("Rabbit"));
+		super(tile, AutomatonProvider.getInstance().getAutomaton(Rabbit.nameAtomaton));
 		this.moveable = true;
 		this.collidable = true;
 		this.setKind(Kind.MONSTER);

@@ -10,7 +10,7 @@ import interpreter.IAutomaton;
 
 public class Model extends GameModel {
 
-	World currentWorld = null;
+	public World currentWorld = null;
 	public boolean isInGame = false;
 	private HashMap<String, Boolean> map;
 	private String automataPath = "assets/automata.txt";
