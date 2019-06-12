@@ -21,7 +21,7 @@ public abstract class Item {
 		return name;
 	}
 
-	private void setName(String name) {
+	protected void setName(String name) {
 		this.name = name;
 	}
 
@@ -29,7 +29,7 @@ public abstract class Item {
 		return value;
 	}
 
-	private void setValue(int value) {
+	protected void setValue(int value) {
 		this.value = value;
 	}
 }

@@ -11,8 +11,10 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Label;
+import java.util.ArrayList;
 
 import game.main.model.Entity;
+import game.main.model.Item;
 import game.main.model.Kind;
 import game.main.model.entities.Player;
 
@@ -78,6 +80,19 @@ class InventoryView extends Container {
 	
 	public Player getPlayer() {
 		return (Player) this.parent.getEntity();
+	}
+	
+	@Override
+	public void paint(Graphics g) {
+		this.removeAll();
+		ArrayList<Item> inventory = this.getPlayer().getInventory();
+		for (int i = 0; i < 10; i++) {
+			if (i < inventory.size())
+				this.add(new SpriteCanvas("assets/items/" + inventory.get(i).getName().toLowerCase() + ".png"));
+			else
+				this.add(new Canvas());
+		}
+		super.paint(g);
 	}
 }
 
