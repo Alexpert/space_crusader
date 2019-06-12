@@ -55,30 +55,48 @@ public class PlayerPainter  implements IPainter{
 	public void initAnimation() {
 		this.listAnimation = new ArrayList<>();
 		Image animSprite = TextureProvider.getInstance().getTexture("assets/entities/player_animation.png");
-		this.listAnimation.add(new Animation(animSprite, 0, 1));	//default image
-		this.listAnimation.add(new Animation(animSprite, 2, 6));	//walk to the right
-		this.listAnimation.add(new Animation(animSprite, 3, 6));	//walk to the left
-		this.listAnimation.add(new Animation(animSprite, 4, 4));	//walk to the north
-		this.listAnimation.add(new Animation(animSprite, 5, 4));	//walk to the south
+		this.listAnimation.add(new Animation(animSprite, 0, 1));	//0		default looking right
+		this.listAnimation.add(new Animation(animSprite, 1, 1));	//1		default looking left
+		this.listAnimation.add(new Animation(animSprite, 4, 1,1));	//2		default looking north
+		this.listAnimation.add(new Animation(animSprite, 5, 1,1));	//3		default looking south
+		
+		this.listAnimation.add(new Animation(animSprite, 2, 6));	//4		walk to the right
+		this.listAnimation.add(new Animation(animSprite, 3, 6));	//5		walk to the left
+		this.listAnimation.add(new Animation(animSprite, 4, 4));	//6		walk to the north
+		this.listAnimation.add(new Animation(animSprite, 5, 4));	//7		walk to the south
 	}
 	
 	@Override
 	public void changeActionAnimation(Action a, Direction d) {
 		if(a == Action.PATIENT) {
+			if(d == Direction.EAST) {
+				this.currentAnimation = this.listAnimation.get(0);
+			}
+			else if(d == Direction.WEST) {
+				this.currentAnimation = this.listAnimation.get(1);
+			}
+			else if(d == Direction.NORTH) {
+				this.currentAnimation = this.listAnimation.get(2);
+			}
+			else if(d == Direction.SOUTH) {
+				this.currentAnimation = this.listAnimation.get(3);
+			}
+		}
+		if(a == Action.HIT) {
 			this.currentAnimation = this.listAnimation.get(0);
 		}
 		if(a == Action.MOVE) {
 			if(d == Direction.EAST) {
-				this.currentAnimation = this.listAnimation.get(1);
+				this.currentAnimation = this.listAnimation.get(4);
 			}
 			else if(d == Direction.WEST) {
-				this.currentAnimation = this.listAnimation.get(2);
+				this.currentAnimation = this.listAnimation.get(5);
 			}
 			else if(d == Direction.NORTH) {
-				this.currentAnimation = this.listAnimation.get(3);
+				this.currentAnimation = this.listAnimation.get(6);
 			}
 			else if(d == Direction.SOUTH) {
-				this.currentAnimation = this.listAnimation.get(4);
+				this.currentAnimation = this.listAnimation.get(7);
 			}
 		}
 	}

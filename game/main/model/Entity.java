@@ -53,8 +53,8 @@ public abstract class Entity {
 		this.painter.step(now);
 	}
 
-	public void addHealth(int healthpoints) {
-		this.health += healthpoints;
+	public void setHealth(int healthpoints) {
+		this.health = healthpoints;
 	}
 
 	
@@ -157,7 +157,6 @@ public abstract class Entity {
 			}
 		}
 		if (d2 == Direction.WEST) {
-			System.out.println(this.getY());
 			if (this.getX() > 0) {
 				return this.getWorld().getTile(this.getX() - 1, this.getY());
 			} else {
@@ -169,11 +168,13 @@ public abstract class Entity {
 
 	public void move() {
 		this.currentAction = Action.MOVE;
+		this.painter.changeActionAnimation(Action.MOVE, this.orientation);
 		this.getActionHandler().move();
 	}
 
 	public void move(Direction d) {
 		this.currentAction = Action.MOVE;
+		this.painter.changeActionAnimation(Action.MOVE, this.orientation);
 		this.getActionHandler().move(d);
 	}
 
@@ -182,6 +183,7 @@ public abstract class Entity {
 	}
 
 	public void hit(Direction d) {
+		this.painter.changeActionAnimation(Action.HIT, this.orientation);
 		this.getActionHandler().hit(d);
 	}
 
@@ -432,6 +434,7 @@ public abstract class Entity {
 	public void patient() {
 		this.actionHandler.patient();
 		this.currentAction = Action.PATIENT;
+		this.painter.changeActionAnimation(Action.PATIENT, this.orientation);
 	}
 
 	public void wizz(Direction direction) {
@@ -541,6 +544,13 @@ public abstract class Entity {
 	
 	public void setAction(Action a) {
 		this.currentAction= a;
+	}
+	
+	public void takeDamage(int dmg) {
+		this.health-=dmg;
+		if(this.health<=0) {
+			this.tile.remove(this);
+		}
 	}
 	
 }

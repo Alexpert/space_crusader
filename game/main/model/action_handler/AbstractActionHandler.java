@@ -20,7 +20,7 @@ public abstract class AbstractActionHandler {
 		int newX = this.entity.getX();
 		int newY = this.entity.getY();
 		if(d == Direction.EAST) {
-			if(this.entity.getTile(d).isEmpty()) {
+			if(!this.entity.getTile(d).isCollidable()) {
 				newX++;
 			}
 			else {
@@ -28,7 +28,7 @@ public abstract class AbstractActionHandler {
 			}
 		}
 		else if(d == Direction.WEST) {
-			if(this.entity.getTile(d).isEmpty()) {
+			if(!this.entity.getTile(d).isCollidable()) {
 				newX--;
 			}
 			else {
@@ -36,7 +36,7 @@ public abstract class AbstractActionHandler {
 			}
 		}
 		else if(d == Direction.NORTH) {
-			if(this.entity.getTile(d).isEmpty()) {
+			if(!this.entity.getTile(d).isCollidable()) {
 				newY--;
 			}
 			else {
@@ -44,7 +44,7 @@ public abstract class AbstractActionHandler {
 			}
 		}
 		else if(d == Direction.SOUTH) {
-			if(this.entity.getTile(d).isEmpty()) {
+			if(!this.entity.getTile(d).isCollidable()) {
 				newY++;
 			}
 			else {
