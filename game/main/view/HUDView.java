@@ -98,6 +98,7 @@ class HealthBar extends Container {
 }
 
 class HealthBarCanvas extends Canvas{
+	private static final long serialVersionUID = 1L;
 	HealthBar parent;
 	
 	HealthBarCanvas(HealthBar parent) {
