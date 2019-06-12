@@ -2,12 +2,13 @@ package game.main.model.action_handler;
 
 import game.main.model.Direction;
 import game.main.model.Tile;
+import game.main.model.entities.Laser;
 
 public class ActionHandlerAdultRabbit extends AbstractActionHandler{
 
 	@Override
 	public void patient() {
-		// TODO Auto-generated method stub
+		this.entity.setActionTimer(500);
 		return;
 	}
 
@@ -19,10 +20,18 @@ public class ActionHandlerAdultRabbit extends AbstractActionHandler{
 
 	@Override
 	public void pop(Direction d) {
-		// TODO laser
+		this.entity.setActionTimer(5000);
+		Tile tile = this.entity.getTile(d);
+		new Laser(tile);
 		return;
 	}
-
+	@Override
+	public boolean turn(Direction d) {
+		this.entity.setActionTimer(300);
+		super.turn(d);
+		return true;
+	}
+	
 	@Override
 	public boolean jump(Direction d) {
 		// TODO don't jump
@@ -31,13 +40,14 @@ public class ActionHandlerAdultRabbit extends AbstractActionHandler{
 
 	@Override
 	public boolean hit(Direction d) {
+		this.entity.setActionTimer(1000);
 		Tile t = this.entity.getTile(d);
 		if(t.isEmpty()) {
 			return false;
 		}
 		else {
 			for(int i = 0; i < t.nbEntity(); i ++) {
-				t.getEntity(i).takeDamage(10);;
+				t.getEntity(i).takeDamage(1);;
 			}
 			return true;
 		}
@@ -75,6 +85,7 @@ public class ActionHandlerAdultRabbit extends AbstractActionHandler{
 
 	@Override
 	public boolean power() {
+		this.entity.setActionTimer(100);
 		if(this.entity.getHealth() > 0) {
 			this.entity.takeDamage(-1);
 			return true;
@@ -84,6 +95,7 @@ public class ActionHandlerAdultRabbit extends AbstractActionHandler{
 
 	@Override
 	public boolean kamikaze() {
+		this.entity.setActionTimer(100);
 		this.entity.setHealth(0);
 		return true;
 	}
