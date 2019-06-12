@@ -50,9 +50,12 @@ public class Model extends GameModel {
 		this.initGame();
 	}
 	
-	public void initGame() {
-		World newWorld = new World(200, 200, this);
-		new Player(newWorld.getTile(0, 0));
+	public void initGame() {/*
+		World newWorld = new World(200, 200, this, WorldType.PLANET);
+		new Player(newWorld.getTile(0, 0));*/
+
+		World newWorld = new World(30, 30, this, WorldType.SHIP);
+		new Player(newWorld.getTile(0, 1));
 		
 		this.currentWorld = newWorld;
 	}

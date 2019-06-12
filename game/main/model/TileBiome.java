@@ -8,7 +8,7 @@ public enum TileBiome {
 	PLAIN("assets/terrain/plain.png"), FOREST("assets/terrain/forest.png"),
 	JUNGLE("assets/terrain/jungle.png"), SWAMP("assets/terrain/swamp.png"),
 	TAIGA("assets/terrain/taiga.png"), SHIP("assets/terrain/ship.png"),
-	SPACE("assets/terrain/space.png");
+	SPACE("assets/terrain/black.png");
 	
 	private String texturePath;
 	

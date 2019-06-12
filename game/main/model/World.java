@@ -9,6 +9,17 @@ public class World {
 	private Tile[][] map;
 	private Model model;
 
+	public World(int width, int height, Model model) {
+		this.width = width;
+		this.height = height;
+		this.model = model;
+		this.map = WorldBuilder.createTiles(width, height, this);
+		WorldBuilder.populate(map);
+		Structure structure = new Structure();
+		Random random = new Random();
+		this.applyStructure(structure, random.nextInt(this.width - 1), random.nextInt(this.width - 1));
+	}
+
 	public World(int width, int height, Model model, WorldType worldType) {
 		this.width = width;
 		this.height = height;
@@ -16,24 +27,26 @@ public class World {
 		if (worldType == WorldType.PLANET) {
 			this.map = WorldBuilder.createTiles(width, height, this);
 			WorldBuilder.populate(map);
-		}else if (worldType == WorldType.SHIP) {
-			this.map = ShipBuilder.ship(this);
+			Structure structure = new Structure();
+			Random random = new Random();
+			this.applyStructure(structure, random.nextInt(this.width - 1), random.nextInt(this.width - 1));
+		} else if (worldType == WorldType.SHIP) {
+			this.width = 30;
+			this.height = 32;
+			this.map = ShipBuilder.ship(this.width, this.height, this);
 		}
-		Structure structure = new Structure();
-		Random random = new Random();
-		this.applyStructure(structure, random.nextInt(this.width - 1), random.nextInt(this.width -1));
 	}
-	
+
 	public void applyStructure(Structure structure, int x, int y) {
 		ArrayList<Tile> tiles = structure.getTiles();
-		for (Tile tile: tiles) {
+		for (Tile tile : tiles) {
 			this.map[(tile.getX() + x) % this.width][(tile.getY() + y) % this.height] = tile;
 			tile.setX((tile.getX() + x) % this.width);
 			tile.setY((tile.getY() + y) % this.height);
 			tile.setWorld(this);
 		}
 	}
-	
+
 	public void add(Entity e) {
 		this.map[e.getX()][e.getY()].add(e);
 	}
