@@ -1,8 +1,7 @@
 package game.main.model;
 
 import java.util.ArrayList;
-
-import interpreter.IAutomaton;
+import java.util.Random;
 
 public class World {
 
@@ -16,6 +15,19 @@ public class World {
 		this.model = model;
 		this.map = WorldBuilder.createTiles(width, height, this);
 		WorldBuilder.populate(map);
+		Structure structure = new Structure();
+		Random random = new Random();
+		this.applyStructure(structure, random.nextInt(this.width - 1), random.nextInt(this.width -1));
+	}
+	
+	public void applyStructure(Structure structure, int x, int y) {
+		ArrayList<Tile> tiles = structure.getTiles();
+		for (Tile tile: tiles) {
+			this.map[(tile.getX() + x) % this.width][(tile.getY() + y) % this.height] = tile;
+			tile.setX((tile.getX() + x) % this.width);
+			tile.setY((tile.getY() + y) % this.height);
+			tile.setWorld(this);
+		}
 	}
 	
 	public void add(Entity e) {
