@@ -47,4 +47,11 @@ public class Player extends Entity {
 	public void step(long now) {
 		super.step(now);
 	}
+
+	public boolean addItem(Item item) {
+		if (this.inventory.size() < 10)
+			this.inventory.add(item);
+		
+		return this.inventory.size() < 11;
+	}
 }

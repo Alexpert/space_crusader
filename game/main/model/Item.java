@@ -1,5 +1,7 @@
 package game.main.model;
 
+import game.main.model.entities.DroppedItem;
+
 public abstract class Item {
 	private String name;
 	private int value = 0;

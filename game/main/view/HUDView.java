@@ -153,7 +153,6 @@ class WealthView extends Container{
 	
 	@Override
 	public void paint(Graphics g) {
-		System.out.println("player money: " + this.getPlayer().getMoney());
 		label.setText("$" + this.getPlayer().getMoney());
 		label.paint(g);
 	}

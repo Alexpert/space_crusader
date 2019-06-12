@@ -32,7 +32,6 @@ public abstract class Entity {
 	protected Entity(Tile tile, IAutomaton automaton) {
 		this.automaton = automaton;
 		this.setTile(tile);
-		System.out.println(this.automaton.getName());
 	}
 	
 	
@@ -53,6 +52,8 @@ public abstract class Entity {
 			this.beginTimeAction = this.beginTimeAction+this.totalTimeAction;
 			this.automaton.step(this);
 		}
+		if (this.painter == null)
+			System.out.println(this);
 		this.painter.step(now);
 	}
 
@@ -206,8 +207,16 @@ public abstract class Entity {
 
 	public boolean cell(Direction d, Kind e, int distance) {
 		if (distance == 0) {
-			return false;
+			ArrayList<Entity> entities = this.getTile().getEntities();
+			
+			int i = 0;
+			while (i < entities.size() && entities.get(i).getKind() != e) {
+				i++;
+			}
+			
+			return i != entities.size();
 		}
+		
 		int nbTile = 1 + (distance-1) * 2;
 		int n = 0;
 		int worldWidth = this.getWorld().getWidth();
@@ -552,8 +561,13 @@ public abstract class Entity {
 	public void takeDamage(int dmg) {
 		this.health-=dmg;
 		if(this.health<=0) {
-			this.tile.remove(this);
+			this.die();
 		}
+	}
+
+
+	public void die() {
+		this.tile.remove(this);
 	}
 	
 }
