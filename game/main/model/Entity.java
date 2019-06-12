@@ -179,6 +179,7 @@ public abstract class Entity {
 
 	public void hit(Direction d) {
 		this.painter.changeActionAnimation(Action.HIT, this.orientation);
+		this.currentAction = Action.HIT;
 		this.getActionHandler().hit(d);
 	}
 

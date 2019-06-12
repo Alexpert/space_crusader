@@ -18,9 +18,10 @@ public class Player extends Entity {
 	
 	private int money;
 	private ArrayList<Item> inventary;
+	public static String nameAtomaton = "Playable";
 
 	public Player(Tile tile) {
-		super(tile, AutomatonProvider.getInstance().getAutomaton("Playable"));
+		super(tile, AutomatonProvider.getInstance().getAutomaton(Player.nameAtomaton));
 		this.collidable = true;
 		this.setKind(Kind.PLAYER);
 		this.setIPainter(new PlayerPainter(this));
