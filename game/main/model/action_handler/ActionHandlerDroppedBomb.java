@@ -2,12 +2,10 @@ package game.main.model.action_handler;
 
 import game.main.model.Direction;
 import game.main.model.Entity;
-import game.main.model.Tile;
-import game.main.model.entities.DroppedBomb;
 
-public class ActionHandlerPlayer extends AbstractActionHandler {
-	
-	public ActionHandlerPlayer(Entity e) {
+public class ActionHandlerDroppedBomb extends AbstractActionHandler{
+
+	public ActionHandlerDroppedBomb(Entity e) {
 		this.entity = e;
 	}
 	
@@ -15,19 +13,17 @@ public class ActionHandlerPlayer extends AbstractActionHandler {
 	public void patient() {
 		this.entity.setActionTimer(10);
 	}
-	
+
 	@Override
 	public void wizz(Direction d) {
-		System.out.println("wizz direction"+d+"");
-
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void pop(Direction d) {
-		//System.out.println("pop direction"+d+"");
-		this.entity.setActionTimer(200);
-		Tile t = this.entity.getTile(d);
-		new DroppedBomb(t);
+		this.entity.setActionTimer(3000);
+		System.out.println("oui");
 	}
 
 	@Override
@@ -36,19 +32,10 @@ public class ActionHandlerPlayer extends AbstractActionHandler {
 		return false;
 	}
 
-	@Override			// return false has nothing was on the tile
+	@Override
 	public boolean hit(Direction d) {
-		
-		Tile t = this.entity.getTile(d);
-		if(t.isEmpty()) {
-			return false;
-		}
-		else {
-			for(int i = 0; i < t.nbEntity(); i ++) {
-				t.getEntity(i).takeDamage(5);
-			}
-			return true;
-		}
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
@@ -59,6 +46,12 @@ public class ActionHandlerPlayer extends AbstractActionHandler {
 
 	@Override
 	public boolean pick(Direction d) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean cast(Direction d) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -77,28 +70,18 @@ public class ActionHandlerPlayer extends AbstractActionHandler {
 
 	@Override
 	public boolean power() {
-		if(this.entity.getHealth() > 0) {
-			this.entity.takeDamage(-1);
-			return true;
-		}
+		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean kamikaze() {
-		this.entity.setHealth(0);
-		return true;
-	}
-
-	@Override
-	public boolean egg() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-
 	@Override
-	public boolean cast(Direction d) {
+	public boolean egg() {
 		// TODO Auto-generated method stub
 		return false;
 	}

@@ -14,6 +14,13 @@ Playable(Init){
 		| True ? Wait : (Init)
 }
 
+Bomb(Init){
+	* (Init):
+		| True ? Pop : (Fin)
+	* (Fin):
+		| True ? Wizz : (Init)
+}
+
 Idle(Wait0){
 	* (Wait0):
 		| True ? Wait : (Wait1)

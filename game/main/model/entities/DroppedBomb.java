@@ -10,7 +10,7 @@ import interpreter.IAutomaton;
 
 public class DroppedBomb extends Entity{
 
-	public static String nameAtomaton = "Idle";
+	public static String nameAtomaton = "Bomb";
 	
 	public DroppedBomb(Tile tile) {
 		super(tile, AutomatonProvider.getInstance().getAutomaton(Flower.nameAtomaton));
