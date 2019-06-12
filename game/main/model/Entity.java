@@ -510,7 +510,7 @@ public abstract class Entity {
 		return tile;
 	}
 
-	private void setTile(Tile tile) {
+	public void setTile(Tile tile) {
 		this.tile = tile;
 		tile.add(this);
 	}
