@@ -7,6 +7,8 @@ import game.main.model.Entity;
 import game.main.model.Tile;
 import game.main.model.World;
 import game.main.model.entities.Player;
+import game.main.music.SoundProvider;
+import game.main.music.WorldSoundHandler;
 
 public class ActionHandlerGate extends AbstractActionHandler {
 
@@ -57,6 +59,13 @@ public class ActionHandlerGate extends AbstractActionHandler {
 		}
 		//We update the currentWorld
 		this.entity.getWorld().getModel().setCurrenWorld(otherWorld);
+		
+		//We manage the music
+		otherWorld.getWorldSoundHander().stop();
+		tmpWorld.setSoundHandler(new WorldSoundHandler(tmpWorld));
+		tmpWorld.setMusic(SoundProvider.getInstance().getSound("assets/music/ambiance_vaisseau.wav"));
+		tmpWorld.getWorldSoundHander().start();
+		
 		//The player spawns at the right of the gate
 		Tile start = otherWorld.getTile(this.entity.getX() + 1, this.entity.getY());
 		player.setTile(start);

@@ -19,7 +19,7 @@ public class Model extends GameModel {
 	private ArrayList<World> worlds;
 	private HashMap<String, Boolean> map;
 	private String automataPath = "assets/automata.txt";
-	private String soundPath = "assets/music/Surivor-EyeOfTheTiger.wav";
+	private String soundPath = "assets/music/ambiance_monde.wav";
 	private Player player;
 
 	public Model() {
