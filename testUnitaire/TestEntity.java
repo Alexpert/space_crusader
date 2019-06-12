@@ -11,6 +11,7 @@ import game.main.model.Entity;
 import game.main.model.Kind;
 import game.main.model.Model;
 import game.main.model.World;
+import game.main.model.entities.Flower;
 import game.main.model.entities.Player;
 
 
@@ -18,7 +19,7 @@ public class TestEntity {
 	static Model model;
 	static Entity entity1;
 	static Entity entity2;
-	
+	static Entity entity3;
 	
 	@BeforeClass
 	public static void init() {
@@ -29,6 +30,14 @@ public class TestEntity {
 		
 		entity2 = new Player(model.getCurrentWorld().getTile(20, 0));
 		new Player(model.getCurrentWorld().getTile(1, 0));
+		
+		entity3 = new Flower(model.getCurrentWorld().getTile(0, 0));
+	}
+	
+	@Test
+	public void testEntitycell0() {
+		assertTrue(entity1.cell(Direction.SOUTH, Kind.PLAYER, 0) == true);
+		assertTrue(entity2.cell(Direction.EAST, Kind.PLAYER, 0) == false);
 	}
 	
 	@Test
