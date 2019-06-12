@@ -3,6 +3,7 @@ package game.main.model;
 import java.net.Socket;
 
 import game.main.model.entities.Flower;
+import game.main.model.entities.Gate;
 import game.main.model.entities.Rock;
 import game.main.model.entities.Tree;
 import game.main.model.entities.Wall;
@@ -25,7 +26,7 @@ public class ShipBuilder {
 		}
 
 		tiles[1][1].clear();
-		tiles[1][1].add(new Tree(tiles[1][1]));
+		tiles[1][1].add(new Gate(tiles[1][1]));
 		// into starship
 		for (int i = 2; i < height - 20; i++) {
 			for (int j = 0; j < width; j++) {

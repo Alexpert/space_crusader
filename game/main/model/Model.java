@@ -58,27 +58,16 @@ public class Model extends GameModel {
 		//Initialization of the arraylist of worlds
 		this.worlds = new ArrayList<World>();
 		
-		this.initGame();
+//		this.initGame();
 	}
 	
-	public void initGame() {/*
-		World newWorld = new World(200, 200, this, WorldType.PLANET);
-		new Player(newWorld.getTile(0, 0));*/
+	public void initGame() {
+		this.worlds.add(new World(200, 200, this, WorldType.PLANET));
 
-		World newWorld = new World(30, 30, this, WorldType.SHIP);
-		new Player(newWorld.getTile(0, 1));
+		this.worlds.add(new World(30, 30, this, WorldType.SHIP));
+		this.player = new Player(this.worlds.get(1).getTile(1, 2));
 		
-		//Clip the soundhandler to its world
-		newWorld.setSoundHandler(new WorldSoundHandler(newWorld));
-		
-		//Give a music to the world
-		newWorld.setMusic(SoundProvider.getInstance().getSound(soundPath));
-		
-		this.player = new Player(newWorld.getTile(0, 0));
-		
-		new Gate(newWorld.getTile(1, 0));
-		
-		this.currentWorld = newWorld;
+		this.currentWorld = this.worlds.get(1);
 	}
 
 	public void writeHashMap(String key, boolean bool) {
@@ -92,6 +81,13 @@ public class Model extends GameModel {
 	@Override
 	public void step(long now) {
 		this.getCurrentWorld().step(now);
+		ArrayList<Entity> entities = new ArrayList<>();
+		for (World w: this.getWorlds())
+			entities.addAll(w.getEntities());
+		entities.removeIf(e -> e.getKind() != Kind.PLAYER);
+		System.out.println(entities.size());
+		if (entities.size() != 1)
+			System.out.println("ouyv");
 	}
 
 	@Override

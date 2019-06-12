@@ -24,19 +24,19 @@ public class Gate extends Entity {
 	
 	@Override
 	public void pop(Direction direction) {
-		super.pop(direction);
 		System.out.println("POP GATE");
+		super.pop(direction);
 	}
 	
 	@Override
 	public void wizz(Direction direction) {
-		super.wizz(direction);
 		System.out.println("WIZZ GATE");
+		super.wizz(direction);
 	}
 	
 	@Override
 	public void patient() {
 		super.patient();
-		System.out.println("PATIENT GATE");
+//		System.out.println("PATIENT GATE");
 	}
 }

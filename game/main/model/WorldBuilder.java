@@ -43,6 +43,9 @@ public class WorldBuilder {
 			}
 		}
 		
+		map[1][1].clear();
+		new Gate(map[1][1]);
+		
 		return;
 	}
 

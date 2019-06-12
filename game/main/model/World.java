@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import game.main.music.Music;
+import game.main.music.SoundProvider;
 import game.main.music.WorldSoundHandler;
 import game.main.model.entities.Gate;
 import interpreter.IAutomaton;
@@ -25,22 +26,27 @@ public class World {
 		Structure structure = new Structure();
 		Random random = new Random();
 		this.applyStructure(structure, random.nextInt(this.width - 1), random.nextInt(this.width - 1));
+		this.setSoundHandler(new WorldSoundHandler(this));
+		this.setMusic(SoundProvider.getInstance().getSound("assets/music/ambiance_monde.wav"));
 	}
 
 	public World(int width, int height, Model model, WorldType worldType) {
 		this.width = width;
 		this.height = height;
 		this.model = model;
+		this.setSoundHandler(new WorldSoundHandler(this));
 		if (worldType == WorldType.PLANET) {
 			this.map = WorldBuilder.createTiles(width, height, this);
 			WorldBuilder.populate(map);
 			Structure structure = new Structure();
 			Random random = new Random();
 			this.applyStructure(structure, random.nextInt(this.width - 1), random.nextInt(this.width - 1));
+			this.setMusic(SoundProvider.getInstance().getSound("assets/music/ambiance_monde.wav"));
 		} else if (worldType == WorldType.SHIP) {
 			this.width = 30;
 			this.height = 32;
 			this.map = ShipBuilder.ship(this.width, this.height, this);
+			this.setMusic(SoundProvider.getInstance().getSound("assets/music/ambiance_vaisseau.wav"));
 		}
 	}
 

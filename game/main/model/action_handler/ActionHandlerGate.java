@@ -53,6 +53,7 @@ public class ActionHandlerGate extends AbstractActionHandler {
 		Player player = tmpWorld.getModel().getPlayer();
 		//We withdraw the entity of its world
 		tmpWorld.getTile(this.entity.getX(), this.entity.getY()).remove(player);
+		
 		//Case where the currentworld is the planet (and that the player would like to return to its ship)
 		if(tmpWorld == tmpWorld.getModel().getWorlds().get(0)) {
 			otherWorld = this.entity.getWorld().getModel().getWorlds().get(1);
@@ -71,7 +72,7 @@ public class ActionHandlerGate extends AbstractActionHandler {
 			//We give to the player its new Action HAndler
 			player.setActionHandler(new ActionHandlerPlayer(player));
 			
-			//We manage the music
+			//We manage the musics
 			otherWorld.getWorldSoundHander().stop();
 			tmpWorld.setSoundHandler(new WorldSoundHandler(tmpWorld));
 			tmpWorld.setMusic(SoundProvider.getInstance().getSound("assets/music/ambiance_monde.wav"));
@@ -80,12 +81,10 @@ public class ActionHandlerGate extends AbstractActionHandler {
 		//We update the currentWorld
 		this.entity.getWorld().getModel().setCurrenWorld(otherWorld);
 		
-		//The player spawns at the right of the gate
-		Tile start = otherWorld.getTile(this.entity.getX() + 1, this.entity.getY());
+		Tile start = otherWorld.getTile(1, 2);
 		player.setTile(start);
+		player.getViewPort().setWorld(otherWorld);
 		otherWorld.add(player);
-
-		System.out.println("Pop Gate");
 	}
 
 	@Override

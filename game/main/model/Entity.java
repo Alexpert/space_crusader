@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import game.main.model.action_handler.AbstractActionHandler;
 import game.main.view.IPainter;
+import game.main.view.Viewport;
 import interpreter.IAutomaton;
 
 public abstract class Entity {
@@ -16,8 +17,8 @@ public abstract class Entity {
 	protected boolean moveable = false;
 	protected boolean collidable = false;
 	private boolean isVisible = true;
-	
-	private boolean hasViewport = false;
+
+	private Viewport viewport;
 	private long currentTimeAction = 0;
 	private long totalTimeAction = 0;
 	private long beginTimeAction = 0;
@@ -499,12 +500,8 @@ public abstract class Entity {
 		this.totalTimeAction = totalTimer;
 	}
 	
-	public void hasViewport(boolean bool) {
-		this.hasViewport = bool;
-	}
-	
-	public boolean getHasViewport() {
-		return this.hasViewport;
+	public boolean hasViewport() {
+		return viewport != null;
 	}
 	
 	public Kind getKind() {
@@ -570,6 +567,16 @@ public abstract class Entity {
 
 	public void die() {
 		this.tile.remove(this);
+	}
+
+
+	public Viewport getViewPort() {
+		return this.viewport;
+	}
+
+
+	public void setViewport(Viewport viewport) {
+		this.viewport = viewport;
 	}
 	
 }

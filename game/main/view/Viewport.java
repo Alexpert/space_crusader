@@ -12,18 +12,18 @@ import game.main.model.World;
 public class Viewport {
 
 	private int width, height;
-	private World w;
+	private World world;
 	private Entity entity;
 	
 	public Viewport(World w, int width, int height) {
-		this.w = w;
+		this.world = w;
 		this.width = width;
 		this.height = height;
 	}
 	
 	public void setEntity(Entity e) {
 		this.entity = e;
-		this.entity.hasViewport(true);
+		this.entity.setViewport(this);
 	}
 	
 	public Entity getEntity() {
@@ -36,16 +36,16 @@ public class Viewport {
 		System.out.println("Position Entity e: " + this.entity.getX() + ", "
 				+ this.entity.getY());*/
 		
-		for(int i = 0; i < w.getWidth(); i++) {
-			for(int j = 0; j < w.getHeight(); j++) {
-				Tile t = w.getTile(i, j);
+		for(int i = 0; i < world.getWidth(); i++) {
+			for(int j = 0; j < world.getHeight(); j++) {
+				Tile t = world.getTile(i, j);
 				t.paint(g,this.getDisplayX(),this.getDisplayY(),this.width,this.height,true);
 			}
 		}
 		
-		for(int i = 0; i < w.getWidth(); i++) {
-			for(int j = 0; j < w.getHeight(); j++) {
-				Tile t = w.getTile(i, j);
+		for(int i = 0; i < world.getWidth(); i++) {
+			for(int j = 0; j < world.getHeight(); j++) {
+				Tile t = world.getTile(i, j);
 				t.paint(g,this.getDisplayX(),this.getDisplayY(),this.width,this.height,false);
 			}
 		}
@@ -56,9 +56,9 @@ public class Viewport {
 		px -= this.width / 2;
 		
 		if (px < 0)
-			px += this.w.getWidth() * 32;
-		if (px >= this.w.getWidth() * 32)
-			px -= this.w.getWidth() * 32;
+			px += this.world.getWidth() * 32;
+		if (px >= this.world.getWidth() * 32)
+			px -= this.world.getWidth() * 32;
 		
 		return px;
 	}
@@ -68,9 +68,9 @@ public class Viewport {
 		py -= this.height / 2;
 		
 		if (py < 0)
-			py += this.w.getHeight() * 32;
-		if (py >= this.w.getHeight() * 32)
-			py -= this.w.getHeight() * 32;
+			py += this.world.getHeight() * 32;
+		if (py >= this.world.getHeight() * 32)
+			py -= this.world.getHeight() * 32;
 		
 		return py;
 	}
@@ -99,5 +99,9 @@ public class Viewport {
 			}
 		}
 		return this.getY()+paddingY;
+	}
+
+	public void setWorld(World world) {
+		this.world = world;
 	}
 }
