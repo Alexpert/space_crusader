@@ -65,10 +65,10 @@ public class PlayerPainter  implements IPainter{
 		this.listAnimation.add(new Animation(animSprite, 4, 4));	//6		walk to the north
 		this.listAnimation.add(new Animation(animSprite, 5, 4));	//7		walk to the south
 		
-		this.listAnimation.add(new Animation(animSprite, 6, 1));	//8		hit to the right
-		this.listAnimation.add(new Animation(animSprite, 7, 1));	//9		hit to the left
-		this.listAnimation.add(new Animation(animSprite, 8, 1));	//10	hit to the north
-		this.listAnimation.add(new Animation(animSprite, 9, 1));	//11	hit to the north
+		this.listAnimation.add(new Animation(animSprite, 6, 5));	//8		hit to the right
+		this.listAnimation.add(new Animation(animSprite, 7, 5));	//9		hit to the left
+		this.listAnimation.add(new Animation(animSprite, 8, 5));	//10	hit to the north
+		this.listAnimation.add(new Animation(animSprite, 9, 5));	//11	hit to the north
 	}
 	
 	@Override
