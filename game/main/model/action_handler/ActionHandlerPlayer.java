@@ -102,7 +102,8 @@ public class ActionHandlerPlayer extends AbstractActionHandler {
 
 	@Override
 	public boolean kamikaze() {
-		this.entity.setHealth(0);
+		this.entity.setActionTimer(300);
+		this.entity.getTile().remove(this.entity);
 		return true;
 	}
 

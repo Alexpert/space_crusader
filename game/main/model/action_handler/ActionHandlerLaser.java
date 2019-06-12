@@ -25,7 +25,7 @@ public class ActionHandlerLaser extends AbstractActionHandler {
 		while (i < tile.nbEntity()) {
 			Entity entity = tile.getEntity(i);
 			if (entity.getKind() == Kind.MONSTER || entity.getKind() == Kind.PLAYER) {
-				entity.takeDamage(1);
+				entity.takeDamage(-5);
 			}
 			i++;
 		}		
@@ -33,13 +33,14 @@ public class ActionHandlerLaser extends AbstractActionHandler {
 
 	@Override
 	public void pop(Direction d) {
-		this.entity.setActionTimer(5000);
+		System.out.println("oui");
+		this.entity.setActionTimer(500);
 		Tile tile = this.entity.getTile(Direction.NORTH);
 		int i = 0;
 		while (i < tile.nbEntity()) {
 			Entity entity = tile.getEntity(i);
 			if (entity.getKind() == Kind.MONSTER || entity.getKind() == Kind.PLAYER) {
-				entity.takeDamage(-1);
+				entity.takeDamage(10);
 			}
 			i++;
 		}
@@ -48,7 +49,7 @@ public class ActionHandlerLaser extends AbstractActionHandler {
 		while (i < tile.nbEntity()) {
 			Entity entity = tile.getEntity(i);
 			if (entity.getKind() == Kind.MONSTER || entity.getKind() == Kind.PLAYER) {
-				entity.takeDamage(-1);
+				entity.takeDamage(10);
 			}
 			i++;
 		}
@@ -57,7 +58,7 @@ public class ActionHandlerLaser extends AbstractActionHandler {
 		while (i < tile.nbEntity()) {
 			Entity entity = tile.getEntity(i);
 			if (entity.getKind() == Kind.MONSTER || entity.getKind() == Kind.PLAYER) {
-				entity.takeDamage(-1);
+				entity.takeDamage(10);
 			}
 			i++;
 		}
@@ -66,11 +67,11 @@ public class ActionHandlerLaser extends AbstractActionHandler {
 		while (i < tile.nbEntity()) {
 			Entity entity = tile.getEntity(i);
 			if (entity.getKind() == Kind.MONSTER || entity.getKind() == Kind.PLAYER) {
-				entity.takeDamage(-1);
+				entity.takeDamage(10);
 			}
 			i++;
 		}
-		//this.kamikaze();
+		this.kamikaze();
 	}
 
 	@Override
@@ -86,7 +87,7 @@ public class ActionHandlerLaser extends AbstractActionHandler {
 		while (i < tile.nbEntity()) {
 			Entity entity = tile.getEntity(i);
 			if (entity.getKind() == Kind.MONSTER || entity.getKind() == Kind.PLAYER) {
-				entity.takeDamage(-1);
+				entity.takeDamage(-5);
 			}
 			i++;
 		}

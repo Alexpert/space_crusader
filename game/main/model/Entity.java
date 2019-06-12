@@ -457,8 +457,8 @@ public abstract class Entity {
 	}
 
 	public void pop(Direction direction) {
-		this.actionHandler.pop(direction);
 		this.currentAction = Action.POP;
+		this.actionHandler.pop(direction);
 	}
 
 	public void jump(Direction direction) {
@@ -492,6 +492,7 @@ public abstract class Entity {
 	}
 
 	public void egg() {
+		this.currentAction = Action.EGG;
 		this.actionHandler.egg();
 	}
 	

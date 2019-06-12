@@ -59,9 +59,9 @@ Test1(Wait0){
 	* (Jump0):
 		| True ? Move(F) : (Jump1)
 	* (Jump1):
-		| True ? Move(F) : (Jump2)
-	* (Jump2):
-		| True ? Move(F) : (Wait0)
+		| True ? Move(F) : (Pop2)
+	* (Pop2):
+		| True ? Pop(F) : (Wait0)
 	* (Wait0):
 		| True ? Wait : (Turn0)
 }
@@ -86,6 +86,11 @@ Item(Item0) {
 	* (Item0):
 		| Cell(N, @, 0) ? Pop : (Item0)
 		| True ? : (Item0)
+}
+Laser(Pop0){
+	* (Pop0):
+		| True ? Pop(F) : (Turn0)
+	* (Turn0)
 }
 
 SpaceshipGate(Init){
