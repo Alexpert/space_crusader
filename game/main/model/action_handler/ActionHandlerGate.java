@@ -1,9 +1,11 @@
 package game.main.model.action_handler;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import game.main.model.Direction;
 import game.main.model.Entity;
+import game.main.model.Kind;
 import game.main.model.Tile;
 import game.main.model.World;
 import game.main.model.entities.Player;
@@ -24,16 +26,22 @@ public class ActionHandlerGate extends AbstractActionHandler {
 
 	@Override
 	public void wizz(Direction d) {
+		Random random = new Random();
+		
 		//We choose randomly two coordinates
-		int randomX = new Random().nextInt(this.entity.getTile().getWorld().getWidth());
-		int randomY = new Random().nextInt(this.entity.getTile().getWorld().getHeight());
+		int randomX = random.nextInt(this.entity.getWorld().getWidth());
+		int randomY = random.nextInt(this.entity.getWorld().getHeight());
 		//If the case with this coordinates isn't empty, we select an other one
-		while(! this.entity.getTile().getWorld().getTile(randomX, randomY).isEmpty()) {
-			randomX = new Random().nextInt(this.entity.getTile().getWorld().getWidth());
-			randomY = new Random().nextInt(this.entity.getTile().getWorld().getHeight());
+		while(! this.entity.getWorld().getTile(randomX, randomY).isEmpty()) {
+			randomX = random.nextInt(this.entity.getWorld().getWidth());
+			randomY = random.nextInt(this.entity.getWorld().getHeight());
 		}
-		//The gate is teleported to this new coordinates
-		this.entity.setTile(this.entity.getTile().getWorld().getTile(randomX, randomY));
+		//The entity is teleported to this new coordinates
+		ArrayList<Entity> entities= new ArrayList<>(this.entity.getTile().getEntities());
+		entities.removeIf(e -> e.getKind() == Kind.GATE);
+		entities.get(0).moveToTile(randomX, randomY);
+		
+		System.out.println("Wizz Gate");
 	}
 
 	@Override
@@ -76,6 +84,8 @@ public class ActionHandlerGate extends AbstractActionHandler {
 		Tile start = otherWorld.getTile(this.entity.getX() + 1, this.entity.getY());
 		player.setTile(start);
 		otherWorld.add(player);
+
+		System.out.println("Pop Gate");
 	}
 
 	@Override

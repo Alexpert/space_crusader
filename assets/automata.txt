@@ -71,15 +71,16 @@ Test2(Init1){
   * (Init13): True ? Wizz : (Init14)
   * (Init14): True ? Move(F) : (Init1)
 }
+
 Item(Item0) {
 	* (Item0):
 		| Cell(N, @, 0) ? Pop : (Item0)
 		| True ? : (Item0)
 }
 
-SpaceshipGate(Init){
-  * (Init):
-    | Cell(F,@,0) ? Pop : (Init)
-    | Cell(F,_,0) ? Wizz : (Init)
-    | True ? Wait : (Init)
+SpaceshipGate(G1){
+  * (G1):
+    | Cell(N,@,0) ? Pop : (G1)
+    | Cell(N,_,0) ? Wizz : (G1)
+    | True ? Wait : (G1)
 }

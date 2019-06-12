@@ -62,6 +62,7 @@ public class Model extends GameModel {
 	}
 	
 	public void initGame() {
+		System.out.println("Init Game");
 		World newWorld = new World(200, 200, this);
 		this.worlds.add(newWorld);
 		
