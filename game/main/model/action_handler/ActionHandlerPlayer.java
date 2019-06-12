@@ -3,6 +3,7 @@ package game.main.model.action_handler;
 import game.main.model.Direction;
 import game.main.model.Entity;
 import game.main.model.Tile;
+import game.main.model.entities.DroppedBomb;
 
 public class ActionHandlerPlayer extends AbstractActionHandler {
 	
@@ -24,7 +25,9 @@ public class ActionHandlerPlayer extends AbstractActionHandler {
 	@Override
 	public void pop(Direction d) {
 		System.out.println("pop direction"+d+"");
-
+		this.entity.setActionTimer(200);
+		Tile t = this.entity.getTile(d);
+		new DroppedBomb(t);
 	}
 
 	@Override
