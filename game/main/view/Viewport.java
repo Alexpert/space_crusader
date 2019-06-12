@@ -27,10 +27,10 @@ public class Viewport {
 	}
 	
 	public void paint(Graphics g) {
-		System.out.println("Cam Position x: " + this.getX() + " y: " + this.getY());
+		/*System.out.println("Cam Position x: " + this.getX() + " y: " + this.getY());
 		System.out.println("World Dimension w: " + this.w.getWidth() + " h: " + this.w.getHeight());
 		System.out.println("Position Entity e: " + this.entity.getX() + ", "
-				+ this.entity.getY());
+				+ this.entity.getY());*/
 		
 		for(int i = 0; i < w.getWidth(); i++) {
 			for(int j = 0; j < w.getHeight(); j++) {

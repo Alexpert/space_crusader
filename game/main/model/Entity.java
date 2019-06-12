@@ -13,7 +13,9 @@ public abstract class Entity {
 	private int maxHealth = 10;
 	private Direction orientation = Direction.NORTH;
 	private Kind kind = Kind.ANYTHING;
-	private boolean moveable = false;
+	protected boolean moveable = false;
+	protected boolean collidable = false;
+	private boolean isVisible = true;
 	
 	private boolean hasViewport = false;
 	private long currentTimeAction = 0;
@@ -28,8 +30,8 @@ public abstract class Entity {
 	private Tile tile;
 
 	protected Entity(Tile tile, IAutomaton automaton) {
-		this.setTile(tile);
 		this.automaton = automaton;
+		this.setTile(tile);
 	}
 	
 	
@@ -50,8 +52,8 @@ public abstract class Entity {
 		this.painter.step(now);
 	}
 
-	public void addHealth(int healthpoints) {
-		this.health += healthpoints;
+	public void setHealth(int healthpoints) {
+		this.health = healthpoints;
 	}
 
 	
@@ -86,6 +88,9 @@ public abstract class Entity {
 	public boolean moveable() {
 		return this.moveable;
 	}
+	public void updateMoveable(boolean moveable) {
+		this.moveable = moveable;
+	}
 
 	protected AbstractActionHandler getActionHandler() {
 		return this.actionHandler;
@@ -100,10 +105,19 @@ public abstract class Entity {
 	}
 	
 	public void moveToTile(int x, int y) {
-		this.getTile().remove(this);
 		Tile tile = this.getWorld().getTile(x, y);
-		tile.add(this);
-		this.setTile(tile);
+		int i = 0;
+		boolean collide = false;
+		while (i < tile.nbEntity() && !collide) {
+			if (tile.getEntity(i).collidable) {
+				collide = true;
+			}
+			i++;
+		}
+		if (!collide) {
+			this.getTile().remove(this);
+			this.setTile(tile);
+		}
 	}
 
 	public Tile getTile(Direction d) {
@@ -128,21 +142,21 @@ public abstract class Entity {
 			}
 		}
 		if (d2 == Direction.SOUTH) {
-			if (this.getY() != this.getWorld().getHeight() + 1) {
+			if (this.getY() < this.getWorld().getHeight()-1) {
 				return this.getWorld().getTile(this.getX(), this.getY() + 1);
 			} else {
 				return this.getWorld().getTile(this.getX(), 0);
 			}
 		}
 		if (d2 == Direction.EAST) {
-			if (this.getX() != this.getWorld().getWidth() - 1) {
+			if (this.getX() < this.getWorld().getWidth() - 1) {
 				return this.getWorld().getTile(this.getX() + 1, this.getY());
 			} else {
 				return this.getWorld().getTile(0, this.getY());
 			}
 		}
 		if (d2 == Direction.WEST) {
-			if (this.getY() > 0) {
+			if (this.getX() > 0) {
 				return this.getWorld().getTile(this.getX() - 1, this.getY());
 			} else {
 				return this.getWorld().getTile(this.getWorld().getWidth() - 1, this.getY());
@@ -152,13 +166,15 @@ public abstract class Entity {
 	}
 
 	public void move() {
-		this.getActionHandler().move();
 		this.currentAction = Action.MOVE;
+		this.painter.changeActionAnimation(Action.MOVE, this.orientation);
+		this.getActionHandler().move();
 	}
 
 	public void move(Direction d) {
-		this.getActionHandler().move(d);
 		this.currentAction = Action.MOVE;
+		this.painter.changeActionAnimation(Action.MOVE, this.orientation);
+		this.getActionHandler().move(d);
 	}
 
 	public void turn(Direction d) {
@@ -166,6 +182,9 @@ public abstract class Entity {
 	}
 
 	public void hit(Direction d) {
+		this.currentAction = Action.HIT;
+		this.painter.changeActionAnimation(Action.HIT, this.orientation);
+		this.currentAction = Action.HIT;
 		this.getActionHandler().hit(d);
 	}
 
@@ -184,15 +203,23 @@ public abstract class Entity {
 	}
 
 	public boolean cell(Direction d, Kind e, int distance) {
+		boolean res = false;
 		if (distance == 0) {
-			return false;
+			Tile tile = this.getTile();
+			if (!tile.isEmpty()) {
+				for (int k = 0; k < tile.nbEntity(); k++) {
+					if (tile.getEntity(k).kind == e && tile.getEntity(k) != this) {
+						res = true;
+					}
+				}
+			}
+			return res;
 		}
 		int nbTile = 1 + (distance-1) * 2;
 		int n = 0;
 		int worldWidth = this.getWorld().getWidth();
 		int worldHeight = this.getWorld().getHeight();
 		Direction d2 = d;
-		boolean res = false;
 		if (d.ordinal() < 4) { // if the direction is not absolute
 			if (d == Direction.LEFT) {
 				d2 = d.get(((this.getOrientation().ordinal() + 1) % 4) + 4); // return WEST if the direction is NORTH
@@ -416,6 +443,7 @@ public abstract class Entity {
 	public void patient() {
 		this.actionHandler.patient();
 		this.currentAction = Action.PATIENT;
+		this.painter.changeActionAnimation(Action.PATIENT, this.orientation);
 	}
 
 	public void wizz(Direction direction) {
@@ -477,13 +505,34 @@ public abstract class Entity {
 	public Kind getKind() {
 		return this.kind;
 	}
-
-	private Tile getTile() {
+	
+	public boolean getCollidable() {
+		return this.collidable;
+	}
+	
+	public void updateCollidable(boolean collidable) {
+		this.collidable = collidable;
+	}
+	
+	public Tile getTile() {
 		return tile;
 	}
 
-	private void setTile(Tile tile) {
+	public void setTile(Tile tile) {
 		this.tile = tile;
+		tile.add(this);
+	}
+
+	public void removeTile() {
+		this.tile = null;
+	}
+	
+	public boolean getIsVisible() {
+		return this.isVisible;
+	}
+	
+	public void updateIsVisible(boolean isVisible) {
+		this.isVisible = isVisible;
 	}
 
 	public long getCurrentTimeAction() {
@@ -502,5 +551,15 @@ public abstract class Entity {
 		return currentAction;
 	}
 	
+	public void setAction(Action a) {
+		this.currentAction= a;
+	}
+	
+	public void takeDamage(int dmg) {
+		this.health-=dmg;
+		if(this.health<=0) {
+			this.tile.remove(this);
+		}
+	}
 	
 }

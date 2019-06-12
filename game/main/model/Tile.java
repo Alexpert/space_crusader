@@ -47,8 +47,21 @@ public class Tile {
 		return this.y;
 	}
 	
+	public void setX(int x) {
+		this.x = x;
+	}
+	
+	public void setY(int y) {
+		this.y = y;
+	}
+	
 	public void clear() {
-		this.entities.clear();
+		int i = this.getEntities().size() - 1;
+		while(i >= 0) {
+			this.getEntities().get(i).removeTile();
+			this.getEntities().remove(i);
+			i--;
+		}
 	}
 	
 	public int nbEntity() {
@@ -66,6 +79,10 @@ public class Tile {
 	public World getWorld() {
 		return this.w;
 	}
+	
+	public void setWorld(World w) {
+		this.w = w;
+	}
 
 	public void step(long now) {
 		int i = this.getEntities().size() - 1;
@@ -80,6 +97,15 @@ public class Tile {
 
 	ArrayList<Entity> getEntities() {
 		return this.entities;
+	}
+	
+	public boolean isCollidable() {
+		for(int i = 0; i < this.nbEntity(); i ++) {
+			if(this.entities.get(i).collidable) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

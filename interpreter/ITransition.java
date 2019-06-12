@@ -22,7 +22,8 @@ public class ITransition {
 	
 	IState exec(Entity e) {
 		// execute l'action
-		this.getAction().exec(e);
+		if (this.getAction() != null)
+			this.getAction().exec(e);
 		// return l'état cible de la transition 
 		return this.getTarget();
 	}

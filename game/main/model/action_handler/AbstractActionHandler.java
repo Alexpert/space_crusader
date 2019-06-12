@@ -19,18 +19,37 @@ public abstract class AbstractActionHandler {
 		Direction d = this.entity.getOrientation();
 		int newX = this.entity.getX();
 		int newY = this.entity.getY();
-		
 		if(d == Direction.EAST) {
-			newX++;
+			if(!this.entity.getTile(d).isCollidable()) {
+				newX++;
+			}
+			else {
+				this.entity.setAction(Action.PATIENT);
+			}
 		}
 		else if(d == Direction.WEST) {
-			newX--;
+			if(!this.entity.getTile(d).isCollidable()) {
+				newX--;
+			}
+			else {
+				this.entity.setAction(Action.PATIENT);
+			}
 		}
 		else if(d == Direction.NORTH) {
-			newY--;
+			if(!this.entity.getTile(d).isCollidable()) {
+				newY--;
+			}
+			else {
+				this.entity.setAction(Action.PATIENT);
+			}
 		}
 		else if(d == Direction.SOUTH) {
-			newY++;
+			if(!this.entity.getTile(d).isCollidable()) {
+				newY++;
+			}
+			else {
+				this.entity.setAction(Action.PATIENT);
+			}
 		}
 		this.entity.changeActionAnimation(Action.MOVE, d);
 		
@@ -49,37 +68,40 @@ public abstract class AbstractActionHandler {
 		
 		this.entity.moveToTile(newX, newY);
 		
-		return false;
+		return true;
 	}
-	
+
 	public boolean move(Direction d) {
 		this.entity.turn(d);
 		this.move();
 		return false;
+
 	}
 
 	public abstract boolean jump(Direction d);
 
 	public boolean turn(Direction d) {
-		if (d.ordinal() >= 4 &&  d.ordinal() <= 7) {	//if the direction is absolute, it's directly set
+		if (d.ordinal() >= 4 && d.ordinal() <= 7) { // if the direction is absolute, it's directly set
 			this.entity.setOrientation(d);
 			return true;
-		}
-		else {
-			if(d == Direction.LEFT) {
-				this.entity.setOrientation( d.get(((this.entity.getOrientation().ordinal()+1)%4)+4) );	//return WEST if the direction is NORTH
+		} else {
+			if (d == Direction.LEFT) {
+				this.entity.setOrientation(d.get(((this.entity.getOrientation().ordinal() + 1) % 4) + 4)); // return
+																											// WEST if
+																											// the
+																											// direction
+																											// is NORTH
 				return true;
-			}
-			else if(d == Direction.RIGHT) {
-				this.entity.setOrientation( d.get(((this.entity.getOrientation().ordinal()+3)%4)+4) );
+			} else if (d == Direction.RIGHT) {
+				this.entity.setOrientation(d.get(((this.entity.getOrientation().ordinal() + 3) % 4) + 4));
 				return true;
-			}
-			else if(d == Direction.BACK) {
-				this.entity.setOrientation( d.get(((this.entity.getOrientation().ordinal()+2)%4)+4) );
+			} else if (d == Direction.BACK) {
+				this.entity.setOrientation(d.get(((this.entity.getOrientation().ordinal() + 2) % 4) + 4));
 				return true;
 			}
 		}
 		return false;
+
 	}
 
 	public abstract boolean hit(Direction d);

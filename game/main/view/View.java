@@ -21,8 +21,6 @@ public class View extends GameView {
 	int m_fps;
 	Model m_model;
 	Viewport viewport;
-	//Viewport viewport2;
-	// Controller m_ctr;
 
 	public View(Model m) {
 		m_model = m;
@@ -73,12 +71,13 @@ public class View extends GameView {
 				
 		g.setColor(m_background);
 		g.fillRect(0, 0, getWidth(), getHeight());
-		if(this.m_model.isInGame) {
+		viewport.paint(g);
+		/*if(this.m_model.isInGame) {
 			viewport.paint(g);
 		}
 		else {	//menu de demarage
 			
-		}
+		}*/
 		
 	}
 }

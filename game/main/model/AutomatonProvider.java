@@ -2,6 +2,7 @@ package game.main.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import interpreter.IAutomaton;
 import interpreter.Interpreter;
@@ -42,5 +43,16 @@ public class AutomatonProvider {
 		}
 		
 		return new IAutomaton(refAutomaton);
+	}
+	
+	public String[] getAllAutomatonNames(){
+		String[] l = new String[automata.size()];
+		Iterator<String> iter = this.automata.keySet().iterator();
+		int i=0;
+		while(iter.hasNext()) {
+			l[i]=iter.next();
+			i++;
+		}
+		return l;
 	}
 }
