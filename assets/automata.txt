@@ -57,7 +57,7 @@ Test(Wait0){
 
 Item(Item0) {
 	* (Item0):
-		| Cell(N, P, 0) ? Pop : (Item0)
+		| Cell(N, @, 0) ? Pop : (Item0)
 		| True ? : (Item0)
 }
 

@@ -40,8 +40,6 @@ public class View extends GameView {
 	public void step(long now) {
 		
 	}
-	
-	
 
 	private void computeFPS() {
 		long now = System.currentTimeMillis();
@@ -62,6 +60,9 @@ public class View extends GameView {
 		g.setColor(m_background);
 		g.fillRect(0, 0, getWidth(), getHeight());
 		viewport.paint(g);
+		
+		if (this.hud != null)
+			this.hud.paint(g);
 		/*if(this.m_model.isInGame) {
 			viewport.paint(g);
 		}

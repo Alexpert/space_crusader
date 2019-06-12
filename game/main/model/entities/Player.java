@@ -49,8 +49,13 @@ public class Player extends Entity {
 	}
 
 	public boolean addItem(Item item) {
+		
+		System.out.println("add to inventory: " + item.getName());
 		if (this.inventory.size() < 10)
 			this.inventory.add(item);
+		
+		for (Item it: this.inventory)
+				System.out.println(it.getName());
 		
 		return this.inventory.size() < 11;
 	}

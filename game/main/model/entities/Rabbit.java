@@ -11,7 +11,7 @@ import game.main.view.painters.RabbitPainter;
 public class Rabbit extends Entity {
 
 	public Rabbit(Tile tile) {
-		super(tile, AutomatonProvider.getInstance().getAutomaton("Rabbit"));
+		super(tile, AutomatonProvider.getInstance().getAutomaton("Playable"));
 		this.moveable = true;
 		this.collidable = true;
 		this.setKind(Kind.MONSTER);

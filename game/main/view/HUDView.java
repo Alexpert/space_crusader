@@ -12,6 +12,7 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Label;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import game.main.model.Entity;
 import game.main.model.Item;
@@ -23,6 +24,7 @@ public class HUDView extends Container {
 	private Entity entity;
 	private StatusView statusView;
 	private InventoryView inventoryView;
+	static int i = 0;
 	
 
 	HUDView(Entity entity) {
@@ -70,12 +72,12 @@ class StatusView extends Container {
 class InventoryView extends Container {
 	private static final long serialVersionUID = 1L;
 	HUDView parent;
+	ArrayList<Item> lastValue;
 	
 	InventoryView(HUDView parent) {
+		this.lastValue = new ArrayList<>();
 		this.parent = parent;
 		this.setLayout(new GridLayout(2, 5));
-		for (int i = 0; i < 10; i++)
-			this.add(new SpriteCanvas("assets/hud/health.png"));
 	}
 	
 	public Player getPlayer() {
@@ -84,11 +86,14 @@ class InventoryView extends Container {
 	
 	@Override
 	public void paint(Graphics g) {
+		if (this.lastValue.size() == this.getPlayer().getInventory().size())
+			return;
+		
+		this.lastValue = new ArrayList<>(this.getPlayer().getInventory());
 		this.removeAll();
-		ArrayList<Item> inventory = this.getPlayer().getInventory();
 		for (int i = 0; i < 10; i++) {
-			if (i < inventory.size())
-				this.add(new SpriteCanvas("assets/items/" + inventory.get(i).getName().toLowerCase() + ".png"));
+			if (i < this.lastValue.size())
+				this.add(new SpriteCanvas("assets/items/" + this.lastValue.get(i).getName().toLowerCase() + ".png"));
 			else
 				this.add(new Canvas());
 		}
@@ -115,6 +120,7 @@ class HealthBar extends Container {
 class HealthBarCanvas extends Canvas{
 	private static final long serialVersionUID = 1L;
 	HealthBar parent;
+	int lastValue;
 	
 	HealthBarCanvas(HealthBar parent) {
 		this.parent = parent;
@@ -126,11 +132,16 @@ class HealthBarCanvas extends Canvas{
 	
 	@Override
 	public void paint(Graphics g) {
+		if (this.lastValue == this.getEntity().getHealth())
+			return;
+		
+		
+		this.lastValue = this.getEntity().getHealth();
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, this.getWidth(), this.getHeight());
 		g.setColor(Color.RED);
 		g.fillRect(0, 0, this.getWidth(), this.getHeight() 
-				* (this.getEntity().getHealth() / this.getEntity().getMaxHealth()));
+				* (this.lastValue / this.getEntity().getMaxHealth()));
 	}
 }
 
@@ -138,6 +149,7 @@ class WealthView extends Container{
 	private static final long serialVersionUID = 1L;
 	StatusView parent;
 	Label label;
+	int lastValue = 0;
 	
 	WealthView(StatusView parent) {
 		this.parent = parent;
@@ -153,7 +165,11 @@ class WealthView extends Container{
 	
 	@Override
 	public void paint(Graphics g) {
-		label.setText("$" + this.getPlayer().getMoney());
+		if (this.lastValue == this.getPlayer().getMoney())
+			return;
+		
+		this.lastValue = this.getPlayer().getMoney();
+		label.setText("$" + this.lastValue);
 		label.paint(g);
 	}
 }

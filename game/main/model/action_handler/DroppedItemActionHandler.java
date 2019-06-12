@@ -33,9 +33,11 @@ public class DroppedItemActionHandler extends AbstractActionHandler{
 		while (i < entities.size() && entities.get(i).getKind() != Kind.PLAYER)
 			i++;
 			
-		if (i != entities.size())
-			if (((Player) entities.get(i)).addItem(((DroppedItem) this.entity).getItem()))
+		if (i != entities.size()) {
+			if (((Player) entities.get(i)).addItem(((DroppedItem) this.entity).getItem())) {
 				((DroppedItem) this.entity).die();
+			}
+		}
 	}
 
 	@Override
