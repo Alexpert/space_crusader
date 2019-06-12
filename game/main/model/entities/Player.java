@@ -10,7 +10,7 @@ import game.main.view.painters.*;
 public class Player extends Entity {
 	
 	private int money;
-	private ArrayList<Item> inventary;
+	private ArrayList<Item> inventory;
 	public static String nameAtomaton = "Playable";
 
 	public Player(Tile tile) {

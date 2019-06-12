@@ -74,6 +74,7 @@ public class Launcher {
 	    
 	    Dimension d = new Dimension(1024, 768);
 	    new GameUI(model, view, c, d);
+	    view.setHUD();
 	}
 	
 	private void options() {
