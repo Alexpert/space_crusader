@@ -165,9 +165,6 @@ class WealthView extends Container{
 	
 	@Override
 	public void paint(Graphics g) {
-		if (this.lastValue == this.getPlayer().getMoney())
-			return;
-		
 		this.lastValue = this.getPlayer().getMoney();
 		label.setText("$" + this.lastValue);
 		label.paint(g);
