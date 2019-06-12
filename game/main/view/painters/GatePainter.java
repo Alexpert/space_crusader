@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 
+import game.main.model.Action;
+import game.main.model.Direction;
 import game.main.model.Entity;
 import game.main.view.IPainter;
 
@@ -27,6 +29,12 @@ public class GatePainter implements IPainter {
 		g.setColor(Color.MAGENTA);
 		g.fillRect(posX, posY, 32, 32);
 
+	}
+
+	@Override
+	public void changeActionAnimation(Action a, Direction d) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

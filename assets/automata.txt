@@ -39,7 +39,7 @@ Rabbit(Wait0) {
   * (Init2)
 }
 
-Test(Wait0){
+Test1(Wait0){
 	* (Wait0):
 		| True ? Wait : (Turn0)
 	* (Turn0):
@@ -54,7 +54,7 @@ Test(Wait0){
 		| True ? Wait : (Turn0)
 }
 
-Test(Init1){
+Test2(Init1){
   * (Init1): True ? Pop : (Init2)
   * (Init2): True ? Move(F) : (Init3)
   * (Init3): True ? Move(F) : (Init4)
@@ -69,4 +69,11 @@ Test(Init1){
   * (Init12): True ? Move(R) : (Init13)
   * (Init13): True ? Wizz : (Init14)
   * (Init14): True ? Move(F) : (Init1)
+}
+
+SpaceshipGate(Init){
+  * (Init):
+    | Cell(F,@,0) ? Pop : (Init)
+    | Cell(F,_,0) ? Wizz : (Init)
+    | True ? Wait : (Init)
 }
