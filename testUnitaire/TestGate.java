@@ -34,7 +34,7 @@ public class TestGate {
 	public void testChangeWorld() {
 		assertTrue(model.getCurrentWorld().getWidth() == 200);
 		model.getPlayer().patient();
-		assertTrue(model.getPlayer().getTotalTimeAction() == 500);
+		assertTrue(model.getPlayer().getTotalTimeAction() == 10);
 		gate.pop(Direction.EAST);
 		assertTrue(model.getCurrentWorld().getWidth() == 500);
 		model.getPlayer().patient();

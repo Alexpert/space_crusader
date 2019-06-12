@@ -3,6 +3,8 @@ package game.main.model;
 import java.util.ArrayList;
 import java.util.Random;
 
+import game.main.music.Music;
+import game.main.music.WorldSoundHandler;
 import game.main.model.entities.Gate;
 import interpreter.IAutomaton;
 
@@ -11,6 +13,8 @@ public class World {
 	private int width, height;
 	private Tile[][] map;
 	private Model model;
+	private Music sound;
+	private WorldSoundHandler soundHandler;
 	
 	public World(int width, int height, Model model) {
 		this.width = width;
@@ -88,5 +92,21 @@ public class World {
 				tile.step(now);
 			}
 		}
+	}
+	
+	public void setMusic(Music m) {
+		this.sound = m;
+	}
+	
+	public Music getMusic() {
+		return this.sound;
+	}
+	
+	public void setSoundHandler(WorldSoundHandler so) {
+		this.soundHandler = so;
+	}
+	
+	public WorldSoundHandler getWorldSoundHander() {
+		return this.soundHandler;
 	}
 }
