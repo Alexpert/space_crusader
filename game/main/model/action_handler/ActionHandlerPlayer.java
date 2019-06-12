@@ -35,6 +35,7 @@ public class ActionHandlerPlayer extends AbstractActionHandler {
 
 	@Override			// return false has nothing was on the tile
 	public boolean hit(Direction d) {
+		
 		Tile t = this.entity.getTile(d);
 		if(t.isEmpty()) {
 			return false;
