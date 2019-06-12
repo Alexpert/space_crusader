@@ -2,17 +2,10 @@ package game.main.model.entities;
 
 import java.util.ArrayList;
 
-import game.main.controller.Controller;
-import game.main.model.AutomatonProvider;
-import game.main.model.Direction;
-import game.main.model.Entity;
-import game.main.model.Item;
-import game.main.model.Kind;
-import game.main.model.Tile;
-import game.main.model.World;
+import game.main.model.*;
 import game.main.model.action_handler.ActionHandlerPlayer;
-import game.main.view.painters.PlayerPainter;
-import game.main.view.painters.RabbitPainter;
+import game.main.model.items.*;
+import game.main.view.painters.*;
 
 public class Player extends Entity {
 	
@@ -27,6 +20,16 @@ public class Player extends Entity {
 		this.setKind(Kind.PLAYER);
 		this.setIPainter(new PlayerPainter(this));
 		this.setActionHandler(new ActionHandlerPlayer(this));
+		this.inventory = new ArrayList<Item>();
+		
+		this.inventory.add(new Bomb());
+		this.inventory.add(new Apple());
+		this.inventory.add(new Fur());
+		this.inventory.add(new Bomb());
+		this.inventory.add(new Apple());
+		this.inventory.add(new Fur());
+		this.inventory.add(new Bomb());
+		this.inventory.add(new Bomb());
 	}
 
 	public int getMoney() {
@@ -34,12 +37,27 @@ public class Player extends Entity {
 	}
 	
 	public void add(Item item) {
-		this.inventary.add(item);
+		this.inventory.add(item);
+	}
+	
+	public ArrayList<Item> getInventory(){
+		return this.inventory;
 	}
 	
 	@Override
 	public void step(long now) {
 		super.step(now);
+	}
+
+	public boolean addItem(Item item) {
 		
+		System.out.println("add to inventory: " + item.getName());
+		if (this.inventory.size() < 10)
+			this.inventory.add(item);
+		
+		for (Item it: this.inventory)
+				System.out.println(it.getName());
+		
+		return this.inventory.size() < 11;
 	}
 }
