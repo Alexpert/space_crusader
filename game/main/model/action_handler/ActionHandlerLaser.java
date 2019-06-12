@@ -3,7 +3,7 @@ package game.main.model.action_handler;
 import game.main.model.Direction;
 import game.main.model.Entity;
 import game.main.model.Kind;
-import game.main.model.Laser;
+import game.main.model.entities.Laser;
 import game.main.model.Tile;
 
 public class ActionHandlerLaser extends AbstractActionHandler {
@@ -19,7 +19,7 @@ public class ActionHandlerLaser extends AbstractActionHandler {
 
 	@Override
 	public void wizz(Direction d) {
-		this.entity.setActionTimer(1000);
+		this.entity.setActionTimer(100);
 		Tile tile = this.entity.getTile();
 		int i = 0;
 		while (i < tile.nbEntity()) {
@@ -33,7 +33,7 @@ public class ActionHandlerLaser extends AbstractActionHandler {
 
 	@Override
 	public void pop(Direction d) {
-		this.entity.setActionTimer(1000);
+		this.entity.setActionTimer(5000);
 		Tile tile = this.entity.getTile(Direction.NORTH);
 		int i = 0;
 		while (i < tile.nbEntity()) {
@@ -70,6 +70,7 @@ public class ActionHandlerLaser extends AbstractActionHandler {
 			}
 			i++;
 		}
+		//this.kamikaze();
 	}
 
 	@Override
@@ -125,7 +126,7 @@ public class ActionHandlerLaser extends AbstractActionHandler {
 	@Override
 	public boolean kamikaze() {
 		this.entity.setActionTimer(300);
-		this.entity.setHealth(0);
+		this.entity.getTile().remove(this.entity);
 		return true;
 	}
 
