@@ -25,7 +25,7 @@ public class ActionHandlerLaser extends AbstractActionHandler {
 		while (i < tile.nbEntity()) {
 			Entity entity = tile.getEntity(i);
 			if (entity.getKind() == Kind.MONSTER || entity.getKind() == Kind.PLAYER) {
-				entity.addHealth(10);
+				entity.takeDamage(1);
 			}
 			i++;
 		}		
@@ -39,7 +39,7 @@ public class ActionHandlerLaser extends AbstractActionHandler {
 		while (i < tile.nbEntity()) {
 			Entity entity = tile.getEntity(i);
 			if (entity.getKind() == Kind.MONSTER || entity.getKind() == Kind.PLAYER) {
-				entity.addHealth(-10);
+				entity.takeDamage(-1);
 			}
 			i++;
 		}
@@ -48,7 +48,7 @@ public class ActionHandlerLaser extends AbstractActionHandler {
 		while (i < tile.nbEntity()) {
 			Entity entity = tile.getEntity(i);
 			if (entity.getKind() == Kind.MONSTER || entity.getKind() == Kind.PLAYER) {
-				entity.addHealth(-10);
+				entity.takeDamage(-1);
 			}
 			i++;
 		}
@@ -57,7 +57,7 @@ public class ActionHandlerLaser extends AbstractActionHandler {
 		while (i < tile.nbEntity()) {
 			Entity entity = tile.getEntity(i);
 			if (entity.getKind() == Kind.MONSTER || entity.getKind() == Kind.PLAYER) {
-				entity.addHealth(-10);
+				entity.takeDamage(-1);
 			}
 			i++;
 		}
@@ -66,7 +66,7 @@ public class ActionHandlerLaser extends AbstractActionHandler {
 		while (i < tile.nbEntity()) {
 			Entity entity = tile.getEntity(i);
 			if (entity.getKind() == Kind.MONSTER || entity.getKind() == Kind.PLAYER) {
-				entity.addHealth(-10);
+				entity.takeDamage(-1);
 			}
 			i++;
 		}
@@ -85,7 +85,7 @@ public class ActionHandlerLaser extends AbstractActionHandler {
 		while (i < tile.nbEntity()) {
 			Entity entity = tile.getEntity(i);
 			if (entity.getKind() == Kind.MONSTER || entity.getKind() == Kind.PLAYER) {
-				entity.addHealth(-10);
+				entity.takeDamage(-1);
 			}
 			i++;
 		}
@@ -125,7 +125,7 @@ public class ActionHandlerLaser extends AbstractActionHandler {
 	@Override
 	public boolean kamikaze() {
 		this.entity.setActionTimer(300);
-		this.entity.addHealth(0);
+		this.entity.setHealth(0);
 		return true;
 	}
 
