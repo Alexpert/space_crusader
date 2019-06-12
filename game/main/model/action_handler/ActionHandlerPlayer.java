@@ -41,7 +41,7 @@ public class ActionHandlerPlayer extends AbstractActionHandler {
 		}
 		else {
 			for(int i = 0; i < t.nbEntity(); i ++) {
-				t.getEntity(i).addHealth(-5);
+				t.getEntity(i).takeDamage(5);
 			}
 			return true;
 		}
@@ -74,7 +74,7 @@ public class ActionHandlerPlayer extends AbstractActionHandler {
 	@Override
 	public boolean power() {
 		if(this.entity.getHealth() > 0) {
-			this.entity.addHealth(1);
+			this.entity.takeDamage(-1);
 			return true;
 		}
 		return false;
@@ -82,7 +82,7 @@ public class ActionHandlerPlayer extends AbstractActionHandler {
 
 	@Override
 	public boolean kamikaze() {
-		this.entity.addHealth(0);
+		this.entity.setHealth(0);
 		return true;
 	}
 

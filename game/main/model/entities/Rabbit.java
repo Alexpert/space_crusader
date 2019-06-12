@@ -1,5 +1,6 @@
 package game.main.model.entities;
 
+import game.main.model.Action;
 import game.main.model.AutomatonProvider;
 import game.main.model.Direction;
 import game.main.model.Entity;
@@ -18,6 +19,7 @@ public class Rabbit extends Entity {
 		this.setKind(Kind.MONSTER);
 		this.setIPainter(new RabbitPainter(this));
 		this.setActionHandler(new ActionHandlerRabbit(this));
+		this.setHealth(5);
 	}
 
 }

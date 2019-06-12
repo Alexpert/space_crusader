@@ -13,15 +13,15 @@ public class ActionHandlerRabbit extends AbstractActionHandler {
 	
 	@Override
 	public boolean move(Direction d) {
-		super.move(d);
 		this.entity.setActionTimer(500);
+		super.move(d);
 		return true;
 	}
 	
 	@Override
 	public void patient() {
 		Random random = new Random();
-		this.entity.setActionTimer(random.nextInt(10000));
+		this.entity.setActionTimer(random.nextInt(10000)+100);
 	}
 	
 	
@@ -74,7 +74,7 @@ public class ActionHandlerRabbit extends AbstractActionHandler {
 	@Override
 	public  boolean power(){
 		if(this.entity.getHealth() > 0) {
-			this.entity.addHealth(1);
+			this.entity.takeDamage(1);
 			return true;
 		}
 		return false;
@@ -82,7 +82,7 @@ public class ActionHandlerRabbit extends AbstractActionHandler {
 	
 	@Override
 	public  boolean kamikaze(){
-		this.entity.addHealth(0);
+		this.entity.setHealth(0);
 		return true;
 	}
 	

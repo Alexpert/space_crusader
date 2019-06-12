@@ -8,6 +8,7 @@ Playable(Init){
 		| Key(s) ? Move(S) : (Init)
 		| Key(d) ? Move(E) : (Init)
 		| Key(q) ? Move(W) : (Init)
+		| Key(e) ? Hit(F) : (Init)
 		| True ? Wait : (Init)
 }
 

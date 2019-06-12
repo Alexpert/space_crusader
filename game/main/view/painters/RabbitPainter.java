@@ -56,20 +56,31 @@ public class RabbitPainter implements IPainter {
 	@Override
 	public void changeActionAnimation(Action a, Direction d) {
 		if(a == Action.PATIENT) {
-			this.currentAnimation = this.listAnimation.get(0);
-		}
-		if(a == Action.MOVE) {
 			if(d == Direction.EAST) {
-				this.currentAnimation = this.listAnimation.get(3);
+				this.currentAnimation = this.listAnimation.get(0);
 			}
 			else if(d == Direction.WEST) {
-				this.currentAnimation = this.listAnimation.get(4);
+				this.currentAnimation = this.listAnimation.get(1);
 			}
 			else if(d == Direction.NORTH) {
 				this.currentAnimation = this.listAnimation.get(2);
 			}
 			else if(d == Direction.SOUTH) {
-				this.currentAnimation = this.listAnimation.get(1);
+				this.currentAnimation = this.listAnimation.get(3);
+			}
+		}
+		if(a == Action.MOVE) {
+			if(d == Direction.EAST) {
+				this.currentAnimation = this.listAnimation.get(6);
+			}
+			else if(d == Direction.WEST) {
+				this.currentAnimation = this.listAnimation.get(7);
+			}
+			else if(d == Direction.NORTH) {
+				this.currentAnimation = this.listAnimation.get(5);
+			}
+			else if(d == Direction.SOUTH) {
+				this.currentAnimation = this.listAnimation.get(4);
 			}
 		}
 	}
@@ -77,11 +88,15 @@ public class RabbitPainter implements IPainter {
 	public void initAnimation() {
 		this.listAnimation = new ArrayList<>();
 		Image animSprite = TextureProvider.getInstance().getTexture("assets/entities/rabbit_animation.png");
-		this.listAnimation.add(new Animation(animSprite, 0, 1));	//default image
-		this.listAnimation.add(new Animation(animSprite, 0, 8));	//walk to the south
-		this.listAnimation.add(new Animation(animSprite, 1, 8));	//walk to the north
-		this.listAnimation.add(new Animation(animSprite, 2, 8));	//walk to the east
-		this.listAnimation.add(new Animation(animSprite, 3, 8));	//walk to the west
+		this.listAnimation.add(new Animation(animSprite, 2, 1));	//0		default looking east
+		this.listAnimation.add(new Animation(animSprite, 3, 1));	//1		default looking west
+		this.listAnimation.add(new Animation(animSprite, 0, 1));	//2		default looking north
+		this.listAnimation.add(new Animation(animSprite, 1, 1));	//3		default looking south
+		
+		this.listAnimation.add(new Animation(animSprite, 0, 8));	//4		walk to the south
+		this.listAnimation.add(new Animation(animSprite, 1, 8));	//5		walk to the north
+		this.listAnimation.add(new Animation(animSprite, 2, 8));	//6		walk to the east
+		this.listAnimation.add(new Animation(animSprite, 3, 8));	//7		walk to the west
 	}
 
 }
