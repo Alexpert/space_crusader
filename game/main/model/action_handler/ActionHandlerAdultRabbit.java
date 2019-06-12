@@ -1,10 +1,16 @@
 package game.main.model.action_handler;
 
 import game.main.model.Direction;
+import game.main.model.Entity;
 import game.main.model.Tile;
+import game.main.model.entities.AdultRabbit;
 import game.main.model.entities.Laser;
 
 public class ActionHandlerAdultRabbit extends AbstractActionHandler{
+
+	public ActionHandlerAdultRabbit(Entity e) {
+		this.entity = e;
+	}
 
 	@Override
 	public void patient() {
@@ -24,12 +30,6 @@ public class ActionHandlerAdultRabbit extends AbstractActionHandler{
 		Tile tile = this.entity.getTile(d);
 		new Laser(tile);
 		return;
-	}
-	@Override
-	public boolean turn(Direction d) {
-		this.entity.setActionTimer(300);
-		super.turn(d);
-		return true;
 	}
 	
 	@Override
@@ -96,7 +96,7 @@ public class ActionHandlerAdultRabbit extends AbstractActionHandler{
 	@Override
 	public boolean kamikaze() {
 		this.entity.setActionTimer(100);
-		this.entity.setHealth(0);
+		this.entity.getTile().remove(this.entity);
 		return true;
 	}
 
