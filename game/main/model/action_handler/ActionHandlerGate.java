@@ -50,21 +50,27 @@ public class ActionHandlerGate extends AbstractActionHandler {
 			otherWorld = this.entity.getWorld().getModel().getWorlds().get(1);
 			//We give to the player its new Action HAndler
 			player.setActionHandler(new ActionHandlerRabbit(player));
+			
+			//We manage the music
+			otherWorld.getWorldSoundHander().stop();
+			tmpWorld.setSoundHandler(new WorldSoundHandler(tmpWorld));
+			tmpWorld.setMusic(SoundProvider.getInstance().getSound("assets/music/ambiance_vaisseau.wav"));
+			tmpWorld.getWorldSoundHander().start();
 		}
 		else {
 			//Case where the currentworld is the spaceship (and that the player gets out to the planet)
 			otherWorld = this.entity.getWorld().getModel().getWorlds().get(0);
 			//We give to the player its new Action HAndler
 			player.setActionHandler(new ActionHandlerPlayer(player));
+			
+			//We manage the music
+			otherWorld.getWorldSoundHander().stop();
+			tmpWorld.setSoundHandler(new WorldSoundHandler(tmpWorld));
+			tmpWorld.setMusic(SoundProvider.getInstance().getSound("assets/music/ambiance_monde.wav"));
+			tmpWorld.getWorldSoundHander().start();
 		}
 		//We update the currentWorld
 		this.entity.getWorld().getModel().setCurrenWorld(otherWorld);
-		
-		//We manage the music
-		otherWorld.getWorldSoundHander().stop();
-		tmpWorld.setSoundHandler(new WorldSoundHandler(tmpWorld));
-		tmpWorld.setMusic(SoundProvider.getInstance().getSound("assets/music/ambiance_vaisseau.wav"));
-		tmpWorld.getWorldSoundHander().start();
 		
 		//The player spawns at the right of the gate
 		Tile start = otherWorld.getTile(this.entity.getX() + 1, this.entity.getY());
