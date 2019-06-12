@@ -28,7 +28,6 @@ public class Controller extends GameController {
 	@Override
 	public void step(long now) {
 		if (this.model.getCurrentWorld() != null) {
-			this.model.getCurrentWorld().getWorldSoundHander().start();
 			this.model.step(now);
 			this.view.step(now);
 		}
