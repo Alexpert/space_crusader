@@ -1,13 +1,16 @@
 package game.main.model;
 
-import interpreter.IAutomaton;
+import game.main.model.action_handler.ActionHandlerLaser;
+import game.main.view.painters.LaserPainter;
 
 public class Laser extends Entity{
 
 	protected Laser(Tile tile) {
 		super(tile, AutomatonProvider.getInstance().getAutomaton("Laser"));
-		// TODO Auto-generated constructor stub
 		this.moveable = true;
+		this.setKind(Kind.MISSILE);
+		this.setIPainter(new LaserPainter(this));
+		this.setActionHandler(new ActionHandlerLaser(this));
 	}
 	
 }

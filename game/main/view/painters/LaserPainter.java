@@ -27,7 +27,7 @@ public class LaserPainter implements IPainter{
 	public void paint(Graphics g, int posX, int posY) {
 		if (this.entity.getIsVisible()) {
 			g.setColor(Color.BLUE);
-			g.fillRect(posX + 14, posY + 14, 4, 4);
+			g.fillRect(posX + 13, posY + 14, 6, 4);
 		}
 		
 	}
