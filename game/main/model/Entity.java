@@ -203,15 +203,23 @@ public abstract class Entity {
 	}
 
 	public boolean cell(Direction d, Kind e, int distance) {
+		boolean res = false;
 		if (distance == 0) {
-			return false;
+			Tile tile = this.getTile();
+			if (!tile.isEmpty()) {
+				for (int k = 0; k < tile.nbEntity(); k++) {
+					if (tile.getEntity(k).kind == e && tile.getEntity(k) != this) {
+						res = true;
+					}
+				}
+			}
+			return res;
 		}
 		int nbTile = 1 + (distance-1) * 2;
 		int n = 0;
 		int worldWidth = this.getWorld().getWidth();
 		int worldHeight = this.getWorld().getHeight();
 		Direction d2 = d;
-		boolean res = false;
 		if (d.ordinal() < 4) { // if the direction is not absolute
 			if (d == Direction.LEFT) {
 				d2 = d.get(((this.getOrientation().ordinal() + 1) % 4) + 4); // return WEST if the direction is NORTH
