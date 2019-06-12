@@ -95,7 +95,7 @@ public class Tile {
 		}
 	}
 
-	ArrayList<Entity> getEntities() {
+	public ArrayList<Entity> getEntities() {
 		return this.entities;
 	}
 	

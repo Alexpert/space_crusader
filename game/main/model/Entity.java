@@ -35,6 +35,9 @@ public abstract class Entity {
 	}
 	
 	
+	public int getMaxHealth() {
+		return this.maxHealth;
+	}
 	
 	public void paint(Graphics g,int posX,int posY) {
 		this.painter.paint(g,posX,posY);
@@ -49,13 +52,14 @@ public abstract class Entity {
 			this.beginTimeAction = this.beginTimeAction+this.totalTimeAction;
 			this.automaton.step(this);
 		}
+		if (this.painter == null)
+			System.out.println(this);
 		this.painter.step(now);
 	}
 
 	public void setHealth(int healthpoints) {
 		this.health = healthpoints;
 	}
-
 	
 	protected void setKind(Kind kind) {
 		this.kind = kind;
@@ -215,6 +219,7 @@ public abstract class Entity {
 			}
 			return res;
 		}
+		
 		int nbTile = 1 + (distance-1) * 2;
 		int n = 0;
 		int worldWidth = this.getWorld().getWidth();
@@ -558,8 +563,13 @@ public abstract class Entity {
 	public void takeDamage(int dmg) {
 		this.health-=dmg;
 		if(this.health<=0) {
-			this.tile.remove(this);
+			this.die();
 		}
+	}
+
+
+	public void die() {
+		this.tile.remove(this);
 	}
 	
 }

@@ -96,7 +96,6 @@ class LabyrinthBuilder {
 				currentCell = nextCell;
 				currentCell.visited = true;
 			} else {
-				System.out.println("POP!");
 				currentCell = stack.pop();
 			}
 		}

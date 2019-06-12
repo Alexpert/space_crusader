@@ -25,14 +25,27 @@ import game.main.controller.Controller;
 import game.main.model.AutomatonProvider;
 import game.main.model.Model;
 import game.main.model.entities.*;
+import game.main.music.LauncherSoundHandler;
+import game.main.music.Music;
+import game.main.music.SoundProvider;
+import game.main.music.WorldSoundHandler;
 
 
 public class Launcher {
 
 	Model model;
 	JFrame frame;
+	Music music;
+	LauncherSoundHandler soundHandler;
+	
 	public Launcher(Model m) {
 		this.model=m;
+		
+		//Initialization of the music
+		this.setSoundHandler(new LauncherSoundHandler(this));
+		this.setMusic(SoundProvider.getInstance().getSound("assets/music/son_menu.wav"));
+		this.getSoundHander().start();
+		
 		frame= new JFrame();	
 		frame.setTitle("Welcome to SpaceCrusader");
 		frame.setSize(1024, 768);
@@ -67,6 +80,7 @@ public class Launcher {
 	}
 	
 	private void newGame() {
+		this.getSoundHander().stop();
 		frame.setVisible(false);
 		model.initGame();
 		View view = new View(model);
@@ -74,6 +88,7 @@ public class Launcher {
 	    
 	    Dimension d = new Dimension(1024, 768);
 	    new GameUI(model, view, c, d);
+	    view.setHUD();
 	}
 	
 	private void options() {
@@ -130,6 +145,22 @@ public class Launcher {
 			  } 
 			} );
 		frame2.add(submit, BorderLayout.SOUTH);
+	}
+	
+	public void setMusic(Music m) {
+		this.music = m;
+	}
+	
+	public Music getMusic() {
+		return this.music;
+	}
+	
+	public void setSoundHandler(LauncherSoundHandler so) {
+		this.soundHandler = so;
+	}
+	
+	public LauncherSoundHandler getSoundHander() {
+		return this.soundHandler;
 	}
 	
 }
