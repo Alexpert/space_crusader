@@ -36,6 +36,9 @@ public abstract class Entity {
 	}
 	
 	
+	public int getMaxHealth() {
+		return this.maxHealth;
+	}
 	
 	public void paint(Graphics g,int posX,int posY) {
 		this.painter.paint(g,posX,posY);
@@ -56,7 +59,6 @@ public abstract class Entity {
 	public void setHealth(int healthpoints) {
 		this.health = healthpoints;
 	}
-
 	
 	protected void setKind(Kind kind) {
 		this.kind = kind;

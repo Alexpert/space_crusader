@@ -44,10 +44,4 @@ public class Player extends Entity {
 	public void step(long now) {
 		super.step(now);
 	}
-	
-	@Override
-	public void step(long now) {
-		super.step(now);
-		
-	}
 }
