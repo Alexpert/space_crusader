@@ -51,7 +51,7 @@ public class Model extends GameModel {
 	}
 	
 	public void initGame() {
-		World newWorld = new World(200, 200, this);
+		World newWorld = new World(100, 100, this);
 		new Player(newWorld.getTile(0, 0));
 		
 		this.currentWorld = newWorld;

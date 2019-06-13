@@ -23,40 +23,234 @@ Idle(Wait0){
 		| True ? Wait : (Wait0)
 }
 
-Rabbit(Wait0) {
-* (Wait0):
-		| True ? Wait : (Turn0)
-	* (Turn0):
-		| True ? Turn(R) : (Jump0)
-	* (Jump0):
-		| True ? Move(F) : (Jump1)
-	* (Jump1):
-		| True ? Move(F) : (Jump2)
-	* (Jump2):
-		| True ? Move(F) : (Init1)
-  * (Init1): 
-	| True ? Pop(F) : (Init2)
-  * (Init2)
+Rabbit(Wait0){
+  *(Wait0):
+	| True ? Wait : (Born0)
+  * (Born0):
+    | Cell(F,A,1) & Cell(B,A,1) & Cell(L,A,1) & Cell(R,A,1) ? Pop : (Search)
+    | Closest(A,N) ? Turn(S) : (Wait01) 
+    | Closest(A,S) ? Turn(N) : (Wait01) 
+    | Closest(A,E) ? Turn(W) : (Wait01) 
+    | Closest(A,W) ? Turn(E) : (Wait01)
+    | True ? Wait : (Born1)
+ *(Wait01):
+	| True ? Wait : (Born01)
+  * (Born01):
+    | Cell(F,A,1) & Cell(B,A,1) & Cell(L,A,1) & Cell(R,A,1) ? Pop : (Search)
+    | !Cell(F,O,1) / Cell(F,T,1) / Cell(F,@,1) / Cell(F,A,1) ? Move(F) : (Wait1)
+    | !Cell(R,O,1) / Cell(R,T,1) / Cell(R,@,1) / Cell(F,A,1) ? Move(R) : (Wait1)
+    | !Cell(L,O,1) / Cell(L,T,1) / Cell(L,@,1) / Cell(L,A,1) ? Move(L) : (Wait1)
+    | True ? Wait : (Born1)
+ *(Wait1):
+	| True ? Wait : (Born1)
+  * (Born1):
+    | Cell(F,A,1) & Cell(B,A,1) & Cell(L,A,1) & Cell(R,A,1) ? Pop : (Search)
+    | Closest(A,N) ? Turn(S) : (Born11) 
+    | Closest(A,S) ? Turn(N) : (Born11) 
+    | Closest(A,E) ? Turn(W) : (Born11) 
+    | Closest(A,W) ? Turn(E) : (Born11)
+    | True ? Wait : (Born2)
+ *(Wait11):
+	| True ? Wait : (Born11)
+  * (Born11):
+    | Cell(F,A,1) & Cell(B,A,1) & Cell(L,A,1) & Cell(R,A,1) ? Pop : (Search)
+    | !Cell(F,O,1) / Cell(F,T,1) / Cell(F,@,1) / Cell(F,A,1) ? Move(F) : (Wait2)
+    | !Cell(R,O,1) / Cell(R,T,1) / Cell(R,@,1) / Cell(F,A,1) ? Move(R) : (Wait2)
+    | !Cell(L,O,1) / Cell(L,T,1) / Cell(L,@,1) / Cell(L,A,1) ? Move(L) : (Wait2)
+    | True ? Wait : (Born1)
+ *(Wait2):
+	| True ? Wait : (Born2)
+  * (Born2):
+    | Cell(F,A,1) & Cell(B,A,1) & Cell(L,A,1) & Cell(R,A,1) ? Pop : (Search)
+    | Closest(A,N) ? Turn(S) : (Wait21) 
+    | Closest(A,S) ? Turn(N) : (Wait21) 
+    | Closest(A,E) ? Turn(W) : (Wait21) 
+    | Closest(A,W) ? Turn(E) : (Wait21)
+    | True ? Wait : (Wait0)
+ *(Wait21):
+	| True ? Wait : (Born21)
+  * (Born21):
+    | Cell(F,A,1) & Cell(B,A,1) & Cell(L,A,1) & Cell(R,A,1) ? Pop : (Final)
+    | !Cell(F,O,1) / Cell(F,T,1) / Cell(F,@,1) / Cell(F,A,1) ? Move(F) : (WaitSearch)
+    | !Cell(R,O,1) / Cell(R,T,1) / Cell(R,@,1) / Cell(F,A,1) ? Move(R) : (WaitSearch)
+    | !Cell(L,O,1) / Cell(L,T,1) / Cell(L,@,1) / Cell(L,A,1) ? Move(L) : (WaitSearch)
+    | True ? Wait : (Wait0)
+	*(WaitSearch):
+		| True ? Wait : (Search)
+	* (Search):
+	    | Cell(F,A,1) & Cell(B,A,1) & Cell(L,A,1) & Cell(R,A,1) ? Pop : (Final)
+	    | Cell(F,A,1) / Cell(B,A,1) / Cell(L,A,1) / Cell(R,A,1) ? Wait : (Reproduction)
+	    | Closest(A,N) & !Cell(N,O,1) / Cell(N,T,1) / Cell(N,@,1) / Cell(N,A,1) ? Move(N) : (WaitSearch)
+	    | Closest(A,S) & !Cell(S,O,1) / Cell(S,T,1) / Cell(S,@,1) / Cell(S,A,1) ? Move(S) : (WaitSearch)
+	    | Closest(A,W) & !Cell(W,O,1) / Cell(W,T,1) / Cell(W,@,1) / Cell(W,A,1) ? Move(W) : (WaitSearch)
+	    | Closest(A,E) & !Cell(E,O,1) / Cell(E,T,1) / Cell(E,@,1) / Cell(E,A,1) ? Move(E) : (WaitSearch)
+		| Closest(A,N) ? Turn(R) : (WaitAroundN)
+		| Closest(A,S) ? Turn(R) : (WaitAroundS)
+		| Closest(A,W) ? Turn(R) : (WaitAroundW)
+		| Closest(A,E) ? Turn(R) : (WaitAroundE)
+		| True ? Wait : (Wait0)
+	*(WaitReprod):
+		| Cell(F,A,1) & Cell(B,A,1) & Cell(L,A,1) & Cell(R,A,1) ? Pop : (Final)
+		| True ? Wait : (Reproduction)
+	* (Reproduction):
+		| Cell(F,A,1) & Cell(B,A,1) & Cell(L,A,1) & Cell(R,A,1) ? Pop : (Final)
+	    | True ? Egg : (WaitReprod0)
+	*(WaitReprod0):
+	    | Cell(F,A,1) & Cell(B,A,1) & Cell(L,A,1) & Cell(R,A,1) ? Pop : (Final)
+		| True ? Wait : (WaitReprod1)
+	*(WaitReprod1):
+	    | Cell(F,A,1) & Cell(B,A,1) & Cell(L,A,1) & Cell(R,A,1) ? Pop : (Final)
+		| True ? Wait : (WaitReprod2)
+	*(WaitReprod2):
+	    | Cell(F,A,1) & Cell(B,A,1) & Cell(L,A,1) & Cell(R,A,1) ? Pop : (Final)
+		| True ? Wait : (WaitReprod3)
+	*(WaitReprod3):
+	    | Cell(F,A,1) & Cell(B,A,1) & Cell(L,A,1) & Cell(R,A,1) ? Pop : (Final)
+		| True ? Wait : (WaitReprod4)
+	*(WaitReprod4):
+	    | Cell(F,A,1) & Cell(B,A,1) & Cell(L,A,1) & Cell(R,A,1) ? Pop : (Final)
+		| True ? Wait : (WaitReprod5)
+	*(WaitReprod5):
+	    | Cell(F,A,1) & Cell(B,A,1) & Cell(L,A,1) & Cell(R,A,1) ? Pop : (Final)
+		| True ? Wait : (WaitReprod6)
+	*(WaitReprod6):
+	    | Cell(F,A,1) & Cell(B,A,1) & Cell(L,A,1) & Cell(R,A,1) ? Pop : (Final)
+		| True ? Wait : (WaitReprod7)
+	*(WaitReprod7):
+	    | Cell(F,A,1) & Cell(B,A,1) & Cell(L,A,1) & Cell(R,A,1) ? Pop : (Final)
+		| True ? Wait : (WaitReprod8)
+	*(WaitReprod8):
+	    | Cell(F,A,1) & Cell(B,A,1) & Cell(L,A,1) & Cell(R,A,1) ? Pop : (Final)
+		| True ? Wait : (WaitReprod9)
+	*(WaitReprod9):
+	    | Cell(F,A,1) & Cell(B,A,1) & Cell(L,A,1) & Cell(R,A,1) ? Pop : (Final)
+		| True ? Wait : (WaitReprod10)
+	*(WaitReprod10):
+	    | Cell(F,A,1) & Cell(B,A,1) & Cell(L,A,1) & Cell(R,A,1) ? Pop : (Final)
+		| True ? Wait : (Wait0)	
+
+*(WaitAroundN):
+	    | Cell(F,A,1) & Cell(B,A,1) & Cell(L,A,1) & Cell(R,A,1) ? Pop : (Final)
+		| True ? Wait : (AroundN)	
+*(WaitAroundS):
+	    | Cell(F,A,1) & Cell(B,A,1) & Cell(L,A,1) & Cell(R,A,1) ? Pop : (Final)
+		| True ? Wait : (AroundS)	
+*(WaitAroundE):
+	    | Cell(F,A,1) & Cell(B,A,1) & Cell(L,A,1) & Cell(R,A,1) ? Pop : (Final)
+		| True ? Wait : (AroundE)	
+*(WaitAroundW):
+	    | Cell(F,A,1) & Cell(B,A,1) & Cell(L,A,1) & Cell(R,A,1) ? Pop : (Final)
+		| True ? Wait : (AroundW)	
+
+	* (AroundN):
+		| Cell(F,A,1) & Cell(B,A,1) & Cell(L,A,1) & Cell(R,A,1) ? Pop : (Final)
+	    | MyDir(N) &!Cell(F,O,1) / Cell(F,T,1) / Cell(F,@,1) / Cell(F,A,1) ? Move(F) : (WaitSearch)
+	    | Cell(L,V,1) / Cell(L,P,1) ? Move(L) : (WaitAroundN)
+	    | Cell(F,V,1) / Cell(F,P,1) ? Move(F) : (WaitAroundN) 
+	    | True ? Turn(R) : (WaitAroundN)
+	  * (AroundS):
+		| Cell(F,A,1) & Cell(B,A,1) & Cell(L,A,1) & Cell(R,A,1) ? Pop : (Final)
+	    | MyDir(S) & !Cell(F,O,1) / Cell(F,T,1) / Cell(F,@,1) / Cell(F,A,1) ? Move(F) : (WaitSearch)
+	    | Cell(L,V,1) / Cell(L,P,1) ? Move(L) : (WaitAroundS)
+	    | !Cell(F,O,1) / Cell(F,T,1) / Cell(F,@,1) / Cell(F,A,1) ? Move(F) : (WaitAroundS) 
+	    | True ? Turn(R) : (WaitAroundN)
+	  * (AroundE):
+		| Cell(F,A,1) & Cell(B,A,1) & Cell(L,A,1) & Cell(R,A,1) ? Pop : (Final)
+	    | MyDir(E) & !Cell(F,O,1) / Cell(F,T,1) / Cell(F,@,1) / Cell(F,A,1) ? Move(F) : (WaitSearch)
+	    | Cell(L,V,1) / Cell(L,P,1) ? Move(L) : (WaitAroundE)
+	    | !Cell(F,O,1) / Cell(F,T,1) / Cell(F,@,1) / Cell(F,A,1) ? Move(F) : (WaitAroundE) 
+	    | True ? Turn(R) : (WaitAroundN)
+	  * (AroundW):
+		| Cell(F,A,1) & Cell(B,A,1) & Cell(L,A,1) & Cell(R,A,1) ? Pop : (Final)
+	    | MyDir(W) & !Cell(F,O,1) / Cell(F,T,1) / Cell(F,@,1) / Cell(F,A,1) ? Move(F) : (WaitSearch)
+	    | Cell(L,V,1) / Cell(L,P,1) ? Move(L) : (WaitAroundW)
+	    | !Cell(F,O,1) / Cell(F,T,1) / Cell(F,@,1) / Cell(F,A,1) ? Move(F) : (WaitAroundW) 
+	    | True ? Turn(R) : (WaitAroundN)
+	*(Final)
 }
 
-Test(Wait0){
-	* (Wait0):
-		| True ? Wait : (Turn0)
-	* (Turn0):
-		| True ? Turn(R) : (Jump0)
-	* (Jump0):
-		| True ? Move(F) : (Jump1)
-	* (Jump1):
-		| True ? Move(F) : (Pop2)
-	* (Pop2):
-		| True ? Pop(F) : (Wait0)
-	* (Wait0):
-		| True ? Wait : (Turn0)
+
+AdultRabbit(Init){ 
+	  * (Init): 
+    | Cell(N,@,2) / Cell(N,@,3) / Cell(N,@,4) / Cell(N,@,5) / Cell(N,@,6) / Cell(N,@,7) / Cell(N,@,8) / Cell(N,@,9) / Cell(N,@,10) ? Move(N) : (WaitForTheHorde)
+    | Cell(S,@,2) / Cell(S,@,3) / Cell(S,@,4) / Cell(S,@,5) / Cell(S,@,6) / Cell(S,@,7) / Cell(S,@,8) / Cell(S,@,9) / Cell(S,@,10) ? Move(S) : (WaitForTheHorde)
+    | Cell(E,@,2) / Cell(E,@,3) / Cell(E,@,4) / Cell(E,@,5) / Cell(E,@,6) / Cell(E,@,7) / Cell(E,@,8) / Cell(E,@,9) / Cell(E,@,10) ? Move(E) : (WaitForTheHorde)
+    | Cell(W,@,2) / Cell(W,@,3) / Cell(W,@,4) / Cell(W,@,5) / Cell(W,@,6) / Cell(W,@,7) / Cell(W,@,8) / Cell(W,@,9) / Cell(W,@,10) ? Move(W) : (WaitForTheHorde)
+    | True ? Wait : (WaitWaiting)
+*(WaitWaiting):
+		| True ? Wait : (Waiting)	
+  * (Waiting):
+    | Cell(F,A,1) ? Hit(F) : (Init)
+    | Cell(R,A,1) ? Hit(R) : (Init)
+    | Cell(L,A,1) ? Hit(L) : (Init)
+    | True ? Wait : (Init)
+*(WaitForTheHorde):
+		| True ? Wait : (ForTheHorde)	
+  * (ForTheHorde):
+    | Cell(F,@,1) ? Hit(F) : (WaitForTheHorde)
+    | Cell(L,@,1) ? Hit(L) : (WaitForTheHorde)
+    | Cell(R,@,1) ? Hit(R) : (WaitForTheHorde)
+    | Cell(F,A,1) ? Hit(F) : (WaitForTheHorde)
+    | Cell(L,A,1) ? Hit(L) : (WaitForTheHorde)
+    | Cell(R,A,1) ? Hit(R) : (WaitForTheHorde)
+    | Closest(@,N) ? Move(N) : (WaitForTheHorde)
+    | Closest(@,S) ? Move(S) : (WaitForTheHorde)
+    | Closest(@,E) ? Move(E) : (WaitForTheHorde)
+    | Closest(@,W) ? Move(W) : (WaitForTheHorde)
 }
 
-Laser(Pop0){
-	* (Pop0):
-		| True ? Pop(F) : (Turn0)
-	* (Turn0)
+
+Laser(Init){
+  * (Init):
+    | Cell(F,@,1) ? Hit(F) : (Final)
+    | Cell(F,@,0) ? Hit(F) : (Final)
+    | Cell(F,O,1) ? : (Final)
+    | Cell(F,O,0) ? : (Final)
+    | Cell(F,A,1) ? Hit(F) : (Final)
+    | Cell(F,A,0) ? Hit(F) : (Final)
+	| True ? Move(F) : (Wait0)
+
+  * (Wait0):
+    | True ? Wait : (Move1)
+
+	* (Move1):
+    | Cell(F,@,1) ? Hit(F) : (Final)
+    | Cell(F,@,0) ? Hit(F) : (Final)
+    | Cell(F,O,1) ? : (Final)
+    | Cell(F,O,0) ? : (Final)
+    | Cell(F,A,1) ? Hit(F) : (Final)
+    | Cell(F,A,0) ? Hit(F) : (Final)
+	| True ? Move(F) : (Wait1)
+
+	* (Wait1):
+    | True ? Wait : (Move2)
+
+	* (Move2):
+    | Cell(F,@,1) ? Hit(F) : (Final)
+    | Cell(F,@,0) ? Hit(F) : (Final)
+    | Cell(F,O,1) ? : (Final)
+    | Cell(F,O,0) ? : (Final)
+    | Cell(F,A,1) ? Hit(F) : (Final)
+    | Cell(F,A,0) ? Hit(F) : (Final)
+	| True ? Move(F) : (Wait2)
+
+* (Wait2):
+    | True ? Wait : (Move3)
+
+	* (Move3):
+    | Cell(F,@,1) ? Hit(F) : (Final)
+    | Cell(F,@,0) ? Hit(F) : (Final)
+    | Cell(F,O,1) ? : (Final)
+    | Cell(F,O,0) ? : (Final)
+    | Cell(F,A,1) ? Hit(F) : (Final)
+    | Cell(F,A,0) ? Hit(F) : (Final)
+	| True ? Move(F) : (Pop0)
+
+
+* (Pop0):
+    | True ? Wait : (Final)
+
+  * (Final):
+    | True ? Kamikaze : (Final)
 }
 
