@@ -1,38 +1,46 @@
 package game.main.model.action_handler;
 
-import java.util.ArrayList;
-import java.util.Random;
+import java.awt.Label;
+
+import javax.swing.JFrame;
 
 import game.main.model.Direction;
 import game.main.model.Entity;
-import game.main.model.Model;
-import game.main.model.Tile;
-import game.main.model.World;
-import game.main.model.entities.Gate;
-import game.main.model.entities.Player;
 
-public class ActionHandlerButton extends AbstractActionHandler {
-
-	public ActionHandlerButton(Entity e) {
-		this.entity = e;
-	}
+public class GraalActionHandler extends AbstractActionHandler {
 	
+	static boolean hasWon = false;
+	
+	public GraalActionHandler(Entity entity) {
+		this.entity = entity;
+	}
+
 	@Override
 	public void patient() {
 		// TODO Auto-generated method stub
-	}
 
-	@Override
-	public void pop(Direction d) {
-		Model myModel = this.entity.getWorld().getModel();
-		int width = myModel.overworld.getWidth();
-		int height = myModel.overworld.getHeight();
-		myModel.overworld = new World(width, height, myModel,false);
-		new Gate(myModel.overworld.getTile(1, 1));
 	}
 
 	@Override
 	public void wizz(Direction d) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void pop(Direction d) {
+		System.out.println("FIN DU JEU");
+
+		if (!hasWon) {
+			JFrame frame= new JFrame();	
+			frame.setTitle("Félécitations");
+			frame.setSize(500, 300);
+			frame.setLocation(200, 200);
+			frame.setVisible(true);
+			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			frame.add(new Label("Bien joué, \n Vous avez trouvé le Graal!"));
+			hasWon = true;
+		}
 	}
 
 	@Override
@@ -94,6 +102,5 @@ public class ActionHandlerButton extends AbstractActionHandler {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 
 }

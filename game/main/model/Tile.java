@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import game.main.model.entities.Player;
 import game.main.view.TilePainter;
 
 public class Tile {
@@ -111,6 +112,19 @@ public class Tile {
 			}
 		}
 		return false;
+	}
+
+	public Player getPlayer() {
+		Player player = null;
+		int i = 0;
+		
+		while (i < this.getEntities().size() && player == null) {
+			if (this.getEntity(i).getKind() == Kind.PLAYER)
+				player = (Player) this.getEntity(i);
+			i++;
+		}
+		
+		return player;
 	}
 
 }
