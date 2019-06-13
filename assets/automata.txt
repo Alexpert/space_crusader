@@ -83,3 +83,11 @@ SpaceshipGate(Init){
     | Cell(F,_,0) ? Wizz : (Init)
     | True ? Wait : (Init)
 }
+
+Anvil(Init) {
+	* (Init):
+		| Cell(E,P,1) & Cell(W,P,1) & Cell(S,@,1) ? Pop : (Craft)
+		| True ? Wait : (Init)
+	* (Craft):
+		| True ? Wizz : (Init)
+}

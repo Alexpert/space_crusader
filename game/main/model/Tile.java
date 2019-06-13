@@ -28,7 +28,9 @@ public class Tile {
 	}
 	
 	public Entity getEntity(int index) {
-		return this.entities.get(index);
+		if (index < this.entities.size())
+			return this.entities.get(index);
+		return null;
 	}
 	
 	public TileBiome getBiome() {
