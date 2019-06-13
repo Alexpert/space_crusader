@@ -30,6 +30,14 @@ public class Player extends Entity {
 		return this.money;
 	}
 	
+	public void takeMoney(int m) {
+		this.money += m;
+	}
+	
+	public void add(Item item) {
+		this.inventory.add(item);
+	}
+	
 	public ArrayList<Item> getInventory(){
 		return this.inventory;
 	}
