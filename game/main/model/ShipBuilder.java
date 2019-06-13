@@ -80,8 +80,7 @@ public class ShipBuilder {
 			}
 		}
 		new Anvil(tiles[1][height - 27]);
-		new DroppedItem(tiles[0][height - 27], new Fur());
-		new DroppedItem(tiles[2][height - 27], new Fur());
+		new OldMan(tiles[1][height - 23]);
 		return tiles;
 	}
 

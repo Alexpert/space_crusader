@@ -84,4 +84,8 @@ public class Player extends Entity {
 	private void setSelectedItemIndex(int selectedItemIndex) {
 		this.selectedItemIndex = selectedItemIndex;
 	}
+
+	public void addMoney(int value) {
+		this.money += value;
+	}
 }

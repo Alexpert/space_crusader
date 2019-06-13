@@ -102,3 +102,15 @@ Anvil(Init) {
 	* (Craft):
 		| True ? Wizz : (Init)
 }
+
+Garry(Init) {
+	* (Init):
+	| Cell(F,P,1) ? Pop : (Init)
+	| Cell(R,@,1) ? Wizz : (Cooldown)
+	| True ? Wait : (Init)
+	* (Cooldown):
+	| !Cell(R,@,1) ? Wait : (Refill)
+	| True ? Wait : (Cooldown)
+	* (Refill):
+	| True ? Hit : (Init)
+}
