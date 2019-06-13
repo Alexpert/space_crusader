@@ -25,8 +25,8 @@ public class TestAutomate {
 			"    | Cell(E,V,1) ? Move(E) : (MvEast)\n" + 
 			"    | !Cell(E,V,1) ? Pop() : (MvWest)\n" + 
 			"  * (MvWest):\n" + 
-			"    | Cell(O,V,1) ? Move(O) : (MvWest)\n" + 
-			"    | !Cell(O,V,1) ? Pop() : (MvEast)\n" + 
+			"    | Cell(W,V,1) ? Move(O) : (MvWest)\n" + 
+			"    | !Cell(W,V,1) ? Pop() : (MvEast)\n" + 
 			"}\n" 
 			+ 
 			"Rebound(Mv){\n" + 
@@ -89,7 +89,7 @@ public class TestAutomate {
 			+ "| True ? Wizz(N) : (W1)"
 			+ "| True ? Wizz(S) : (W1)"
 			+ "| True ? Wizz(E) : (W1)"
-			+ "| True ? Wizz(O) : (W1)"
+			+ "| True ? Wizz(W) : (W1)"
 			+ "}"
 			+
 			"WizzDebugger(W1){"
@@ -182,6 +182,11 @@ public class TestAutomate {
 			+ "| Closest(N, V) ? Pop() : (E1)"
 			+ "| Closest(N, @) ? Pop() : (E1)"
 			+ "| Closest(N, _) ? Pop() : (E1)"
+			+ "}" +
+			"OptionalAction(OA1) {"
+			+ "* (OA1)"
+			+ "| True ? : (OA2)"
+			+ "* (OA2)"
 			+ "}"
 			;
 	private static Ast ast;
@@ -489,5 +494,16 @@ public class TestAutomate {
 				.getTransitions().get(9).getCondition()).getKind() == Kind.PLAYER);
 		assertTrue(((ICondition.Closest)automaton.getBehaviours().get(0)
 				.getTransitions().get(10).getCondition()).getKind() == Kind.ANYTHING);
+	}
+	
+	@Test
+	public void testOptionalAction() {
+		IAutomaton automaton =  TestAutomate.automatons.get(22);
+		assertTrue(automaton.getCurrent().getName().equals("OA1"));
+		assertTrue(automaton.getBehaviour(automaton.getCurrent()).getTransitions()
+				.get(0).getAction() == null);
+		automaton.step(null);
+		assertTrue(automaton.getCurrent().getName().equals("OA2"));
+		
 	}
 }

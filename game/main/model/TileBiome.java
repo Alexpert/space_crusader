@@ -1,16 +1,20 @@
 package game.main.model;
 
+import java.util.HashMap;
+
 public enum TileBiome {
 	DESERT("assets/terrain/desert.png"), STONE("assets/terrain/stone.png"),
 	ICE("assets/terrain/ice.png"), DRYLAND("assets/terrain/dryland.png"),
 	PLAIN("assets/terrain/plain.png"), FOREST("assets/terrain/forest.png"),
 	JUNGLE("assets/terrain/jungle.png"), SWAMP("assets/terrain/swamp.png"),
-	TAIGA("assets/terrain/taiga.png");
+	TAIGA("assets/terrain/taiga.png"), SHIP("assets/terrain/ship.png"),
+	SPACE("assets/terrain/black.png");
 	
 	private String texturePath;
 	
 	private TileBiome(String texturePath) {
 		this.texturePath = texturePath;
+		
 	}
 	
 	public String getTexturePath() {
