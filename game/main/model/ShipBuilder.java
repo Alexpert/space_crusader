@@ -2,11 +2,8 @@ package game.main.model;
 
 import java.net.Socket;
 
-import game.main.model.entities.Flower;
-import game.main.model.entities.Gate;
-import game.main.model.entities.Rock;
-import game.main.model.entities.Tree;
-import game.main.model.entities.Wall;
+import game.main.model.entities.*;
+import game.main.model.items.*;
 
 public class ShipBuilder {
 
@@ -35,7 +32,7 @@ public class ShipBuilder {
 		}
 		// front wall
 		for (int j = 4; j < width - 1; j++) {
-			tiles[j][height - 21].add(new Wall(tiles[j][height - 21], WallType.DUNGEON));
+			new Wall(tiles[j][height - 21], WallType.DUNGEON);
 		}
 		// cockpite
 
@@ -65,23 +62,26 @@ public class ShipBuilder {
 		tiles[width-1][height - 17] = new Tile(width-1, height - 17, TileBiome.SPACE, world);
 		
 
-		tiles[width-1][height - 18].add(new Wall(tiles[width-1][height - 18], WallType.DUNGEON));
-		tiles[width-2][height - 19].add(new Wall(tiles[width-2][height - 19], WallType.DUNGEON));
-		tiles[width-2][height - 20].add(new Wall(tiles[width-2][height - 20], WallType.DUNGEON));
-		tiles[3][height - 18].add(new Wall(tiles[3][height - 18], WallType.DUNGEON));
-		tiles[4][height - 19].add(new Wall(tiles[4][height - 19], WallType.DUNGEON));
-		tiles[4][height - 20].add(new Wall(tiles[4][height - 20], WallType.DUNGEON));
-		tiles[0][height - 17].add(new Wall(tiles[0][height - 17], WallType.DUNGEON));
-		tiles[1][height - 17].add(new Wall(tiles[1][height - 17], WallType.DUNGEON));
-		tiles[2][height - 17].add(new Wall(tiles[2][height - 17], WallType.DUNGEON));
+		new Wall(tiles[width-1][height - 18], WallType.DUNGEON);
+		new Wall(tiles[width-2][height - 19], WallType.DUNGEON);
+		new Wall(tiles[width-2][height - 20], WallType.DUNGEON);
+		new Wall(tiles[3][height - 18], WallType.DUNGEON);
+		new Wall(tiles[4][height - 19], WallType.DUNGEON);
+		new Wall(tiles[4][height - 20], WallType.DUNGEON);
+		new Wall(tiles[0][height - 17], WallType.DUNGEON);
+		new Wall(tiles[1][height - 17], WallType.DUNGEON);
+		new Wall(tiles[2][height - 17], WallType.DUNGEON);
 
-		tiles[1][height - 20].add(new Flower(tiles[1][height - 20]));		
+		new Flower(tiles[1][height - 20]);		
 		// space
 		for (int i = height - 16; i < height; i++) {
 			for (int j = 0; j < width; j++) {
 				tiles[j][i] = new Tile(j, i, TileBiome.SPACE, world);
 			}
 		}
+		new Anvil(tiles[1][height - 27]);
+		new DroppedItem(tiles[0][height - 27], new Fur());
+		new DroppedItem(tiles[2][height - 27], new Fur());
 		return tiles;
 	}
 
