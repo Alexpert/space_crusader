@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Stack;
 
-import game.main.model.entities.Flower;
-import game.main.model.entities.Rock;
-import game.main.model.entities.Wall;
+import game.main.model.entities.*;
 
 public class Structure {
 	private ArrayList<Tile> tiles;
@@ -51,6 +49,8 @@ public class Structure {
 			new Wall(tile, WallType.DUNGEON);
 			this.tiles.add(tile);
 		}
+		
+		new Graal(this.getTile(labWidth / 2 * 4 + 2, labHeight / 2 * 4 + 2));
 		
 		this.getTile(0, (labHeight * 4) / 2).clear();
 	}
