@@ -12,6 +12,7 @@ public class Player extends Entity {
 	private int money;
 	private ArrayList<Item> inventory;
 	public static String nameAtomaton = "Playable";
+	private int selectedItemIndex =-1;
 
 	public Player(Tile tile) {
 		super(tile, AutomatonProvider.getInstance().getAutomaton(Player.nameAtomaton));
@@ -22,15 +23,11 @@ public class Player extends Entity {
 		this.setActionHandler(new ActionHandlerPlayer(this));
 		this.inventory = new ArrayList<Item>();
 		
-		this.inventory.add(new Bomb());
+		this.addItem(new Bomb());
 	}
 
 	public int getMoney() {
 		return this.money;
-	}
-	
-	public void add(Item item) {
-		this.inventory.add(item);
 	}
 	
 	public ArrayList<Item> getInventory(){
@@ -43,6 +40,11 @@ public class Player extends Entity {
 	}
 
 	public boolean addItem(Item item) {
+		
+		if(this.selectedItemIndex ==-1) {
+			this.selectedItemIndex=0;
+		}
+		System.out.println("add to inventory: " + item.getName());
 		if (this.inventory.size() < 10)
 			this.inventory.add(item);
 		
@@ -50,5 +52,18 @@ public class Player extends Entity {
 				System.out.println(it.getName());
 		
 		return this.inventory.size() < 11;
+	}
+	
+	public Item getSelectedItem() {
+		if(this.selectedItemIndex == -1) {
+			return null;
+		}
+		else {
+			return this.inventory.get(this.selectedItemIndex);
+		}
+	}
+	
+	public void incrementSelectedItem() {
+		this.selectedItemIndex++;
 	}
 }

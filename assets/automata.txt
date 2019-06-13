@@ -10,7 +10,15 @@ Playable(Init){
 		| Key(d) ? Move(E) : (Init)
 		| Key(q) ? Move(W) : (Init)
 		| Key(e) ? Hit(F) : (Init)
+		| Key(a) ? Pop : (Init)
 		| True ? Wait : (Init)
+}
+
+Bomb(Init){
+	* (Init):
+		| True ? Pop(F) : (Fin)
+	* (Fin):
+		| True ? Wizz(F) : (Init)
 }
 
 Idle(Wait0){

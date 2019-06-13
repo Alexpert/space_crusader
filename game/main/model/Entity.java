@@ -566,10 +566,22 @@ public abstract class Entity {
 			this.die();
 		}
 	}
+	
+	public void setBeginTimer(long time) {
+		this.beginTimeAction = time;
+	}
 
 
 	public void die() {
 		this.tile.remove(this);
+	}
+	
+	public long getBeginTimer() {
+		return this.beginTimeAction;
+	}
+	
+	public void setAutomaton(IAutomaton a) {
+		this.automaton = a;
 	}
 	
 }
