@@ -13,6 +13,9 @@ import interpreter.IAutomaton;
 public class Model extends GameModel {
 
 	World currentWorld = null;
+	public World overworld;
+	public World ship;
+	public boolean isInShip = false;
 	private ArrayList<World> worlds;
 	private HashMap<String, Boolean> map;
 	private String automataPath = "assets/automata.txt";
@@ -59,14 +62,16 @@ public class Model extends GameModel {
 	}
 	
 	public void initGame() {
-		World newWorld = new World(200, 200, this);
-		this.worlds.add(newWorld);
+		World newWorld = new World(200, 200, this, false);
+		this.overworld = newWorld;
 		
 		this.player = new Player(newWorld.getTile(0, 0));
 		
 		new Gate(newWorld.getTile(1, 0));
 		
 		this.currentWorld = newWorld;
+		this.ship =new World(36, 36, this, true);
+		
 	}
 
 	public void writeHashMap(String key, boolean bool) {
