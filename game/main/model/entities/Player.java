@@ -41,8 +41,8 @@ public class Player extends Entity {
 
 	public boolean addItem(Item item) {
 		
-		if(this.selectedItemIndex ==-1) {
-			this.selectedItemIndex=0;
+		if(this.getSelectedItemIndex() ==-1) {
+			this.setSelectedItemIndex(0);
 		}
 		System.out.println("add to inventory: " + item.getName());
 		if (this.inventory.size() < 10)
@@ -55,15 +55,25 @@ public class Player extends Entity {
 	}
 	
 	public Item getSelectedItem() {
-		if(this.selectedItemIndex == -1) {
+		if(this.getSelectedItemIndex() == -1) {
 			return null;
 		}
 		else {
-			return this.inventory.get(this.selectedItemIndex);
+			return this.inventory.get(this.getSelectedItemIndex());
 		}
 	}
 	
 	public void incrementSelectedItem() {
-		this.selectedItemIndex++;
+		this.setSelectedItemIndex(this.getSelectedItemIndex() + 1);
+		this.setSelectedItemIndex(this.getSelectedItemIndex() % 10);
+		System.out.println("Index_item :"+this.getSelectedItemIndex()+"");
+	}
+
+	public int getSelectedItemIndex() {
+		return selectedItemIndex;
+	}
+
+	private void setSelectedItemIndex(int selectedItemIndex) {
+		this.selectedItemIndex = selectedItemIndex;
 	}
 }

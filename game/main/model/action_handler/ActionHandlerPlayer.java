@@ -16,7 +16,7 @@ public class ActionHandlerPlayer extends AbstractActionHandler {
 	
 	@Override
 	public void patient() {
-		this.entity.setActionTimer(10);
+		this.entity.setActionTimer(100);
 	}
 	
 	@Override
