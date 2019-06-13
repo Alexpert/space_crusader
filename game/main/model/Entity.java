@@ -30,6 +30,8 @@ public abstract class Entity {
 	private Tile tile;
 
 	protected Entity(Tile tile, IAutomaton automaton) {
+		if (automaton == null)
+			System.out.println("Sa race?");
 		this.automaton = automaton;
 		this.setTile(tile);
 	}

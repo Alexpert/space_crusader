@@ -345,3 +345,10 @@ BigRedButton(Init) {
 	* (Cooldown):
 	| !Cell(R,@,0) ? Wait : (Init)
 }
+
+
+Item(Init) {
+	* (Init):
+	| Cell(N,@,0) ? Pop : (Init)
+	| True ? Wait : (Init)
+}
