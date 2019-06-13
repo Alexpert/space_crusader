@@ -17,6 +17,7 @@ public class Anvil extends Entity {
 		this.setKind(Kind.OBSTACLE);
 		this.setActionHandler(new ActionHandlerAnvil(this));
 		this.setIPainter(new AnvilPainter(this));
+		this.collidable = true;
 	}
 	
 	@Override
