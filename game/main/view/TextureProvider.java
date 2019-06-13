@@ -32,6 +32,7 @@ public class TextureProvider {
 				this.textures.put(path, texture);
 			} catch (IOException ex) {
 				System.out.println(ex.toString());
+				System.out.println(path);
 			}
 		}
 		
