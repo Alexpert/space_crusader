@@ -434,13 +434,15 @@ public class Ast {
 						throw new Exception("Wrong argument count");
 					if (exprAsFunCall.parameters.get(0).kind != "Direction")
 						throw new Exception("Not a Direction");
-					if (exprAsFunCall.parameters.get(1).kind != "Entity")
+					if (exprAsFunCall.parameters.get(1).kind != "Entity" && (exprAsFunCall.parameters.get(1).kind != "Underscore"))
 						throw new Exception("Not an Entity");
 					if (exprAsFunCall.parameters.size() > 2 && exprAsFunCall.parameters.get(2).kind != "Number")
 						throw new Exception("Not a Distance");
 
-					condition = condition.new Cell(((Direction) exprAsFunCall.parameters.get(0)).getDirection(),
-							(((Entity) exprAsFunCall.parameters.get(1)).getKind()));
+					Kind k = exprAsFunCall.parameters.get(1).kind == "Entity"
+							? (((Entity) exprAsFunCall.parameters.get(1)).getKind())
+							: Kind.ANYTHING;
+					condition = condition.new Cell(((Direction) exprAsFunCall.parameters.get(0)).getDirection(),k);
 					if (exprAsFunCall.parameters.size() >2)
 						((Cell) condition).addDistance(
 							Integer.parseInt(((Number_as_String) exprAsFunCall.parameters.get(2)).value.toString()));

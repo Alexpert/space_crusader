@@ -12,7 +12,7 @@ public class ActionHandlerPlayer extends AbstractActionHandler {
 	
 	@Override
 	public void patient() {
-		this.entity.setActionTimer(500);
+		this.entity.setActionTimer(10);
 	}
 	
 	@Override
@@ -35,13 +35,14 @@ public class ActionHandlerPlayer extends AbstractActionHandler {
 
 	@Override			// return false has nothing was on the tile
 	public boolean hit(Direction d) {
+		
 		Tile t = this.entity.getTile(d);
 		if(t.isEmpty()) {
 			return false;
 		}
 		else {
 			for(int i = 0; i < t.nbEntity(); i ++) {
-				t.getEntity(i).addHealth(-5);
+				t.getEntity(i).takeDamage(5);
 			}
 			return true;
 		}
@@ -74,7 +75,7 @@ public class ActionHandlerPlayer extends AbstractActionHandler {
 	@Override
 	public boolean power() {
 		if(this.entity.getHealth() > 0) {
-			this.entity.addHealth(1);
+			this.entity.takeDamage(-1);
 			return true;
 		}
 		return false;
@@ -82,7 +83,7 @@ public class ActionHandlerPlayer extends AbstractActionHandler {
 
 	@Override
 	public boolean kamikaze() {
-		this.entity.addHealth(0);
+		this.entity.setHealth(0);
 		return true;
 	}
 

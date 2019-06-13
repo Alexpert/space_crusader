@@ -47,6 +47,14 @@ public class Tile {
 		return this.y;
 	}
 	
+	public void setX(int x) {
+		this.x = x;
+	}
+	
+	public void setY(int y) {
+		this.y = y;
+	}
+	
 	public void clear() {
 		int i = this.getEntities().size() - 1;
 		while(i >= 0) {
@@ -64,12 +72,16 @@ public class Tile {
 		this.entities.remove(e);
 	}
 	
-	public void paint(Graphics g, int posCamX, int posCamY, int camWidth, int camHeight) {
-		this.painter.paint(g,posCamX,posCamY,camWidth,camHeight);
+	public void paint(Graphics g, int posCamX, int posCamY, int camWidth, int camHeight, boolean paintOnlyBackground) {
+		this.painter.paint(g,posCamX,posCamY,camWidth,camHeight, paintOnlyBackground);
 	}
 	
 	public World getWorld() {
 		return this.w;
+	}
+	
+	public void setWorld(World w) {
+		this.w = w;
 	}
 
 	public void step(long now) {
@@ -83,8 +95,17 @@ public class Tile {
 		}
 	}
 
-	ArrayList<Entity> getEntities() {
+	public ArrayList<Entity> getEntities() {
 		return this.entities;
+	}
+	
+	public boolean isCollidable() {
+		for(int i = 0; i < this.nbEntity(); i ++) {
+			if(this.entities.get(i).collidable) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

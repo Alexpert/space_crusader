@@ -20,7 +20,7 @@ public class ActionHandlerAdultRabbit extends AbstractActionHandler{
 	@Override
 	public void pop(Direction d) {
 		// TODO laser
-		
+		return;
 	}
 
 	@Override
@@ -37,7 +37,7 @@ public class ActionHandlerAdultRabbit extends AbstractActionHandler{
 		}
 		else {
 			for(int i = 0; i < t.nbEntity(); i ++) {
-				t.getEntity(i).addHealth(-10);
+				t.getEntity(i).takeDamage(10);;
 			}
 			return true;
 		}
@@ -76,7 +76,7 @@ public class ActionHandlerAdultRabbit extends AbstractActionHandler{
 	@Override
 	public boolean power() {
 		if(this.entity.getHealth() > 0) {
-			this.entity.addHealth(1);
+			this.entity.takeDamage(-1);
 			return true;
 		}
 		return false;
@@ -84,7 +84,7 @@ public class ActionHandlerAdultRabbit extends AbstractActionHandler{
 
 	@Override
 	public boolean kamikaze() {
-		this.entity.addHealth(0);
+		this.entity.setHealth(0);
 		return true;
 	}
 

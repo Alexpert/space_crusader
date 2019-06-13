@@ -57,6 +57,7 @@ public class ActionHandlerGate extends AbstractActionHandler {
 		}
 		//We update the currentWorld
 		this.entity.getWorld().getModel().setCurrenWorld(otherWorld);
+		
 		//The player spawns at the right of the gate
 		Tile start = otherWorld.getTile(this.entity.getX() + 1, this.entity.getY());
 		player.setTile(start);

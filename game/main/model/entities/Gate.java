@@ -10,8 +10,13 @@ import interpreter.IAutomaton;
 public class Gate extends Entity {
 
 	public Gate(Tile tile) {
-		super(tile, AutomatonProvider.getInstance().getAutomaton("Test"));
+		super(tile, AutomatonProvider.getInstance().getAutomaton("SpaceshipGate"));
 		this.setKind(Kind.GATE);
 		this.setIPainter(new GatePainter(this));
+	}
+	
+	@Override
+	public void takeDamage(int dmg) {
+		
 	}
 }

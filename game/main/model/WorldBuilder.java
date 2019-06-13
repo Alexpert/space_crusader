@@ -75,7 +75,7 @@ public class WorldBuilder {
 		drylandProbas.put(SpawnedEntities.TREE, 0.02F);
 		drylandProbas.put(SpawnedEntities.FLOWER, 0.03F);
 		drylandProbas.put(SpawnedEntities.ROCK, 0.05F);
-		drylandProbas.put(SpawnedEntities.RABBIT, 0.55F);
+		drylandProbas.put(SpawnedEntities.RABBIT, 0.1F);
 		spawnProbas.put(TileBiome.DRYLAND, drylandProbas);
 //		PLAIN
 		HashMap<SpawnedEntities, Float> plainProbas = new HashMap<>();

@@ -1,5 +1,6 @@
 package game.main.model;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -15,6 +16,7 @@ public class Model extends GameModel {
 	private ArrayList<World> worlds;
 	private HashMap<String, Boolean> map;
 	private String automataPath = "assets/automata.txt";
+	private String soundPath = "assets/music/ambiance_monde.wav";
 	private Player player;
 
 	public Model() {
@@ -53,6 +55,10 @@ public class Model extends GameModel {
 		//Initialization of the arraylist of worlds
 		this.worlds = new ArrayList<World>();
 		
+		this.initGame();
+	}
+	
+	public void initGame() {
 		World newWorld = new World(200, 200, this);
 		this.worlds.add(newWorld);
 		
@@ -61,7 +67,6 @@ public class Model extends GameModel {
 		new Gate(newWorld.getTile(1, 0));
 		
 		this.currentWorld = newWorld;
-
 	}
 
 	public void writeHashMap(String key, boolean bool) {
