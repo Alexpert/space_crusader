@@ -12,5 +12,6 @@ public class Rock extends Entity {
 		this.collidable = true;
 		this.setKind(Kind.OBSTACLE);
 		this.setIPainter(new RockPainter(this));
+		this.setHealth(90000);
 	}
 }

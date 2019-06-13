@@ -11,8 +11,10 @@ public class DroppedItem extends Entity {
 
 	Item item;
 	
+	public static String nameAtomaton = "Item";
+	
 	public DroppedItem(Tile tile, Item item) {
-		super(tile, AutomatonProvider.getInstance().getAutomaton("Item"));
+		super(tile, AutomatonProvider.getInstance().getAutomaton(DroppedItem.nameAtomaton));
 		this.item = item;
 		this.setIPainter(new DroppedItemPainter(this));
 		this.setActionHandler(new DroppedItemActionHandler(this));

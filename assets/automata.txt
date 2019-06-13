@@ -16,9 +16,9 @@ Playable(Init){
 
 Bomb(Init){
 	* (Init):
-		| True ? Pop : (Fin)
+		| True ? Pop(F) : (Fin)
 	* (Fin):
-		| True ? Wizz : (Init)
+		| True ? Wizz(F) : (Init)
 }
 
 Idle(Wait0){

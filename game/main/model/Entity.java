@@ -561,15 +561,28 @@ public abstract class Entity {
 	}
 	
 	public void takeDamage(int dmg) {
+		System.out.println("oui");
 		this.health-=dmg;
 		if(this.health<=0) {
 			this.die();
 		}
 	}
+	
+	public void setBeginTimer(long time) {
+		this.beginTimeAction = time;
+	}
 
 
 	public void die() {
 		this.tile.remove(this);
+	}
+	
+	public long getBeginTimer() {
+		return this.beginTimeAction;
+	}
+	
+	public void setAutomaton(IAutomaton a) {
+		this.automaton = a;
 	}
 	
 }

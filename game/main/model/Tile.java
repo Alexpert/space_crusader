@@ -85,14 +85,17 @@ public class Tile {
 	}
 
 	public void step(long now) {
-		int i = this.getEntities().size() - 1;
-		
-		//A dirty way to go through the array knowing that the
-		//current element could quit the array at any moment
-		while(i >= 0) {
-			this.getEntities().get(i).step(now);
-			i--;
+		if(this.getEntities().size()!=0) {
+			int j=0;
+			int nb = this.nbEntity()-1;
+			while(nb >=j) {
+				nb = this.nbEntity()-1;
+				this.getEntity(nb-j).step(now);;
+				j++;
+				nb = this.nbEntity()-1;
+			}
 		}
+		
 	}
 
 	public ArrayList<Entity> getEntities() {

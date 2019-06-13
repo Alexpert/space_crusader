@@ -1,7 +1,11 @@
 package game.main.model.action_handler;
 
+import java.util.ArrayList;
+
 import game.main.model.Direction;
 import game.main.model.Entity;
+import game.main.model.Tile;
+import game.main.model.entities.Rock;
 
 public class ActionHandlerDroppedBomb extends AbstractActionHandler{
 
@@ -16,14 +20,27 @@ public class ActionHandlerDroppedBomb extends AbstractActionHandler{
 
 	@Override
 	public void wizz(Direction d) {
-		// TODO Auto-generated method stub
-		
+		this.entity.setActionTimer(500);
+		Tile t = this.entity.getTile();
+		t.getEntities().clear();
+		for(int i = 4; i < 8; i++) {
+			t = this.entity.getTile(d.get(i));
+			ArrayList<Entity> list = new ArrayList<>();
+			for(int j = t.nbEntity(); j >=0; j--) {
+				list.add(t.getEntity(j));
+			}
+			for(int k = 0; k < list.size(); k ++) {
+				System.out.println("oui");
+				list.get(k).takeDamage(100000);
+			}
+			
+		}
+		this.entity.getTile().remove(this.entity);
 	}
 
 	@Override
 	public void pop(Direction d) {
 		this.entity.setActionTimer(3000);
-		System.out.println("oui");
 	}
 
 	@Override
