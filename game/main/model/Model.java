@@ -7,15 +7,15 @@ import java.util.HashMap;
 import edu.ricm3.game.GameModel;
 import game.main.model.entities.Gate;
 import game.main.model.entities.Player;
-import game.main.music.Music;
-import game.main.music.SoundProvider;
-import game.main.music.WorldSoundHandler;
 import interpreter.Interpreter;
 import interpreter.IAutomaton;
 
 public class Model extends GameModel {
 
 	World currentWorld = null;
+	public World overworld;
+	public World ship;
+	public boolean isInShip = false;
 	private ArrayList<World> worlds;
 	private HashMap<String, Boolean> map;
 	private String automataPath = "assets/automata.txt";
@@ -62,20 +62,16 @@ public class Model extends GameModel {
 	}
 	
 	public void initGame() {
-		World newWorld = new World(200, 200, this);
-		this.worlds.add(newWorld);
-		
-		//Clip the soundhandler to its world
-		newWorld.setSoundHandler(new WorldSoundHandler(newWorld));
-		
-		//Give a music to the world
-		newWorld.setMusic(SoundProvider.getInstance().getSound(soundPath));
+		World newWorld = new World(200, 200, this, false);
+		this.overworld = newWorld;
 		
 		this.player = new Player(newWorld.getTile(0, 0));
 		
 		new Gate(newWorld.getTile(1, 0));
 		
 		this.currentWorld = newWorld;
+		this.ship =new World(36, 36, this, true);
+		
 	}
 
 	public void writeHashMap(String key, boolean bool) {

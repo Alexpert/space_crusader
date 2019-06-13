@@ -64,6 +64,11 @@ public class PlayerPainter  implements IPainter{
 		this.listAnimation.add(new Animation(animSprite, 3, 6));	//5		walk to the left
 		this.listAnimation.add(new Animation(animSprite, 4, 4));	//6		walk to the north
 		this.listAnimation.add(new Animation(animSprite, 5, 4));	//7		walk to the south
+		
+		this.listAnimation.add(new Animation(animSprite, 6, 5));	//8		hit to the right
+		this.listAnimation.add(new Animation(animSprite, 7, 5));	//9		hit to the left
+		this.listAnimation.add(new Animation(animSprite, 8, 5));	//10	hit to the north
+		this.listAnimation.add(new Animation(animSprite, 9, 5));	//11	hit to the north
 	}
 	
 	@Override
@@ -83,7 +88,18 @@ public class PlayerPainter  implements IPainter{
 			}
 		}
 		if(a == Action.HIT) {
-			this.currentAnimation = this.listAnimation.get(0);
+			if(d == Direction.EAST) {
+				this.currentAnimation = this.listAnimation.get(8);
+			}
+			else if(d == Direction.WEST) {
+				this.currentAnimation = this.listAnimation.get(9);
+			}
+			else if(d == Direction.NORTH) {
+				this.currentAnimation = this.listAnimation.get(11);
+			}
+			else if(d == Direction.SOUTH) {
+				this.currentAnimation = this.listAnimation.get(10);
+			}
 		}
 		if(a == Action.MOVE) {
 			if(d == Direction.EAST) {

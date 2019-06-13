@@ -4,11 +4,10 @@ import java.util.Random;
 
 import game.main.model.Direction;
 import game.main.model.Entity;
+import game.main.model.Model;
 import game.main.model.Tile;
 import game.main.model.World;
 import game.main.model.entities.Player;
-import game.main.music.SoundProvider;
-import game.main.music.WorldSoundHandler;
 
 public class ActionHandlerGate extends AbstractActionHandler {
 
@@ -40,42 +39,31 @@ public class ActionHandlerGate extends AbstractActionHandler {
 	public void pop(Direction d) {
 		//The first world in the arraylist is the planet
 		//The second world in the arraylist is the spaceship
+		Model m =this.entity.getWorld().getModel();
 		World tmpWorld = this.entity.getWorld();
 		World otherWorld;
 		Player player = tmpWorld.getModel().getPlayer();
 		//We withdraw the entity of its world
-		tmpWorld.getTile(this.entity.getX(), this.entity.getY()).remove(player);
+		tmpWorld.getTile(player.getX(), player.getY()).remove(player);
 		//Case where the currentworld is the planet (and that the player would like to return to its ship)
-		if(tmpWorld == tmpWorld.getModel().getWorlds().get(0)) {
-			otherWorld = this.entity.getWorld().getModel().getWorlds().get(1);
+		if(!m.isInShip) {
+			m.setCurrenWorld(m.ship);
 			//We give to the player its new Action HAndler
-			player.setActionHandler(new ActionHandlerRabbit(player));
-			
-			//We manage the music
-			otherWorld.getWorldSoundHander().stop();
-			tmpWorld.setSoundHandler(new WorldSoundHandler(tmpWorld));
-			tmpWorld.setMusic(SoundProvider.getInstance().getSound("assets/music/ambiance_vaisseau.wav"));
-			tmpWorld.getWorldSoundHander().start();
+			player.setActionHandler(new ActionHandlerPlayer(player));
+			Tile start = m.ship.getTile(1, 2);
+			player.setTile(start);
+			m.isInShip=true;
 		}
 		else {
 			//Case where the currentworld is the spaceship (and that the player gets out to the planet)
-			otherWorld = this.entity.getWorld().getModel().getWorlds().get(0);
+			m.setCurrenWorld(m.overworld);
 			//We give to the player its new Action HAndler
 			player.setActionHandler(new ActionHandlerPlayer(player));
-			
-			//We manage the music
-			otherWorld.getWorldSoundHander().stop();
-			tmpWorld.setSoundHandler(new WorldSoundHandler(tmpWorld));
-			tmpWorld.setMusic(SoundProvider.getInstance().getSound("assets/music/ambiance_monde.wav"));
-			tmpWorld.getWorldSoundHander().start();
+			Tile start = m.overworld.getTile(0, 0);
+			player.setTile(start);
+			m.isInShip=false;
 		}
-		//We update the currentWorld
-		this.entity.getWorld().getModel().setCurrenWorld(otherWorld);
 		
-		//The player spawns at the right of the gate
-		Tile start = otherWorld.getTile(this.entity.getX() + 1, this.entity.getY());
-		player.setTile(start);
-		otherWorld.add(player);
 	}
 
 	@Override

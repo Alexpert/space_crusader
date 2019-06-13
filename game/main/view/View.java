@@ -36,7 +36,7 @@ public class View extends GameView {
 	}
 
 	public void step(long now) {
-		
+		this.viewport.step(now);
 	}
 
 	private void computeFPS() {

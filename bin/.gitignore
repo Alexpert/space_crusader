@@ -1,5 +1,5 @@
-/edu/
-/game/
-/interpreter/
-/parser/
-/testUnitaire/
+
+*.class
+
+\.classpath
+/bin/
