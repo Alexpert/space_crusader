@@ -103,6 +103,51 @@ Anvil(Init) {
 		| True ? Wizz : (Init)
 }
 
+SpaceRabbit(Init) {
+	* (Init):
+		| Cell(N,@,1) / Cell(E,@,1) / Cell(S,@,1) / Cell(W,@,1) ? Pop : (Time)
+		| Cell(N,O,1) / Cell(E,O,1) / Cell(S,O,1) / Cell(W,O,1) ? Wizz : (Time)
+		| True ? : (Activity)
+	* (Activity):
+		| !Cell(N,O,1) ? Move(N) : (Init)
+		| !Cell(E,O,1) ? Move(E) : (Init)
+		| !Cell(S,O,1) ? Move(S) : (Init)
+		| !Cell(W,O,1) ? Move(W) : (Init)
+		| True ? : (Time)
+	* (Time):
+		| True ? Wait : (Activity)
+}
+
+Company(E1) {
+ * (E1):
+ |True ? Move(E) : (E2)
+ * (E2):
+ |True ? Move(N) : (E3)
+ * (E3):
+ |True ? Move(N) : (E4)
+ * (E4):
+ |True ? Move(E) : (E5)
+ * (E5):
+ |Cell(N,@,1) / Cell(E,@,1) / Cell(S,@,1) / Cell(W,@,1) ? Pop : (E5p)
+ |True ? Wizz : (E6)
+ * (E5p):
+ |True ? Wait : (E5)
+ * (E6):
+ |True ? Move(E) : (E7)
+ * (E7):
+ |True ? Move(S) : (E8)
+ * (E8):
+ |True ? Move(S) : (E9)
+ * (E9):
+ |True ? Move(E) : (E10)
+ * (E10):
+ |Cell(N,@,1) / Cell(E,@,1) / Cell(S,@,1) / Cell(W,@,1) ? Pop : (E10p)
+ |True ? Wizz : (E1)
+ * (E10p):
+ |True ? Wait : (E10)
+
+}
+
 Garry(Init) {
 	* (Init):
 	| Cell(F,P,1) ? Pop : (Init)
