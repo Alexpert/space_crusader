@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import game.main.model.entities.Gate;
+import game.main.model.entities.Player;
 import interpreter.IAutomaton;
 
 public class World {
@@ -117,5 +118,16 @@ public class World {
 				tile.step(now);
 			}
 		}
+	}
+
+	public Player getPlayer() {
+		Player player = null;
+		
+		for (int i = 0; i < this.width && player == null; i++)
+			for (int j = 0; j < this.width && player == null; j++)
+				player = this.map[i][j].getPlayer();
+		
+		return player;
+		
 	}
 }

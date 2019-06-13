@@ -16,7 +16,6 @@ public class Model extends GameModel {
 	public World overworld;
 	public World ship;
 	public boolean isInShip = false;
-	private ArrayList<World> worlds;
 	private HashMap<String, Boolean> map;
 	private String automataPath = "assets/automata.txt";
 	private String soundPath = "assets/music/ambiance_monde.wav";
@@ -54,9 +53,6 @@ public class Model extends GameModel {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		//Initialization of the arraylist of worlds
-		this.worlds = new ArrayList<World>();
 		
 		this.initGame();
 	}
@@ -99,11 +95,6 @@ public class Model extends GameModel {
 	
 	public void setCurrenWorld(World world) {
 		this.currentWorld = world;
-		this.worlds.add(world);
-	}
-	
-	public ArrayList<World> getWorlds() {
-		return this.worlds;
 	}
 	
 	public Player getPlayer() {
