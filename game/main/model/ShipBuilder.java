@@ -3,6 +3,7 @@ package game.main.model;
 import java.net.Socket;
 
 import game.main.model.entities.Flower;
+import game.main.model.entities.Gate;
 import game.main.model.entities.Rock;
 import game.main.model.entities.Tree;
 import game.main.model.entities.Wall;
@@ -18,14 +19,14 @@ public class ShipBuilder {
 				tiles[i][0] = new Tile(i, 0, TileBiome.SPACE, world);
 			} else {
 				tiles[i][0] = new Tile(i, 0, TileBiome.SHIP, world);
-				tiles[i][0].add(new Wall(tiles[i][0], WallType.DUNGEON));
+				new Wall(tiles[i][0], WallType.DUNGEON);
 			}
 			tiles[i][1] = new Tile(i, 1, TileBiome.SHIP, world);
-			tiles[i][1].add(new Wall(tiles[i][1], WallType.DUNGEON));
+			new Wall(tiles[i][1], WallType.DUNGEON);
 		}
 
 		tiles[1][1].clear();
-		tiles[1][1].add(new Tree(tiles[1][1]));
+		new Gate(tiles[1][1]);
 		// into starship
 		for (int i = 2; i < height - 20; i++) {
 			for (int j = 0; j < width; j++) {

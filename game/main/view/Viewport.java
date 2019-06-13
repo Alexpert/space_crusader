@@ -30,6 +30,10 @@ public class Viewport {
 		return this.entity;
 	}
 	
+	public void step(long now) {
+		this.w = entity.getWorld();
+	}
+	
 	public void paint(Graphics g) {
 		/*System.out.println("Cam Position x: " + this.getX() + " y: " + this.getY());
 		System.out.println("World Dimension w: " + this.w.getWidth() + " h: " + this.w.getHeight());

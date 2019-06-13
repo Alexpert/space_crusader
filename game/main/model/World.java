@@ -13,15 +13,19 @@ public class World {
 	private Model model;
 
 	
-	public World(int width, int height, Model model) {
+	public World(int width, int height, Model model,boolean isShip) {
 		this.width = width;
 		this.height = height;
 		this.model = model;
-		this.map = WorldBuilder.createTiles(width, height, this);
-		WorldBuilder.populate(map);
-		Structure structure = new Structure();
-		Random random = new Random();
-		this.applyStructure(structure, random.nextInt(this.width - 1), random.nextInt(this.width - 1));
+		if(isShip) {
+			this.generate(isShip);
+		}
+		else {
+			this.generate(isShip);
+			Structure structure = new Structure();
+			Random random = new Random();
+			this.applyStructure(structure, random.nextInt(this.width - 1), random.nextInt(this.width - 1));
+		}
 	}
 
 	public World(int width, int height, Model model, WorldType worldType) {
@@ -51,9 +55,15 @@ public class World {
 		}
 	}
 	
-	public void generate() {
-		this.map = WorldBuilder.createTiles(width, height, this);
-		WorldBuilder.populate(map);
+	public void generate(boolean ship) {
+		if(ship) {
+			this.map = new ShipBuilder().ship(width, height, this);
+		}
+		else{
+			this.map = WorldBuilder.createTiles(width, height, this);
+			WorldBuilder.populate(map);
+		}
+		
 	}
 	
 	public void add(Entity e) {

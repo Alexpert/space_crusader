@@ -23,13 +23,6 @@ public class Player extends Entity {
 		this.inventory = new ArrayList<Item>();
 		
 		this.inventory.add(new Bomb());
-		this.inventory.add(new Apple());
-		this.inventory.add(new Fur());
-		this.inventory.add(new Bomb());
-		this.inventory.add(new Apple());
-		this.inventory.add(new Fur());
-		this.inventory.add(new Bomb());
-		this.inventory.add(new Bomb());
 	}
 
 	public int getMoney() {
@@ -50,8 +43,6 @@ public class Player extends Entity {
 	}
 
 	public boolean addItem(Item item) {
-		
-		System.out.println("add to inventory: " + item.getName());
 		if (this.inventory.size() < 10)
 			this.inventory.add(item);
 		
