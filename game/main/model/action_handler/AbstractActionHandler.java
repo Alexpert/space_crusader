@@ -81,6 +81,7 @@ public abstract class AbstractActionHandler {
 	public abstract boolean jump(Direction d);
 
 	public boolean turn(Direction d) {
+		this.entity.setActionTimer(100);
 		if (d.ordinal() >= 4 && d.ordinal() <= 7) { // if the direction is absolute, it's directly set
 			this.entity.setOrientation(d);
 			return true;
