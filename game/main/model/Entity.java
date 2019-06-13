@@ -584,4 +584,8 @@ public abstract class Entity {
 		this.automaton = a;
 	}
 	
+	public IPainter getIPainter() {
+		return this.painter;
+	}
+	
 }
