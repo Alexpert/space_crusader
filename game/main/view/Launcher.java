@@ -24,6 +24,7 @@ import edu.ricm3.game.GameUI;
 import game.main.controller.Controller;
 import game.main.model.AutomatonProvider;
 import game.main.model.Model;
+import game.main.model.World;
 import game.main.model.entities.*;
 
 
@@ -66,11 +67,35 @@ public class Launcher {
 			  } 
 			} );
 		frame.add(option, BorderLayout.EAST);
+		JPanel pane2 = new JPanel();
+		
+		JButton demo1 = new JButton("Demo dungeon");
+		demo1.setFont(new Font(demo1.getFont().getName(), demo1.getFont().getStyle(), 20));
+		demo1.setPreferredSize(new Dimension(200,70));
+		demo1.addActionListener(new ActionListener() { 
+			  public void actionPerformed(ActionEvent e) { 
+				  demoSeeDungeon();
+			  } 
+			});
+		pane2.add(demo1);
+		
+		frame.add(pane2, BorderLayout.SOUTH);
 	}
 	
 	private void newGame() {
 		frame.setVisible(false);
 		model.initGame();
+		View view = new View(model);
+	    Controller c = new Controller(model,view);
+	    
+	    Dimension d = new Dimension(1024, 768);
+	    new GameUI(model, view, c, d);
+	    view.setHUD();
+	}
+	
+	private void demoSeeDungeon() {
+		frame.setVisible(false);
+		model.initDemoDisplayDungeon();
 		View view = new View(model);
 	    Controller c = new Controller(model,view);
 	    
@@ -115,6 +140,26 @@ public class Launcher {
 		pane.add(labelTree);
 		JComboBox<String> jcbTree = new JComboBox<>(listAutomaton);
 		pane.add(jcbTree);
+		JLabel labelAnvil = new JLabel("Automate des enclumes : ");
+		pane.add(labelAnvil);
+		JComboBox<String> jcbAnvil = new JComboBox<>(listAutomaton);
+		pane.add(jcbAnvil);
+		JLabel labelDroppedBomb = new JLabel("Automate des bombes : ");
+		pane.add(labelDroppedBomb);
+		JComboBox<String> jcbDroppedBomb = new JComboBox<>(listAutomaton);
+		pane.add(jcbDroppedBomb);
+		JLabel labelItem = new JLabel("Automate des items : ");
+		pane.add(labelItem);
+		JComboBox<String> jcbItem = new JComboBox<>(listAutomaton);
+		pane.add(jcbItem);
+		JLabel labelGate = new JLabel("Automate des portails : ");
+		pane.add(labelGate);
+		JComboBox<String> jcbGate = new JComboBox<>(listAutomaton);
+		pane.add(jcbGate);
+		JLabel labelWall = new JLabel("Automate des murs : ");
+		pane.add(labelWall);
+		JComboBox<String> jcbWall = new JComboBox<>(listAutomaton);
+		pane.add(jcbWall);
 		
 		frame2.add(pane,BorderLayout.CENTER);
 		
@@ -129,9 +174,13 @@ public class Launcher {
 				  Flower.nameAtomaton = listAutomaton[jcbFlower.getSelectedIndex()];
 				  Rock.nameAtomaton = listAutomaton[jcbRock.getSelectedIndex()];
 				  Tree.nameAtomaton = listAutomaton[jcbTree.getSelectedIndex()];
+				  Anvil.nameAtomaton = listAutomaton[jcbAnvil.getSelectedIndex()];
+				  Gate.nameAtomaton = listAutomaton[jcbGate.getSelectedIndex()];
+				  DroppedBomb.nameAtomaton = listAutomaton[jcbDroppedBomb.getSelectedIndex()];
+				  Wall.nameAtomaton = listAutomaton[jcbWall.getSelectedIndex()];
 				  frame2.setVisible(false);
 			  } 
-			} );
+			});
 		frame2.add(submit, BorderLayout.SOUTH);
 	}
 	
