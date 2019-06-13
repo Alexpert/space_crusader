@@ -1,9 +1,15 @@
 package game.main.model.action_handler;
 
+import java.awt.Label;
+
+import javax.swing.JFrame;
+
 import game.main.model.Direction;
 import game.main.model.Entity;
 
 public class GraalActionHandler extends AbstractActionHandler {
+	
+	static boolean hasWon = false;
 	
 	public GraalActionHandler(Entity entity) {
 		this.entity = entity;
@@ -24,7 +30,17 @@ public class GraalActionHandler extends AbstractActionHandler {
 	@Override
 	public void pop(Direction d) {
 		System.out.println("FIN DU JEU");
-		//TODO
+
+		if (!hasWon) {
+			JFrame frame= new JFrame();	
+			frame.setTitle("Félécitations");
+			frame.setSize(500, 300);
+			frame.setLocation(200, 200);
+			frame.setVisible(true);
+			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			frame.add(new Label("Bien joué, \n Vous avez trouvé le Graal!"));
+			hasWon = true;
+		}
 	}
 
 	@Override
