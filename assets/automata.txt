@@ -114,3 +114,11 @@ Garry(Init) {
 	* (Refill):
 	| True ? Hit : (Init)
 }
+
+BigRedButton(Init) {
+	* (Init):
+	| Cell(R,@,0) ? Pop : (Cooldown)
+	| True ? Wait : (Init)
+	* (Cooldown):
+	| !Cell(R,@,0) ? Wait : (Init)
+}

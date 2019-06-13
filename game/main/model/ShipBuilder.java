@@ -72,7 +72,7 @@ public class ShipBuilder {
 		new Wall(tiles[1][height - 17], WallType.DUNGEON);
 		new Wall(tiles[2][height - 17], WallType.DUNGEON);
 
-		new Flower(tiles[1][height - 20]);		
+		new Button(tiles[1][height - 20]);		
 		// space
 		for (int i = height - 16; i < height; i++) {
 			for (int j = 0; j < width; j++) {

@@ -8,6 +8,7 @@ import game.main.model.Entity;
 import game.main.model.Model;
 import game.main.model.Tile;
 import game.main.model.World;
+import game.main.model.entities.Gate;
 import game.main.model.entities.Player;
 
 public class ActionHandlerButton extends AbstractActionHandler {
@@ -27,6 +28,7 @@ public class ActionHandlerButton extends AbstractActionHandler {
 		int width = myModel.overworld.getWidth();
 		int height = myModel.overworld.getHeight();
 		myModel.overworld = new World(width, height, myModel,false);
+		new Gate(myModel.overworld.getTile(1, 1));
 	}
 
 	@Override
