@@ -83,14 +83,14 @@ public class Model extends GameModel {
 		this.worlds.get(0).step(now);
 		this.worlds.get(1).step(now);
 		
-		ArrayList<Entity> entities = new ArrayList<>();
-		for (World w: this.getWorlds())
-			entities.addAll(w.getEntities());
-		entities.removeIf(e -> e.getKind() != Kind.PLAYER);
+//		ArrayList<Entity> entities = new ArrayList<>();
+//		for (World w: this.getWorlds())
+//			entities.addAll(w.getEntities());
+//		entities.removeIf(e -> e.getKind() != Kind.PLAYER);
 		
-		System.out.println(entities.size());
-		if (entities.size() != 1)
-			System.out.println("ouyv");
+//		System.out.println(entities.size());
+//		if (entities.size() != 1)
+//			System.out.println("ouyv");
 	}
 
 	@Override

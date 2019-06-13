@@ -24,7 +24,11 @@ public class Tile {
 	}
 
 	public void add(Entity e) {
-		this.entities.add(e);
+		if (!this.entities.contains(e))
+			this.entities.add(e);
+//		if (e.getKind() == Kind.PLAYER)
+//			System.out.println("Player added to tile : " + this.getX() + ", " + this.getY() 
+//			+ ": " + this.getEntities().size());
 	}
 	
 	public Entity getEntity(int index) {
@@ -96,6 +100,14 @@ public class Tile {
 	}
 
 	public ArrayList<Entity> getEntities() {
+//		ArrayList<Entity> copy = new ArrayList<>(this.entities);
+//		copy.removeIf(e -> e.getKind() != Kind.PLAYER);
+//		
+//		if(copy.size() > 0) {
+//			System.out.println(this.getX() + ", " + this.getY() + ": " + copy.size() + " "
+//			+ this.getWorld().getWidth());
+//		}
+		
 		return this.entities;
 	}
 	

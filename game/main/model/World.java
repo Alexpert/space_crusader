@@ -64,10 +64,6 @@ public class World {
 		this.map = WorldBuilder.createTiles(width, height, this);
 		WorldBuilder.populate(map);
 	}
-	
-	public void add(Entity e) {
-		this.map[e.getX()][e.getY()].add(e);
-	}
 
 	public Tile getTile(int x, int y) {
 		return this.map[x][y];
@@ -106,6 +102,10 @@ public class World {
 				entities.addAll(tile.getEntities());
 			}
 		}
+//		
+//		ArrayList<Entity> copy = new ArrayList<>(entities);
+//		copy.removeIf(e -> e.getKind() != Kind.PLAYER);
+//		System.out.println(this.getWidth() + ": " + copy.size());
 
 		return entities;
 	}
