@@ -1,9 +1,11 @@
 package game.main.model.action_handler;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import game.main.model.Direction;
 import game.main.model.Entity;
+import game.main.model.Model;
 import game.main.model.Tile;
 import game.main.model.World;
 import game.main.model.entities.Player;
@@ -17,15 +19,19 @@ public class ActionHandlerButton extends AbstractActionHandler {
 	@Override
 	public void patient() {
 		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void wizz(Direction d) {
 	}
 
 	@Override
 	public void pop(Direction d) {
+		Model myModel = this.entity.getWorld().getModel();
+		ArrayList<World> myworlds = myModel.getWorlds();
+		int width = myModel.overworld.getWidth();
+		int height = myModel.overworld.getHeight();
+		myModel.overworld = new World(width, height, myModel,false);
+	}
+
+	@Override
+	public void wizz(Direction d) {
 	}
 
 	@Override
