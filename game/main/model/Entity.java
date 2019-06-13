@@ -561,7 +561,6 @@ public abstract class Entity {
 	}
 	
 	public void takeDamage(int dmg) {
-		System.out.println("oui");
 		this.health-=dmg;
 		if(this.health<=0) {
 			this.die();

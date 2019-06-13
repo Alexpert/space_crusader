@@ -5,6 +5,7 @@ import game.main.model.Entity;
 import game.main.model.Item;
 import game.main.model.Tile;
 import game.main.model.entities.DroppedBomb;
+import game.main.model.entities.Player;
 import game.main.model.items.Bomb;
 
 public class ActionHandlerPlayer extends AbstractActionHandler {
@@ -20,6 +21,10 @@ public class ActionHandlerPlayer extends AbstractActionHandler {
 	
 	@Override
 	public void wizz(Direction d) {
+		if(this.entity instanceof Player) {
+			Player p = (Player) this.entity;
+			p.incrementSelectedItem();
+		}
 		System.out.println("wizz direction"+d+"");
 
 	}
@@ -27,11 +32,18 @@ public class ActionHandlerPlayer extends AbstractActionHandler {
 	@Override
 	public void pop(Direction d) {
 		//System.out.println("pop direction"+d+"");
-		Bomb b = new Bomb();
-		this.entity.setActionTimer(200);
-		Tile t = this.entity.getTile(d);
-		DroppedBomb bomb = new DroppedBomb(t,b);
-		bomb.setBeginTimer(this.entity.getBeginTimer());
+		Item i;
+		if(this.entity instanceof Player) {
+			Player p = (Player) this.entity;
+			i = p.getSelectedItem();
+			if(i instanceof Bomb) {
+				Bomb b = (Bomb) i;
+				this.entity.setActionTimer(200);
+				Tile t = this.entity.getTile(d);
+				DroppedBomb bomb = new DroppedBomb(t,b);
+				bomb.setBeginTimer(this.entity.getBeginTimer());
+			}
+		}	
 	}
 
 	@Override

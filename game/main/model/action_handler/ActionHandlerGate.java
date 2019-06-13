@@ -36,6 +36,7 @@ public class ActionHandlerGate extends AbstractActionHandler {
 
 	@Override
 	public void pop(Direction d) {
+		System.out.println("oui");
 		//The first world in the arraylist is the planet
 		//The second world in the arraylist is the spaceship
 		World tmpWorld = this.entity.getWorld();

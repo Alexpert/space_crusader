@@ -25,15 +25,7 @@ public class ActionHandlerDroppedBomb extends AbstractActionHandler{
 		t.getEntities().clear();
 		for(int i = 4; i < 8; i++) {
 			t = this.entity.getTile(d.get(i));
-			ArrayList<Entity> list = new ArrayList<>();
-			for(int j = t.nbEntity(); j >=0; j--) {
-				list.add(t.getEntity(j));
-			}
-			for(int k = 0; k < list.size(); k ++) {
-				System.out.println("oui");
-				list.get(k).takeDamage(100000);
-			}
-			
+			t.getEntities().clear();
 		}
 		this.entity.getTile().remove(this.entity);
 	}
