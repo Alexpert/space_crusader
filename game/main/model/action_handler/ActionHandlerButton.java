@@ -24,7 +24,6 @@ public class ActionHandlerButton extends AbstractActionHandler {
 	@Override
 	public void pop(Direction d) {
 		Model myModel = this.entity.getWorld().getModel();
-		ArrayList<World> myworlds = myModel.getWorlds();
 		int width = myModel.overworld.getWidth();
 		int height = myModel.overworld.getHeight();
 		myModel.overworld = new World(width, height, myModel,false);
