@@ -20,12 +20,6 @@ public class Anvil extends Entity {
 	}
 	
 	@Override
-	public void step(long now) {
-		super.step(now);
-		System.out.println("Anvil Stepp");
-	}
-	
-	@Override
 	public void takeDamage(int dmg) {
 		
 	}

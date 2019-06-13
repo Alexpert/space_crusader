@@ -1,35 +1,30 @@
 package game.main.model.action_handler;
 
-import game.main.model.*;
-import game.main.model.entities.*;
+import game.main.model.Direction;
+import game.main.model.Entity;
 
-public class ActionHandlerAnvil extends AbstractActionHandler {
-
-	public ActionHandlerAnvil(Entity e) {
-		this.entity = e;
+public class GraalActionHandler extends AbstractActionHandler {
+	
+	public GraalActionHandler(Entity entity) {
+		this.entity = entity;
 	}
 
 	@Override
 	public void patient() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
-	public void wizz(Direction d) { // Suppression item LEFT RIGHT
-		this.entity.getTile(Direction.LEFT).clear();
-		this.entity.getTile(Direction.RIGHT).clear();
+	public void wizz(Direction d) {
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
-	public void pop(Direction d) { // Craft résult en FRONT
-		DroppedItem entity1 = (DroppedItem) this.entity.getTile(Direction.LEFT).getEntity(0);
-		DroppedItem entity2 = (DroppedItem) this.entity.getTile(Direction.RIGHT).getEntity(0);
-		
-		if (entity1 != null && entity2 != null) {
-			new DroppedItem(this.entity.getTile(Direction.FRONT), Recipes.craft(entity1, entity2));
-		}
-		
+	public void pop(Direction d) {
+		System.out.println("FIN DU JEU");
+		//TODO
 	}
 
 	@Override
