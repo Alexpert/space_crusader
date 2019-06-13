@@ -127,4 +127,9 @@ public class Tile {
 		return player;
 	}
 
+	public void setBiome(TileBiome biome) {
+		this.biome = biome;
+		this.painter = new TilePainter(this);
+	}
+
 }

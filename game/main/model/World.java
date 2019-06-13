@@ -64,7 +64,6 @@ public class World {
 			this.map = WorldBuilder.createTiles(width, height, this);
 			WorldBuilder.populate(map);
 		}
-		
 	}
 	
 	public void add(Entity e) {
