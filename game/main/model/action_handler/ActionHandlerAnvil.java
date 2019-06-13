@@ -11,7 +11,6 @@ public class ActionHandlerAnvil extends AbstractActionHandler {
 
 	@Override
 	public void patient() {
-		System.out.println("Anvil: PATIENT");
 		// TODO Auto-generated method stub
 		
 	}
@@ -24,12 +23,13 @@ public class ActionHandlerAnvil extends AbstractActionHandler {
 
 	@Override
 	public void pop(Direction d) { // Craft résult en FRONT
-		System.out.println("Anvil: POP");
 		DroppedItem entity1 = (DroppedItem) this.entity.getTile(Direction.LEFT).getEntity(0);
 		DroppedItem entity2 = (DroppedItem) this.entity.getTile(Direction.RIGHT).getEntity(0);
 		
 		if (entity1 != null && entity2 != null) {
-			new DroppedItem(this.entity.getTile(Direction.FRONT), Recipes.craft(entity1, entity2));
+			Item item = Recipes.craft(entity1, entity2);
+			if (item != null)
+				new DroppedItem(this.entity.getTile(Direction.FRONT), Recipes.craft(entity1, entity2));
 		}
 		
 	}
