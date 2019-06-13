@@ -58,7 +58,7 @@ public class ActionHandlerGate extends AbstractActionHandler {
 		if(tmpWorld == tmpWorld.getModel().getWorlds().get(0)) {
 			otherWorld = this.entity.getWorld().getModel().getWorlds().get(1);
 			//We give to the player its new Action HAndler
-			player.setActionHandler(new ActionHandlerRabbit(player));
+			player.setActionHandler(new ActionHandlerPlayer(player));
 			
 			//We manage the music
 			otherWorld.getWorldSoundHander().stop();
@@ -84,7 +84,6 @@ public class ActionHandlerGate extends AbstractActionHandler {
 		Tile start = otherWorld.getTile(1, 2);
 		player.setTile(start);
 		player.getViewPort().setWorld(otherWorld);
-		otherWorld.add(player);
 	}
 
 	@Override
