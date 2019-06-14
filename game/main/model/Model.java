@@ -67,6 +67,7 @@ public class Model extends GameModel {
 		
 		this.player = new Player(newWorld.getTile(0, 0));
 		
+		newWorld.getTile(1, 0).clear();
 		new Gate(newWorld.getTile(1, 0));
 		
 		this.currentWorld = newWorld;
@@ -78,6 +79,7 @@ public class Model extends GameModel {
 		World newWorld = new World(30, 30, this, false);
 		this.overworld = newWorld;
 		this.player = new Player(newWorld.getTile(0, 0));
+		newWorld.getTile(1, 0).clear();
 		new Gate(newWorld.getTile(1, 0));
 		this.currentWorld = newWorld;
 		this.ship =new World(36, 36, this, true);
