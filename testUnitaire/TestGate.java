@@ -26,8 +26,7 @@ public class TestGate {
 		model = new Model();
 		gate = new Gate(model.getCurrentWorld().getTile(4, 2));
 		gate.setActionHandler(new ActionHandlerGate(gate));
-		World otherWorld = new World(500, 500, model);
-		model.getWorlds().add(otherWorld);
+		World otherWorld = new World(500, 500, model, false);
 	}
 
 	@Test

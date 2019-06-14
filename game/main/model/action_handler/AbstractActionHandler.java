@@ -3,6 +3,7 @@ package game.main.model.action_handler;
 import game.main.model.Action;
 import game.main.model.Direction;
 import game.main.model.Entity;
+import game.main.model.entities.AdultRabbit;
 
 public abstract class AbstractActionHandler {
 
@@ -81,6 +82,7 @@ public abstract class AbstractActionHandler {
 	public abstract boolean jump(Direction d);
 
 	public boolean turn(Direction d) {
+		this.entity.setActionTimer(100);
 		if (d.ordinal() >= 4 && d.ordinal() <= 7) { // if the direction is absolute, it's directly set
 			this.entity.setOrientation(d);
 			return true;

@@ -12,6 +12,7 @@ public class Player extends Entity {
 	private int money;
 	private ArrayList<Item> inventory;
 	public static String nameAtomaton = "Playable";
+	private int selectedItemIndex =-1;
 
 	public Player(Tile tile) {
 		super(tile, AutomatonProvider.getInstance().getAutomaton(Player.nameAtomaton));
@@ -21,12 +22,15 @@ public class Player extends Entity {
 		this.setIPainter(new PlayerPainter(this));
 		this.setActionHandler(new ActionHandlerPlayer(this));
 		this.inventory = new ArrayList<Item>();
-		
-		this.inventory.add(new Bomb());
+		this.addItem(new Bomb());
 	}
 
 	public int getMoney() {
 		return this.money;
+	}
+	
+	public void takeMoney(int m) {
+		this.money += m;
 	}
 	
 	public void add(Item item) {
@@ -39,10 +43,16 @@ public class Player extends Entity {
 	
 	@Override
 	public void step(long now) {
+		//System.out.println(this.getHealth());
 		super.step(now);
 	}
 
 	public boolean addItem(Item item) {
+		
+		if(this.getSelectedItemIndex() ==-1) {
+			this.setSelectedItemIndex(0);
+		}
+		System.out.println("add to inventory: " + item.getName());
 		if (this.inventory.size() < 10)
 			this.inventory.add(item);
 		
@@ -50,5 +60,36 @@ public class Player extends Entity {
 				System.out.println(it.getName());
 		
 		return this.inventory.size() < 11;
+	}
+	
+	public Item getSelectedItem() {
+		if(this.getSelectedItemIndex() == -1) {
+			return null;
+		}
+		else {
+			return this.inventory.get(this.getSelectedItemIndex());
+		}
+	}
+	
+	public void incrementSelectedItem() {
+		this.setSelectedItemIndex(this.getSelectedItemIndex() + 1);
+		this.setSelectedItemIndex(this.getSelectedItemIndex() % 10);
+		System.out.println("Index_item :"+this.getSelectedItemIndex()+"");
+	}
+
+	public int getSelectedItemIndex() {
+		return selectedItemIndex;
+	}
+
+	private void setSelectedItemIndex(int selectedItemIndex) {
+		this.selectedItemIndex = selectedItemIndex;
+	}
+
+	public void addMoney(int value) {
+		this.money += value;
+	}
+	
+	public void removeItem(Item i) {
+		this.inventory.remove(i);
 	}
 }

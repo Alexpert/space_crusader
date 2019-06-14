@@ -6,13 +6,14 @@ import game.main.model.Entity;
 import game.main.model.Kind;
 import game.main.model.Tile;
 import game.main.model.World;
-import game.main.model.action_handler.ActionHandlerRabbit;
+import game.main.model.action_handler.ActionHandlerAdultRabbit;
+import game.main.model.items.Fur;
 import game.main.view.painters.AdultRabbitPainter;
 import game.main.view.painters.RabbitPainter;
 
 public class AdultRabbit extends Entity {
 
-	public static String nameAtomaton = "Test1";
+	public static String nameAtomaton = "AdultRabbit";
 	
 	public AdultRabbit(Tile tile) {
 		super(tile, AutomatonProvider.getInstance().getAutomaton(AdultRabbit.nameAtomaton));
@@ -20,7 +21,12 @@ public class AdultRabbit extends Entity {
 		this.collidable = true;
 		this.setKind(Kind.MONSTER);
 		this.setIPainter(new AdultRabbitPainter(this));
-		this.setActionHandler(new ActionHandlerRabbit(this));
+		this.setActionHandler(new ActionHandlerAdultRabbit(this));
 	}
-
+	
+	@Override
+	public void die() {
+		new DroppedItem(this.getTile(), new Fur());
+		super.die();
+	}
 }

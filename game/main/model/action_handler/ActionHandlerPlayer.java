@@ -2,7 +2,12 @@ package game.main.model.action_handler;
 
 import game.main.model.Direction;
 import game.main.model.Entity;
+import game.main.model.Item;
 import game.main.model.Tile;
+import game.main.model.entities.DroppedBomb;
+import game.main.model.entities.Player;
+import game.main.model.items.Apple;
+import game.main.model.items.Bomb;
 
 public class ActionHandlerPlayer extends AbstractActionHandler {
 	
@@ -12,19 +17,39 @@ public class ActionHandlerPlayer extends AbstractActionHandler {
 	
 	@Override
 	public void patient() {
-		this.entity.setActionTimer(10);
+		this.entity.setActionTimer(100);
 	}
 	
 	@Override
 	public void wizz(Direction d) {
+		if(this.entity instanceof Player) {
+			Player p = (Player) this.entity;
+			p.incrementSelectedItem();
+		}
 		System.out.println("wizz direction"+d+"");
 
 	}
 
 	@Override
 	public void pop(Direction d) {
-		System.out.println("pop direction"+d+"");
-
+		//System.out.println("pop direction"+d+"");
+		Item i;
+		if(this.entity instanceof Player) {
+			Player p = (Player) this.entity;
+			i = p.getSelectedItem();
+			if(i instanceof Bomb) {
+				Bomb b = (Bomb) i;
+				this.entity.setActionTimer(200);
+				Tile t = this.entity.getTile(d);
+				DroppedBomb bomb = new DroppedBomb(t,b);
+				bomb.setBeginTimer(this.entity.getBeginTimer());
+				p.removeItem(i);
+			} else if (i instanceof Apple) {
+				p.takeDamage(-5);
+				p.removeItem(i);
+				System.out.println("player at " + p.getHealth() + "hp");
+			}
+		}	
 	}
 
 	@Override
@@ -83,7 +108,8 @@ public class ActionHandlerPlayer extends AbstractActionHandler {
 
 	@Override
 	public boolean kamikaze() {
-		this.entity.setHealth(0);
+		this.entity.setActionTimer(300);
+		this.entity.getTile().remove(this.entity);
 		return true;
 	}
 

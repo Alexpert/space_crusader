@@ -450,10 +450,9 @@ public class Ast {
 				case ("closest"):
 					if (exprAsFunCall.parameters.size() != 2)
 						throw new Exception("Wrong argument count");
-					if (exprAsFunCall.parameters.get(0).kind != "Direction")
-						throw new Exception("Not a Direction");
-					//C'est pas joli mais le parser reconnais "O" comme Direction et non comme en entité
-					if (exprAsFunCall.parameters.get(1).kind != "Entity"
+					if (exprAsFunCall.parameters.get(1).kind != "Direction")
+ 					//C'est pas joli mais le parser reconnais "O" comme Direction et non comme en entité
+					if (exprAsFunCall.parameters.get(0).kind != "Entity"
 							&& exprAsFunCall.parameters.get(1).kind != "Underscore")
 						throw new Exception("Not an Entity");
 					Kind entity;
@@ -462,9 +461,9 @@ public class Ast {
 					} else if (exprAsFunCall.parameters.get(1).kind.equals("Underscore")) {
 						entity = Kind.ANYTHING;
 					} else {
-						entity = ((Entity) exprAsFunCall.parameters.get(1)).getKind();
+						entity = ((Entity) exprAsFunCall.parameters.get(0)).getKind();
 					}
-					condition = condition.new Closest(entity, ((Direction) exprAsFunCall.parameters.get(0)).getDirection());
+					condition = condition.new Closest(entity, ((Direction) exprAsFunCall.parameters.get(1)).getDirection());
 					break;
 				case ("gotpower"):
 					condition = condition.new GotPower();

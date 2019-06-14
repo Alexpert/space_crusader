@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import game.main.model.entities.Gate;
+import game.main.model.entities.Player;
 import interpreter.IAutomaton;
 
 public class World {
@@ -24,7 +25,12 @@ public class World {
 			this.generate(isShip);
 			Structure structure = new Structure();
 			Random random = new Random();
-			this.applyStructure(structure, random.nextInt(this.width - 1), random.nextInt(this.width - 1));
+			int x=random.nextInt(this.width - 1), y=random.nextInt(this.height - 1);
+			if(x <4) {x =4;}
+			if(x >this.width-24) {x=this.width-24;}
+			if(y <4) {y =4;}
+			if(y >this.height-24) {y=this.height-24;}
+			this.applyStructure(structure, x, y);
 		}
 	}
 
@@ -37,7 +43,12 @@ public class World {
 			WorldBuilder.populate(map);
 			Structure structure = new Structure();
 			Random random = new Random();
-			this.applyStructure(structure, random.nextInt(this.width - 1), random.nextInt(this.width - 1));
+			int x=random.nextInt(this.width - 1), y=random.nextInt(this.height - 1);
+			if(x <4) {x =4;}
+			if(x >this.width-24) {x=this.width-24;}
+			if(y <4) {y =4;}
+			if(y >this.height-24) {y=this.height-24;}
+			this.applyStructure(structure, x, y);
 		} else if (worldType == WorldType.SHIP) {
 			this.width = 30;
 			this.height = 32;
@@ -63,7 +74,6 @@ public class World {
 			this.map = WorldBuilder.createTiles(width, height, this);
 			WorldBuilder.populate(map);
 		}
-		
 	}
 	
 	public void add(Entity e) {
@@ -117,5 +127,16 @@ public class World {
 				tile.step(now);
 			}
 		}
+	}
+
+	public Player getPlayer() {
+		Player player = null;
+		
+		for (int i = 0; i < this.width && player == null; i++)
+			for (int j = 0; j < this.width && player == null; j++)
+				player = this.map[i][j].getPlayer();
+		
+		return player;
+		
 	}
 }

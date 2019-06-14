@@ -1,23 +1,25 @@
 package game.main.view.painters;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.Random;
 
 import game.main.model.Action;
 import game.main.model.Direction;
 import game.main.model.Entity;
 import game.main.view.IPainter;
+import game.main.view.TextureProvider;
 
-public class ButtonPainter  implements IPainter {
-	
+public class ButtonPainter implements IPainter {
+
 	Entity entity;
 	Image texture;
 
 	public ButtonPainter(Entity e) {
 		this.entity = e;
+		this.texture = TextureProvider.getInstance().getTexture("assets/entities/button.png");
 	}
-	
+
 	@Override
 	public void step(long now) {
 		// TODO Auto-generated method stub
@@ -25,10 +27,8 @@ public class ButtonPainter  implements IPainter {
 	}
 
 	@Override
-	public void paint(Graphics g, int posX, int posY) {
-		g.setColor(Color.RED);
-		g.fillRect(posX, posY, 32, 32);
-
+	public void paint(Graphics g ,int posX,int posY) {
+		g.drawImage(this.texture, posX, posY, 32, 32, null);
 	}
 
 	@Override

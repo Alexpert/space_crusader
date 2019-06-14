@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import game.main.model.entities.Player;
 import game.main.view.TilePainter;
 
 public class Tile {
@@ -28,7 +29,9 @@ public class Tile {
 	}
 	
 	public Entity getEntity(int index) {
-		return this.entities.get(index);
+		if (index < this.entities.size())
+			return this.entities.get(index);
+		return null;
 	}
 	
 	public TileBiome getBiome() {
@@ -85,14 +88,17 @@ public class Tile {
 	}
 
 	public void step(long now) {
-		int i = this.getEntities().size() - 1;
-		
-		//A dirty way to go through the array knowing that the
-		//current element could quit the array at any moment
-		while(i >= 0) {
-			this.getEntities().get(i).step(now);
-			i--;
+		if(this.getEntities().size()!=0) {
+			int j=0;
+			int nb = this.nbEntity()-1;
+			while(nb >=j) {
+				nb = this.nbEntity()-1;
+				this.getEntity(nb-j).step(now);;
+				j++;
+				nb = this.nbEntity()-1;
+			}
 		}
+		
 	}
 
 	public ArrayList<Entity> getEntities() {
@@ -106,6 +112,24 @@ public class Tile {
 			}
 		}
 		return false;
+	}
+
+	public Player getPlayer() {
+		Player player = null;
+		int i = 0;
+		
+		while (i < this.getEntities().size() && player == null) {
+			if (this.getEntity(i).getKind() == Kind.PLAYER)
+				player = (Player) this.getEntity(i);
+			i++;
+		}
+		
+		return player;
+	}
+
+	public void setBiome(TileBiome biome) {
+		this.biome = biome;
+		this.painter = new TilePainter(this);
 	}
 
 }
