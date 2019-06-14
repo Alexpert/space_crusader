@@ -14,7 +14,7 @@ public class ActionHandlerAdultRabbit extends AbstractActionHandler {
 
 	@Override
 	public void patient() {
-		this.entity.setActionTimer(500);
+		this.entity.setActionTimer(400);
 		return;
 	}
 
@@ -205,13 +205,13 @@ public class ActionHandlerAdultRabbit extends AbstractActionHandler {
 
 	@Override
 	public boolean hit(Direction d) {
-		this.entity.setActionTimer(1000);
+		this.entity.setActionTimer(500);
 		Tile t = this.entity.getTile(d);
 		if (t.isEmpty()) {
 			return false;
 		} else {
 			for (int i = 0; i < t.nbEntity(); i++) {
-				t.getEntity(i).takeDamage(5);
+				t.getEntity(i).takeDamage(1);
 			}
 			return true;
 		}

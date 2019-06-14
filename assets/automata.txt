@@ -37,7 +37,7 @@ Idle(Wait0){
 
 Rabbit(Wait0){
   *(Wait0):
-	| True ? Pop : (Born0)
+	| True ? Wait : (Born0)
   * (Born0):
     | Cell(F,A,1) & Cell(B,A,1) & Cell(L,A,1) & Cell(R,A,1) ? Pop : (Search)
     | Closest(A,N) ? Turn(S) : (Wait01) 
@@ -204,7 +204,9 @@ AdultRabbit(WaitInit){
 	| !Cell(B,O,1) / Cell(B,T,1) / Cell(B,@,1) / Cell(B,A,1) ? Move(B) : (Init)
 	| True ? Wait : (WaitInit)
 *(WaitForTheHorde):
-		| True ? Wait : (ForTheHorde)	
+		| True ? Wait : (Hit0)	
+*(Hit0): 
+	| True ? Hit : (ForTheHorde)
   * (ForTheHorde):
     | Cell(N,@,2) / Cell(N,@,3) / Cell(N,@,4) / Cell(N,@,5) / Cell(N,@,6) / Cell(N,@,7) / Cell(N,@,8) / Cell(N,@,9) / Cell(N,@,10) ? Move(N) : (WaitForTheHorde)
     | Cell(S,@,2) / Cell(S,@,3) / Cell(S,@,4) / Cell(S,@,5) / Cell(S,@,6) / Cell(S,@,7) / Cell(S,@,8) / Cell(S,@,9) / Cell(S,@,10) ? Move(S) : (WaitForTheHorde)
