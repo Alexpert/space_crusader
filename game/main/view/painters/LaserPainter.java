@@ -26,8 +26,8 @@ public class LaserPainter implements IPainter{
 	@Override
 	public void paint(Graphics g, int posX, int posY) {
 		if (this.entity.getIsVisible()) {
-			g.setColor(Color.BLUE);
-			g.fillRect(posX + 13, posY + 14, 6, 4);
+			g.setColor(Color.RED);
+			g.fillRect(posX  , posY ,32, 32);
 		}
 		
 	}

@@ -63,10 +63,10 @@ public class RabbitPainter implements IPainter {
 				this.currentAnimation = this.listAnimation.get(1);
 			}
 			else if(d == Direction.NORTH) {
-				this.currentAnimation = this.listAnimation.get(2);
+				this.currentAnimation = this.listAnimation.get(3);
 			}
 			else if(d == Direction.SOUTH) {
-				this.currentAnimation = this.listAnimation.get(3);
+				this.currentAnimation = this.listAnimation.get(2);
 			}
 		}
 		if(a == Action.MOVE) {

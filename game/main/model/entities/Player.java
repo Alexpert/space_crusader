@@ -43,6 +43,7 @@ public class Player extends Entity {
 	
 	@Override
 	public void step(long now) {
+		//System.out.println(this.getHealth());
 		super.step(now);
 	}
 

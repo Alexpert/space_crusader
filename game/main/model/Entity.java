@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 import game.main.model.action_handler.AbstractActionHandler;
+import game.main.model.entities.AdultRabbit;
 import game.main.view.IPainter;
 import interpreter.IAutomaton;
 
@@ -16,17 +17,17 @@ public abstract class Entity {
 	protected boolean moveable = false;
 	protected boolean collidable = false;
 	private boolean isVisible = true;
-	
+
 	private boolean hasViewport = false;
 	private long currentTimeAction = 0;
 	private long totalTimeAction = 0;
 	private long beginTimeAction = 0;
 	private Action currentAction = Action.PATIENT;
-	
+
 	private AbstractActionHandler actionHandler;
 	protected IAutomaton automaton;
 	private IPainter painter;
-	
+
 	private Tile tile;
 
 	protected Entity(Tile tile, IAutomaton automaton) {
@@ -44,27 +45,23 @@ public abstract class Entity {
 	}
 
 	public void step(long now) {
-		
-		if(now<this.beginTimeAction+this.totalTimeAction) {
-			this.currentTimeAction = now- this.beginTimeAction;
-		}
-		else {
-			this.beginTimeAction = this.beginTimeAction+this.totalTimeAction;
+		if (now < this.beginTimeAction + this.totalTimeAction) {
+			this.currentTimeAction = now - this.beginTimeAction;
+		} else {
+			this.beginTimeAction = this.beginTimeAction + this.totalTimeAction;
 			this.automaton.step(this);
 		}
-		if (this.painter == null)
-			System.out.println(this);
 		this.painter.step(now);
 	}
 
 	public void setHealth(int healthpoints) {
 		this.health = healthpoints;
 	}
-	
+
 	protected void setKind(Kind kind) {
 		this.kind = kind;
 	}
-	
+
 	public void setActionHandler(AbstractActionHandler ac) {
 		this.actionHandler = ac;
 	}
@@ -92,6 +89,7 @@ public abstract class Entity {
 	public boolean moveable() {
 		return this.moveable;
 	}
+
 	public void updateMoveable(boolean moveable) {
 		this.moveable = moveable;
 	}
@@ -107,7 +105,7 @@ public abstract class Entity {
 	public World getWorld() {
 		return this.getTile().getWorld();
 	}
-	
+
 	public void moveToTile(int x, int y) {
 		Tile tile = this.getWorld().getTile(x, y);
 		int i = 0;
@@ -146,7 +144,7 @@ public abstract class Entity {
 			}
 		}
 		if (d2 == Direction.SOUTH) {
-			if (this.getY() < this.getWorld().getHeight()-1) {
+			if (this.getY() < this.getWorld().getHeight() - 1) {
 				return this.getWorld().getTile(this.getX(), this.getY() + 1);
 			} else {
 				return this.getWorld().getTile(this.getX(), 0);
@@ -254,7 +252,7 @@ public abstract class Entity {
 						}
 					}
 				}
-				if (n < Math.abs(nbTile/2)) {
+				if (n < Math.abs(nbTile / 2)) {
 					j--;
 					if (j < 0) {
 						j = worldHeight + (j % worldHeight);
@@ -262,28 +260,28 @@ public abstract class Entity {
 				} else {
 					j++;
 					if (j >= worldHeight) {
-						j =	-(j % worldHeight);
+						j = -(j % worldHeight);
 					}
 				}
 				i++;
 				if (i >= worldWidth) {
-					i =	-(i % worldWidth);
+					i = -(i % worldWidth);
 				}
 				n++;
 			}
 		}
 		if (d2 == Direction.SOUTH) {
-			
+
 			int i = this.getX() - distance + 1;
 			if (i < 0) {
 				i = worldWidth + (i % worldWidth);
 			}
-			
+
 			int j = this.getY() + 1;
 			if (j >= worldHeight) {
-				j =	-(j % worldHeight);
+				j = -(j % worldHeight);
 			}
-			
+
 			while (n < nbTile && !res) {
 				Tile tile = this.getWorld().getTile(i, j);
 				if (!tile.isEmpty()) {
@@ -293,10 +291,10 @@ public abstract class Entity {
 						}
 					}
 				}
-				if (n < Math.abs(nbTile/2)) {
+				if (n < Math.abs(nbTile / 2)) {
 					j++;
 					if (j >= worldHeight) {
-						j =	-(j % worldHeight);
+						j = -(j % worldHeight);
 					}
 				} else {
 					j--;
@@ -306,24 +304,24 @@ public abstract class Entity {
 				}
 				i++;
 				if (i >= worldWidth) {
-					i =	-(i % worldWidth);
+					i = -(i % worldWidth);
 				}
 				n++;
 			}
 		}
-		
+
 		if (d2 == Direction.EAST) {
-			
+
 			int i = this.getX() + 1;
 			if (i >= worldWidth) {
-				i =	-(i % worldWidth);
+				i = -(i % worldWidth);
 			}
-			
+
 			int j = this.getY() - distance + 1;
 			if (j < 0) {
 				j = worldHeight + (j % worldHeight);
 			}
-			
+
 			while (n < nbTile && !res) {
 				Tile tile = this.getWorld().getTile(i, j);
 				if (!tile.isEmpty()) {
@@ -333,7 +331,7 @@ public abstract class Entity {
 						}
 					}
 				}
-				if (n < Math.abs(nbTile/2)) {
+				if (n < Math.abs(nbTile / 2)) {
 					i++;
 					if (i < 0) {
 						i = worldWidth + (i % worldWidth);
@@ -341,29 +339,29 @@ public abstract class Entity {
 				} else {
 					i--;
 					if (i >= worldWidth) {
-						i =	-(i % worldWidth);
+						i = -(i % worldWidth);
 					}
 				}
 				j++;
 				if (j >= worldHeight) {
-					j =	-(j % worldHeight);
+					j = -(j % worldHeight);
 				}
 				n++;
 			}
 		}
-		
+
 		if (d2 == Direction.WEST) {
-			
+
 			int i = this.getX() - 1;
 			if (i < 0) {
 				i = worldWidth + (i % worldWidth);
 			}
-			
+
 			int j = this.getY() - distance + 1;
 			if (j < 0) {
 				j = worldHeight + (j % worldHeight);
 			}
-			
+
 			while (n < nbTile && !res) {
 				Tile tile = this.getWorld().getTile(i, j);
 				if (!tile.isEmpty()) {
@@ -373,10 +371,10 @@ public abstract class Entity {
 						}
 					}
 				}
-				if (n < Math.abs(nbTile/2)) {
+				if (n < Math.abs(nbTile / 2)) {
 					i--;
 					if (i >= worldWidth) {
-						i =	-(i % worldWidth);
+						i = -(i % worldWidth);
 					}
 				} else {
 					i++;
@@ -386,7 +384,7 @@ public abstract class Entity {
 				}
 				j++;
 				if (j >= worldHeight) {
-					j =	-(j % worldHeight);
+					j = -(j % worldHeight);
 				}
 				n++;
 			}
@@ -400,7 +398,7 @@ public abstract class Entity {
 		boolean isPresent = false;
 		while (k < entities.size() && !isPresent) {
 			Entity entity = entities.get(k);
-			if (entity != this && entity.kind == e ) {
+			if (entity != this && entity.kind == e) {
 				isPresent = true;
 			}
 			k++;
@@ -408,10 +406,10 @@ public abstract class Entity {
 		if (!isPresent) {
 			return isPresent;
 		}
-		
+
 		boolean resN = false, resS = false, resE = false, resW = false;
 		int i = 1;
-		while (!resN && !resS && !resE && !resW ) {
+		while (!resN && !resS && !resE && !resW) {
 			if (!resN) {
 				resN = cell(Direction.NORTH, e, i);
 			}
@@ -428,14 +426,11 @@ public abstract class Entity {
 		}
 		if (d == Direction.NORTH && resN) {
 			return resN;
-		}
-		else if (d == Direction.SOUTH && resS) {
+		} else if (d == Direction.SOUTH && resS) {
 			return resS;
-		}
-		else if (d == Direction.EAST && resE) {
+		} else if (d == Direction.EAST && resE) {
 			return resE;
-		}
-		else if (d == Direction.WEST && resW) {
+		} else if (d == Direction.WEST && resW) {
 			return resW;
 		}
 		return false;
@@ -457,18 +452,18 @@ public abstract class Entity {
 	}
 
 	public void pop(Direction direction) {
-		this.actionHandler.pop(direction);
 		this.currentAction = Action.POP;
+		this.actionHandler.pop(direction);
 	}
 
 	public void jump(Direction direction) {
 		this.actionHandler.jump(direction);
-		
+
 	}
 
 	public void protect(Direction direction) {
 		this.actionHandler.protect(direction);
-		
+
 	}
 
 	public void pick(Direction direction) {
@@ -492,33 +487,34 @@ public abstract class Entity {
 	}
 
 	public void egg() {
+		this.currentAction = Action.EGG;
 		this.actionHandler.egg();
 	}
-	
+
 	public void setActionTimer(long totalTimer) {
 		this.totalTimeAction = totalTimer;
 	}
-	
+
 	public void hasViewport(boolean bool) {
 		this.hasViewport = bool;
 	}
-	
+
 	public boolean getHasViewport() {
 		return this.hasViewport;
 	}
-	
+
 	public Kind getKind() {
 		return this.kind;
 	}
-	
+
 	public boolean getCollidable() {
 		return this.collidable;
 	}
-	
+
 	public void updateCollidable(boolean collidable) {
 		this.collidable = collidable;
 	}
-	
+
 	public Tile getTile() {
 		return tile;
 	}
@@ -531,11 +527,11 @@ public abstract class Entity {
 	public void removeTile() {
 		this.tile = null;
 	}
-	
+
 	public boolean getIsVisible() {
 		return this.isVisible;
 	}
-	
+
 	public void updateIsVisible(boolean isVisible) {
 		this.isVisible = isVisible;
 	}
@@ -555,11 +551,11 @@ public abstract class Entity {
 	public Action getCurrentAction() {
 		return currentAction;
 	}
-	
+
 	public void setAction(Action a) {
-		this.currentAction= a;
+		this.currentAction = a;
 	}
-	
+
 	public void takeDamage(int dmg) {
 		this.health-=dmg;
 		if(this.health<=0) {

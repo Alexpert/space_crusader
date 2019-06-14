@@ -16,8 +16,8 @@ public class ActionHandlerRabbit extends AbstractActionHandler {
 
 	@Override
 	public boolean move(Direction d) {
-		this.entity.setActionTimer(500);
 		super.move(d);
+		this.entity.setActionTimer(500);
 		return true;
 	}
 
@@ -56,9 +56,10 @@ public class ActionHandlerRabbit extends AbstractActionHandler {
 
 	@Override
 	public void pop(Direction d) {
+		this.entity.setActionTimer(500);
 		Tile tile = this.entity.getTile();
 		tile.remove(this.entity);
-		new AdultRabbit(tile).setActionTimer(5000);;
+		new AdultRabbit(tile).setActionTimer(5000);
 		return;
 	}
 
@@ -100,6 +101,7 @@ public class ActionHandlerRabbit extends AbstractActionHandler {
 
 	@Override
 	public  boolean power(){
+		this.entity.setActionTimer(500);
 		if(this.entity.getHealth() > 0) {
 			this.entity.takeDamage(1);
 			return true;
@@ -109,13 +111,14 @@ public class ActionHandlerRabbit extends AbstractActionHandler {
 
 	@Override
 	public  boolean kamikaze(){
+		this.entity.setActionTimer(500);
 		this.entity.setHealth(0);
 		return true;
 	}
 
 	@Override
 	public boolean egg() {
-		this.entity.setActionTimer(10000);
+		this.entity.setActionTimer(100000);
 		if (this.entity.getIsVisible()) {
 			Tile tile = this.entity.getTile(Direction.NORTH);
 			int i = 0;
