@@ -167,3 +167,17 @@ BigRedButton(Init) {
 	* (Cooldown):
 	| !Cell(R,@,0) ? Wait : (Init)
 }
+
+Tree(Root) {
+	* (Root):
+	| True ? Wait : (Grow)
+	* (Grow):
+	| True ? Pop : (Root)
+}
+
+Rock(Stone) {
+	* (Stone):
+	| True ? Wait : (Caillou)
+	* (Caillou):
+	| True ? Wizz : (Stone)
+}
