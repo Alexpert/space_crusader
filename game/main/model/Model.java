@@ -58,7 +58,7 @@ public class Model extends GameModel {
 	}
 	
 	public void initGame() {
-		World newWorld = new World(20, 20, this, false);
+		World newWorld = new World(100, 100, this, false);
 		this.overworld = newWorld;
 		
 		this.player = new Player(newWorld.getTile(0, 0));
@@ -72,7 +72,7 @@ public class Model extends GameModel {
 	}
 	
 	public void initDemoDisplayDungeon() {
-		World newWorld = new World(30, 30, this, false);
+		World newWorld = new World(35, 35, this, false);
 		this.overworld = newWorld;
 		this.player = new Player(newWorld.getTile(0, 0));
 		newWorld.getTile(1, 0).clear();
