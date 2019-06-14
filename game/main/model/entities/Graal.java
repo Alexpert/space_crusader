@@ -9,7 +9,7 @@ import game.main.view.painters.GraalPainter;
 
 public class Graal extends Entity {
 	public Graal (Tile tile) {
-		super(tile, AutomatonProvider.getInstance().getAutomaton("Item"));
+		super(tile, AutomatonProvider.getInstance().getAutomaton("PlayableGraal"));
 		this.setKind(Kind.DANGER);
 		this.setActionHandler(new GraalActionHandler(this));
 		this.setIPainter(new GraalPainter(this));

@@ -167,3 +167,20 @@ BigRedButton(Init) {
 	* (Cooldown):
 	| !Cell(R,@,0) ? Wait : (Init)
 }
+
+
+
+PlayableGraal(Init){
+	* (Init):
+		| Key(i) ? Move(N) : (Init)
+		| Key(k) ? Move(S) : (Init)
+		| Key(l) ? Move(E) : (Init)
+		| Key(j) ? Move(W) : (Init)
+		| Key(o) ? Hit(F) : (Init)
+		| Key(p) ? Pop : (Cooldown)
+		| Key(m) ? Wizz : (Cooldown)
+		| Cell(N, @, 0) ? Pop : (Cooldown)
+		| True ? Wait : (Init)
+	* (Cooldown):
+		| True ? Wait : (Init)
+}
