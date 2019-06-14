@@ -3,6 +3,7 @@ package game.main.model.action_handler;
 import game.main.model.Action;
 import game.main.model.Direction;
 import game.main.model.Entity;
+import game.main.model.entities.AdultRabbit;
 
 public abstract class AbstractActionHandler {
 

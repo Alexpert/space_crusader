@@ -7,6 +7,7 @@ import game.main.model.Kind;
 import game.main.model.Tile;
 import game.main.model.World;
 import game.main.model.action_handler.ActionHandlerAdultRabbit;
+import game.main.model.items.Fur;
 import game.main.view.painters.AdultRabbitPainter;
 import game.main.view.painters.RabbitPainter;
 
@@ -22,5 +23,10 @@ public class AdultRabbit extends Entity {
 		this.setIPainter(new AdultRabbitPainter(this));
 		this.setActionHandler(new ActionHandlerAdultRabbit(this));
 	}
-
+	
+	@Override
+	public void die() {
+		new DroppedItem(this.getTile(), new Fur());
+		super.die();
+	}
 }

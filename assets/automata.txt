@@ -37,7 +37,7 @@ Idle(Wait0){
 
 Rabbit(Wait0){
   *(Wait0):
-	| True ? Wait : (Born0)
+	| True ? Pop : (Born0)
   * (Born0):
     | Cell(F,A,1) & Cell(B,A,1) & Cell(L,A,1) & Cell(R,A,1) ? Pop : (Search)
     | Closest(A,N) ? Turn(S) : (Wait01) 
@@ -182,36 +182,52 @@ Rabbit(Wait0){
 }
 
 
-AdultRabbit(Init){ 
+AdultRabbit(WaitInit){ 
+*(WaitInit):
+		| True ? Wait : (Init)	
 	  * (Init): 
+ 	| Cell(N,@,2) / Cell(N,@,3) / Cell(N,@,4) / Cell(N,@,5) / Cell(N,@,6) / Cell(N,@,7) / Cell(N,@,8) / Cell(N,@,9) / Cell(N,@,10) ? Move(N) : (WaitForTheHorde)
+    | Cell(S,@,2) / Cell(S,@,3) / Cell(S,@,4) / Cell(S,@,5) / Cell(S,@,6) / Cell(S,@,7) / Cell(S,@,8) / Cell(S,@,9) / Cell(S,@,10) ? Move(S) : (WaitForTheHorde)
+    | Cell(E,@,2) / Cell(E,@,3) / Cell(E,@,4) / Cell(E,@,5) / Cell(E,@,6) / Cell(E,@,7) / Cell(E,@,8) / Cell(E,@,9) / Cell(E,@,10) ? Move(E) : (WaitForTheHorde)
+    | Cell(W,@,2) / Cell(W,@,3) / Cell(W,@,4) / Cell(W,@,5) / Cell(W,@,6) / Cell(W,@,7) / Cell(W,@,8) / Cell(W,@,9) / Cell(W,@,10) ? Move(W) : (WaitForTheHorde)
+    | True ? Wait : (WaitTurn)
+*(WaitTurn):
+		| True ? Wait : (Turn1)		
+  *(Turn1):
+    | True ? Turn(L) : (WaitMove)
+*(WaitMove):
+		| True ? Wait : (Move0)		
+	*(Move0):
+    | !Cell(F,O,1) / Cell(F,T,1) / Cell(F,@,1) / Cell(F,A,1) ? Move(F) : (Init)
+    | !Cell(R,O,1) / Cell(R,T,1) / Cell(R,@,1) / Cell(F,A,1) ? Move(R) : (Init)
+    | !Cell(L,O,1) / Cell(L,T,1) / Cell(L,@,1) / Cell(L,A,1) ? Move(L) : (Init)
+	| !Cell(B,O,1) / Cell(B,T,1) / Cell(B,@,1) / Cell(B,A,1) ? Move(B) : (Init)
+	| True ? Wait : (WaitInit)
+*(WaitForTheHorde):
+		| True ? Wait : (ForTheHorde)	
+  * (ForTheHorde):
     | Cell(N,@,2) / Cell(N,@,3) / Cell(N,@,4) / Cell(N,@,5) / Cell(N,@,6) / Cell(N,@,7) / Cell(N,@,8) / Cell(N,@,9) / Cell(N,@,10) ? Move(N) : (WaitForTheHorde)
     | Cell(S,@,2) / Cell(S,@,3) / Cell(S,@,4) / Cell(S,@,5) / Cell(S,@,6) / Cell(S,@,7) / Cell(S,@,8) / Cell(S,@,9) / Cell(S,@,10) ? Move(S) : (WaitForTheHorde)
     | Cell(E,@,2) / Cell(E,@,3) / Cell(E,@,4) / Cell(E,@,5) / Cell(E,@,6) / Cell(E,@,7) / Cell(E,@,8) / Cell(E,@,9) / Cell(E,@,10) ? Move(E) : (WaitForTheHorde)
     | Cell(W,@,2) / Cell(W,@,3) / Cell(W,@,4) / Cell(W,@,5) / Cell(W,@,6) / Cell(W,@,7) / Cell(W,@,8) / Cell(W,@,9) / Cell(W,@,10) ? Move(W) : (WaitForTheHorde)
-    | True ? Wait : (WaitWaiting)
-*(WaitWaiting):
-		| True ? Wait : (Waiting)	
-  * (Waiting):
-    | Cell(F,A,1) ? Hit(F) : (Init)
-    | Cell(R,A,1) ? Hit(R) : (Init)
-    | Cell(L,A,1) ? Hit(L) : (Init)
-    | True ? Wait : (Init)
-*(WaitForTheHorde):
+	| True ? : (WaitForTheHorde0)
+
+*(WaitForTheHorde0):
+		| True ? Wait : (ForTheHorde0)
+	
+	* (ForTheHorde0):
+		| Cell(F,@,1) ? : (WaitForTheHorde1)
+		| Cell(R,@,1) ? Turn(R) : (WaitForTheHorde1)
+		| Cell(L,@,1) ? Turn(L) : (WaitForTheHorde1)
+		| Cell(B,@,1) ? Turn(B) : (WaitForTheHorde1)
+
+	*(WaitForTheHorde1):
+		| True ? Wait : (ForTheHorde1)	
+	* (ForTheHorde1):
+    	| True ? Hit(F) : (WaitForTheHorde2)
+	*(WaitForTheHorde2):
 		| True ? Wait : (ForTheHorde)	
-  * (ForTheHorde):
-    | Cell(F,@,1) ? Hit(F) : (WaitForTheHorde)
-    | Cell(L,@,1) ? Hit(L) : (WaitForTheHorde)
-    | Cell(R,@,1) ? Hit(R) : (WaitForTheHorde)
-    | Cell(F,A,1) ? Hit(F) : (WaitForTheHorde)
-    | Cell(L,A,1) ? Hit(L) : (WaitForTheHorde)
-    | Cell(R,A,1) ? Hit(R) : (WaitForTheHorde)
-    | Closest(@,N) ? Move(N) : (WaitForTheHorde)
-    | Closest(@,S) ? Move(S) : (WaitForTheHorde)
-    | Closest(@,E) ? Move(E) : (WaitForTheHorde)
-    | Closest(@,W) ? Move(W) : (WaitForTheHorde)
 }
-
-
 Laser(Init){
   * (Init):
     | Cell(F,@,1) ? Hit(F) : (Final)

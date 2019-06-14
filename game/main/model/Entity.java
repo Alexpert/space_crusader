@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 import game.main.model.action_handler.AbstractActionHandler;
+import game.main.model.entities.AdultRabbit;
 import game.main.view.IPainter;
 import interpreter.IAutomaton;
 
@@ -30,8 +31,6 @@ public abstract class Entity {
 	private Tile tile;
 
 	protected Entity(Tile tile, IAutomaton automaton) {
-		if (automaton == null)
-			System.out.println("Sa race?");
 		this.automaton = automaton;
 		this.setTile(tile);
 	}
@@ -52,8 +51,6 @@ public abstract class Entity {
 			this.beginTimeAction = this.beginTimeAction + this.totalTimeAction;
 			this.automaton.step(this);
 		}
-		if (this.painter == null)
-			System.out.println(this);
 		this.painter.step(now);
 	}
 

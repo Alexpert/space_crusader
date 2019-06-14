@@ -211,7 +211,7 @@ public class ActionHandlerAdultRabbit extends AbstractActionHandler {
 			return false;
 		} else {
 			for (int i = 0; i < t.nbEntity(); i++) {
-				t.getEntity(i).takeDamage(1);
+				t.getEntity(i).takeDamage(5);
 			}
 			return true;
 		}

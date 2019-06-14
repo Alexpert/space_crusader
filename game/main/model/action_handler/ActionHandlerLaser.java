@@ -43,7 +43,7 @@ public class ActionHandlerLaser extends AbstractActionHandler {
 		while (i < tile.nbEntity()) {
 			Entity entity = tile.getEntity(i);
 			if (entity.getKind() == Kind.MONSTER || entity.getKind() == Kind.PLAYER) {
-				entity.takeDamage(10);
+				entity.takeDamage(1);
 			}
 			i++;
 		}
@@ -55,7 +55,7 @@ public class ActionHandlerLaser extends AbstractActionHandler {
 		while (i < tile.nbEntity()) {
 			Entity entity = tile.getEntity(i);
 			if (entity.getKind() == Kind.MONSTER || entity.getKind() == Kind.PLAYER) {
-				entity.takeDamage(10);
+				entity.takeDamage(1);
 			}
 			i++;
 		}
@@ -67,7 +67,7 @@ public class ActionHandlerLaser extends AbstractActionHandler {
 		while (i < tile.nbEntity()) {
 			Entity entity = tile.getEntity(i);
 			if (entity.getKind() == Kind.MONSTER || entity.getKind() == Kind.PLAYER) {
-				entity.takeDamage(10);
+				entity.takeDamage(1);
 			}
 			i++;
 		}
@@ -79,7 +79,7 @@ public class ActionHandlerLaser extends AbstractActionHandler {
 		while (i < tile.nbEntity()) {
 			Entity entity = tile.getEntity(i);
 			if (entity.getKind() == Kind.MONSTER || entity.getKind() == Kind.PLAYER) {
-				entity.takeDamage(10);
+				entity.takeDamage(5);
 			}
 			i++;
 		}
@@ -91,14 +91,14 @@ public class ActionHandlerLaser extends AbstractActionHandler {
 		while (i < tile.nbEntity()) {
 			Entity entity = tile.getEntity(i);
 			if (entity.getKind() == Kind.MONSTER || entity.getKind() == Kind.PLAYER) {
-				entity.takeDamage(10);
+				entity.takeDamage(1);
 			}
 			i++;
 		}
 	}
 	@Override
 	public boolean move() {
-		this.entity.setActionTimer(2500);
+		this.entity.setActionTimer(2000);
 		Direction d = this.entity.getOrientation();
 		int newX = this.entity.getX();
 		int newY = this.entity.getY();
@@ -174,7 +174,7 @@ public class ActionHandlerLaser extends AbstractActionHandler {
 		while (i < tile.nbEntity()) {
 			Entity entity = tile.getEntity(i);
 			if (entity.getKind() == Kind.MONSTER || entity.getKind() == Kind.PLAYER) {
-				entity.takeDamage(10);
+				entity.takeDamage(1);
 			}
 			i++;
 		}
@@ -183,7 +183,7 @@ public class ActionHandlerLaser extends AbstractActionHandler {
 		while (i < tile.nbEntity()) {
 			Entity entity = tile.getEntity(i);
 			if (entity.getKind() == Kind.MONSTER || entity.getKind() == Kind.PLAYER) {
-				entity.takeDamage(10);
+				entity.takeDamage(1);
 			}
 			i++;
 		}
