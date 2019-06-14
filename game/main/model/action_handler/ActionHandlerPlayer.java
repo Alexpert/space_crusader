@@ -6,6 +6,7 @@ import game.main.model.Item;
 import game.main.model.Tile;
 import game.main.model.entities.DroppedBomb;
 import game.main.model.entities.Player;
+import game.main.model.items.Apple;
 import game.main.model.items.Bomb;
 
 public class ActionHandlerPlayer extends AbstractActionHandler {
@@ -42,6 +43,9 @@ public class ActionHandlerPlayer extends AbstractActionHandler {
 				Tile t = this.entity.getTile(d);
 				DroppedBomb bomb = new DroppedBomb(t,b);
 				bomb.setBeginTimer(this.entity.getBeginTimer());
+				p.removeItem(i);
+			} else if (i instanceof Apple) {
+				p.takeDamage(-5);
 				p.removeItem(i);
 			}
 		}	

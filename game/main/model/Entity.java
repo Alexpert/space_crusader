@@ -565,6 +565,8 @@ public abstract class Entity {
 		if(this.health<=0) {
 			this.die();
 		}
+		if (this.health > this.maxHealth)
+			this.health = this.maxHealth;
 	}
 	
 	public void setBeginTimer(long time) {
