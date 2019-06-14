@@ -5,6 +5,7 @@ import java.util.Random;
 import game.main.model.Direction;
 import game.main.model.Entity;
 import game.main.model.Tile;
+import game.main.model.entities.Tree;
 import game.main.model.items.Apple;
 
 public class ActionHandlerTree extends AbstractActionHandler {
@@ -107,7 +108,58 @@ public class ActionHandlerTree extends AbstractActionHandler {
 
 	@Override
 	public boolean egg() {
-		// TODO Auto-generated method stub
+		Tile tile = this.entity.getTile(Direction.NORTH);
+		int i = 0;
+		boolean collide = false;
+		while (i < tile.nbEntity() && !collide) {
+			if (tile.getEntity(i).getCollidable()) {
+				collide = true;
+			}
+			i++;
+		}
+		if (!collide) {
+			new Tree(tile);
+			return true;
+		}
+		tile = this.entity.getTile(Direction.SOUTH);
+		i = 0;
+		collide = false;
+		while (i < tile.nbEntity() && !collide) {
+			if (tile.getEntity(i).getCollidable()) {
+				collide = true;
+			}
+			i++;
+		}
+		if (!collide) {
+			new Tree(tile);
+			return true;
+		}
+		tile = this.entity.getTile(Direction.EAST);
+		i = 0;
+		collide = false;
+		while (i < tile.nbEntity() && !collide) {
+			if (tile.getEntity(i).getCollidable()) {
+				collide = true;
+			}
+			i++;
+		}
+		if (!collide) {
+			new Tree(tile);
+			return true;
+		}
+		tile = this.entity.getTile(Direction.WEST);
+		i = 0;
+		collide = false;
+		while (i < tile.nbEntity() && !collide) {
+			if (tile.getEntity(i).getCollidable()) {
+				collide = true;
+			}
+			i++;
+		}
+		if (!collide) {
+			new Tree(tile);
+			return true;
+		}
 		return false;
 	}
 

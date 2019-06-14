@@ -181,3 +181,10 @@ Rock(Stone) {
 	* (Caillou):
 	| True ? Wizz : (Stone)
 }
+
+Flower(Myosotis) {
+	* (Myosotis):
+	| True ? Wait : (Lila)
+	* (Lila) :
+	| !Cell(N,_,1) / Cell(E,_,1) / Cell(S,_,1) / Cell(W,_,1) ? Wizz :(Myosotis)
+}
