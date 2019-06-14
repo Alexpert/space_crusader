@@ -88,4 +88,8 @@ public class Player extends Entity {
 	public void addMoney(int value) {
 		this.money += value;
 	}
+	
+	public void removeItem(Item i) {
+		this.inventory.remove(i);
+	}
 }

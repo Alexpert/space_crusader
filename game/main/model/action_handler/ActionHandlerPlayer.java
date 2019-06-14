@@ -42,6 +42,7 @@ public class ActionHandlerPlayer extends AbstractActionHandler {
 				Tile t = this.entity.getTile(d);
 				DroppedBomb bomb = new DroppedBomb(t,b);
 				bomb.setBeginTimer(this.entity.getBeginTimer());
+				p.removeItem(i);
 			}
 		}	
 	}
