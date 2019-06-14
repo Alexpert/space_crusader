@@ -33,7 +33,7 @@ public class GraalActionHandler extends AbstractActionHandler {
 
 		if (!hasWon) {
 			JFrame frame= new JFrame();	
-			frame.setTitle("Félécitations");
+			frame.setTitle("Félicitations");
 			frame.setSize(500, 300);
 			frame.setLocation(200, 200);
 			frame.setVisible(true);
