@@ -1,7 +1,7 @@
 package game.main.model.entities;
 
 import game.main.model.*;
-import game.main.model.action_handler.ActionHandlerRock;
+import game.main.model.action_handler.ActionHandlerIdle;
 import game.main.view.painters.RockPainter;
 
 public class Rock extends Entity {
@@ -13,7 +13,7 @@ public class Rock extends Entity {
 		this.collidable = true;
 		this.setKind(Kind.OBSTACLE);
 		this.setIPainter(new RockPainter(this));
-		this.setActionHandler(new ActionHandlerRock(this));
+		this.setActionHandler(new ActionHandlerIdle(this));
 		this.setHealth(90000);
 	}
 }

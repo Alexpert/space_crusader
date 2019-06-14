@@ -11,8 +11,10 @@ import interpreter.IAutomaton;
 
 public class Gate extends Entity {
 
+	public static String nameAtomaton = "SpaceshipGate";
+	
 	public Gate(Tile tile) {
-		super(tile, AutomatonProvider.getInstance().getAutomaton("SpaceshipGate"));
+		super(tile, AutomatonProvider.getInstance().getAutomaton(Gate.nameAtomaton));
 		this.setKind(Kind.GATE);
 		this.setIPainter(new GatePainter(this));
 		this.setActionHandler(new ActionHandlerGate(this));
