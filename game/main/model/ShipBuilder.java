@@ -137,7 +137,8 @@ public class ShipBuilder {
 
 		new Button(tiles[1][height - 20]);	
 //		new Button(tiles[0][0]);		
-		new Anvil(tiles[6][height - 27]);
+		new Anvil(tiles[9][7]);
+		
 		new DroppedItem(tiles[5][2], new Fur());
 		new DroppedItem(tiles[6][2], new Fur());
 		new DroppedItem(tiles[7][2], new Fur());
@@ -160,7 +161,7 @@ public class ShipBuilder {
 		new Furniture(tiles[26][8], FurnitureType.PLANT);
 		new Furniture(tiles[32][8], FurnitureType.PLANT);
 		new Furniture(tiles[29][2], FurnitureType.THRONE);
-		new Furniture(tiles[29][8], FurnitureType.PIANO);
+		new Furniture(tiles[29][7], FurnitureType.PIANO);
 		new Furniture(tiles[27][2], FurnitureType.LIBRARY);
 		new Furniture(tiles[25][2], FurnitureType.LIBRARY);
 		new Furniture(tiles[31][2], FurnitureType.LIBRARY);
