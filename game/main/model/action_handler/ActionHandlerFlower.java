@@ -5,6 +5,7 @@ import java.util.Random;
 import game.main.model.Direction;
 import game.main.model.Entity;
 import game.main.model.Tile;
+import game.main.model.entities.Flower;
 import game.main.model.entities.Rock;
 
 public class ActionHandlerFlower extends AbstractActionHandler {
@@ -99,7 +100,26 @@ public class ActionHandlerFlower extends AbstractActionHandler {
 
 	@Override
 	public boolean egg() {
-		// TODO Auto-generated method stub
+		Tile tile = this.entity.getTile(Direction.NORTH);
+		if(tile.isEmpty()) {
+			new Flower(tile);
+			return true;
+		}
+		tile = this.entity.getTile(Direction.EAST);
+		if(tile.isEmpty()) {
+			new Flower(tile);
+			return true;
+		}
+		tile = this.entity.getTile(Direction.SOUTH);
+		if(tile.isEmpty()) {
+			new Flower(tile);
+			return true;
+		}
+		tile = this.entity.getTile(Direction.WEST);
+		if(tile.isEmpty()) {
+			new Flower(tile);
+			return true;
+		}
 		return false;
 	}
 

@@ -6,7 +6,7 @@ import game.main.view.painters.FlowerPainter;
 
 public class Flower  extends Entity {
 
-	public static String nameAtomaton = "Rock";
+	public static String nameAtomaton = "Flower";
 	public Flower(Tile tile) {
 		super(tile, AutomatonProvider.getInstance().getAutomaton(Flower.nameAtomaton));
 		this.setKind(Kind.ANYTHING);

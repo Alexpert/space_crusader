@@ -5,6 +5,8 @@ import java.util.Random;
 import game.main.model.Direction;
 import game.main.model.Entity;
 import game.main.model.Tile;
+import game.main.model.entities.Flower;
+import game.main.model.entities.Rock;
 
 public class ActionHandlerRock extends AbstractActionHandler {
 	
@@ -22,6 +24,7 @@ public class ActionHandlerRock extends AbstractActionHandler {
 	public void wizz(Direction d) {
 		Random random = new Random();
 		int i = random.nextInt(3);
+		Tile oldTile = this.entity.getTile();
 		Tile tile;
 		if(i == 0) {
 			tile = this.entity.getTile(Direction.NORTH);
@@ -36,6 +39,7 @@ public class ActionHandlerRock extends AbstractActionHandler {
 			tile = this.entity.getTile(Direction.WEST);
 		}
 		if(tile.isEmpty()) {
+			oldTile.remove(this.entity);
 			this.entity.setTile(tile);
 		}
 
@@ -109,7 +113,61 @@ public class ActionHandlerRock extends AbstractActionHandler {
 
 	@Override
 	public boolean egg() {
-		// TODO Auto-generated method stub
+		if(this.entity.getIsVisible()) {
+			Tile tile = this.entity.getTile(Direction.NORTH);
+			int i = 0;
+			boolean collide = false;
+			while(i < tile.nbEntity() && !collide) {
+				if(tile.getEntity(i).getCollidable() || tile.getEntity(i) instanceof Flower) {
+					collide = true;
+				}
+				i++;
+			}
+			if(!collide) {
+				new Rock(tile);
+				return true;
+			}
+			i = 0;
+			collide = false;
+			tile = this.entity.getTile(Direction.EAST);
+			while(i < tile.nbEntity() && !collide) {
+				if(tile.getEntity(i).getCollidable() || tile.getEntity(i) instanceof Flower) {
+					collide = true;
+				}
+				i++;
+			}
+			if(!collide) {
+				new Rock(tile);
+				return true;
+			}
+			i = 0;
+			collide = false;
+			tile = this.entity.getTile(Direction.SOUTH);
+			while(i < tile.nbEntity() && !collide) {
+				if(tile.getEntity(i).getCollidable() || tile.getEntity(i) instanceof Flower) {
+					collide = true;
+				}
+				i++;
+			}
+			if(!collide) {
+				new Rock(tile);
+				return true;
+			}
+			i = 0;
+			collide = false;
+			tile = this.entity.getTile(Direction.WEST);
+			while(i < tile.nbEntity() && !collide) {
+				if(tile.getEntity(i).getCollidable() || tile.getEntity(i) instanceof Flower) {
+					collide = true;
+				}
+				i++;
+			}
+			if(!collide) {
+				new Rock(tile);
+				return true;
+			}
+			return false;
+		}
 		return false;
 	}
 
