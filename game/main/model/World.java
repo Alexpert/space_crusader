@@ -25,7 +25,12 @@ public class World {
 			this.generate(isShip);
 			Structure structure = new Structure();
 			Random random = new Random();
-			this.applyStructure(structure, random.nextInt(this.width - 1), random.nextInt(this.width - 1));
+			int x=random.nextInt(this.width - 1), y=random.nextInt(this.height - 1);
+			if(x <4) {x =4;}
+			if(x >this.width-24) {x=this.width-24;}
+			if(y <4) {y =4;}
+			if(y >this.height-24) {y=this.height-24;}
+			this.applyStructure(structure, x, y);
 		}
 	}
 
@@ -38,7 +43,12 @@ public class World {
 			WorldBuilder.populate(map);
 			Structure structure = new Structure();
 			Random random = new Random();
-			this.applyStructure(structure, random.nextInt(this.width - 1), random.nextInt(this.width - 1));
+			int x=random.nextInt(this.width - 1), y=random.nextInt(this.height - 1);
+			if(x <4) {x =4;}
+			if(x >this.width-24) {x=this.width-24;}
+			if(y <4) {y =4;}
+			if(y >this.height-24) {y=this.height-24;}
+			this.applyStructure(structure, x, y);
 		} else if (worldType == WorldType.SHIP) {
 			this.width = 30;
 			this.height = 32;
