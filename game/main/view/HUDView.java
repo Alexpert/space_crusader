@@ -115,26 +115,15 @@ class InventoryView extends Container {
 class HealthBar extends Container {
 	private static final long serialVersionUID = 1L;
 	StatusView parent;
+	private Label label;
+	private int lastValue;
 	
 	HealthBar(StatusView parent) {
 		this.parent = parent;
 		this.setLayout(new BorderLayout());
 		this.add(new SpriteCanvas("assets/hud/health.png"), BorderLayout.WEST);
-		this.add(new HealthBarCanvas(this), BorderLayout.CENTER);
-	}
-	
-	public Entity getEntity() {
-		return this.parent.getEntity();
-	}
-}
-
-class HealthBarCanvas extends Canvas{
-	private static final long serialVersionUID = 1L;
-	HealthBar parent;
-	int lastValue;
-	
-	HealthBarCanvas(HealthBar parent) {
-		this.parent = parent;
+		this.label = new Label();
+		this.add(this.label, BorderLayout.CENTER);
 	}
 	
 	public Entity getEntity() {
@@ -143,16 +132,9 @@ class HealthBarCanvas extends Canvas{
 	
 	@Override
 	public void paint(Graphics g) {
-		if (this.lastValue == this.getEntity().getHealth())
-			return;
-		
-		
 		this.lastValue = this.getEntity().getHealth();
-		g.setColor(Color.WHITE);
-		g.fillRect(0, 0, this.getWidth(), this.getHeight());
-		g.setColor(Color.RED);
-		g.fillRect(0, 0, this.getWidth(), this.getHeight() 
-				* (this.lastValue / this.getEntity().getMaxHealth()));
+		label.setText(this.lastValue + "/" + this.getEntity().getMaxHealth());
+		label.paint(g);
 	}
 }
 

@@ -47,6 +47,7 @@ public class ActionHandlerPlayer extends AbstractActionHandler {
 			} else if (i instanceof Apple) {
 				p.takeDamage(-5);
 				p.removeItem(i);
+				System.out.println("player at " + p.getHealth() + "hp");
 			}
 		}	
 	}

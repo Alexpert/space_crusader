@@ -22,7 +22,6 @@ public class Player extends Entity {
 		this.setIPainter(new PlayerPainter(this));
 		this.setActionHandler(new ActionHandlerPlayer(this));
 		this.inventory = new ArrayList<Item>();
-		
 		this.addItem(new Bomb());
 	}
 
