@@ -585,5 +585,9 @@ public abstract class Entity {
 	public IPainter getIPainter() {
 		return this.painter;
 	}
+
+	protected void setMaxHealth(int i) {
+		this.maxHealth = i;
+	}
 	
 }

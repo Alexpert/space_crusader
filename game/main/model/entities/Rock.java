@@ -15,5 +15,6 @@ public class Rock extends Entity {
 		this.setIPainter(new RockPainter(this));
 		this.setActionHandler(new ActionHandlerIdle(this));
 		this.setHealth(90000);
+		this.setMaxHealth(90000);
 	}
 }

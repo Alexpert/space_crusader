@@ -53,6 +53,7 @@ public class Structure {
 		new Graal(this.getTile(labWidth / 2 * 4 + 2, labHeight / 2 * 4 + 2));
 		
 		this.getTile(0, (labHeight * 4) / 2).clear();
+		new Rock(this.getTile(0, (labHeight * 4) / 2));
 	}
 	
 	Tile getTile(int x, int y) {
