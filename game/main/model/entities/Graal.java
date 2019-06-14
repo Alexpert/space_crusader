@@ -8,12 +8,14 @@ import game.main.model.action_handler.GraalActionHandler;
 import game.main.view.painters.GraalPainter;
 
 public class Graal extends Entity {
+	
+	public static String nameAtomaton = "PlayableGraal";
+	
 	public Graal (Tile tile) {
-		super(tile, AutomatonProvider.getInstance().getAutomaton("PlayableGraal"));
+		super(tile, AutomatonProvider.getInstance().getAutomaton(Graal.nameAtomaton));
 		this.setKind(Kind.DANGER);
 		this.setActionHandler(new GraalActionHandler(this));
 		this.setIPainter(new GraalPainter(this));
-		System.out.println("graal créé");
 	}
 	
 	

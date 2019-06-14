@@ -451,8 +451,7 @@ public class Ast {
 					if (exprAsFunCall.parameters.size() != 2)
 						throw new Exception("Wrong argument count");
 					if (exprAsFunCall.parameters.get(1).kind != "Direction")
-						throw new Exception("Not a Direction");
-					//C'est pas joli mais le parser reconnais "O" comme Direction et non comme en entité
+ 					//C'est pas joli mais le parser reconnais "O" comme Direction et non comme en entité
 					if (exprAsFunCall.parameters.get(0).kind != "Entity"
 							&& exprAsFunCall.parameters.get(1).kind != "Underscore")
 						throw new Exception("Not an Entity");

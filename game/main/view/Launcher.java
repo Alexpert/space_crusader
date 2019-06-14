@@ -174,17 +174,17 @@ public class Launcher {
 		JLabel labelOldMan = new JLabel("Automate de VieuxMan : ");
 		pane.add(labelOldMan);
 		JComboBox<String> jcbOldMan = new JComboBox<>(listAutomaton);
-		//jcbOldMan.setSelectedItem(OldMan.nameAtomaton);
+		jcbOldMan.setSelectedItem(OldMan.nameAtomaton);
 		pane.add(jcbOldMan);
 		JLabel labelFurniture = new JLabel("Automate des meubles : ");
 		pane.add(labelFurniture);
 		JComboBox<String> jcbFurniture = new JComboBox<>(listAutomaton);
-		//jcbFurniture.setSelectedItem(Furniture.nameAtomaton);
+		jcbFurniture.setSelectedItem(Furniture.nameAtomaton);
 		pane.add(jcbFurniture);
 		JLabel labelGraal = new JLabel("Automate du Graal : ");
 		pane.add(labelGraal);
 		JComboBox<String> jcbGraal = new JComboBox<>(listAutomaton);
-		//jcbGraal.setSelectedItem(Graal.nameAtomaton);
+		jcbGraal.setSelectedItem(Graal.nameAtomaton);
 		pane.add(jcbGraal);
 		
 		frame2.add(pane,BorderLayout.CENTER);
@@ -205,9 +205,9 @@ public class Launcher {
 				  DroppedBomb.nameAtomaton = listAutomaton[jcbDroppedBomb.getSelectedIndex()];
 				  Wall.nameAtomaton = listAutomaton[jcbWall.getSelectedIndex()];
 				  DroppedItem.nameAtomaton = listAutomaton[jcbItem.getSelectedIndex()];
-				  /*Furniture.nameAtomaton = listAutomaton[jcbFurniture.getSelectedIndex()];
+				  Furniture.nameAtomaton = listAutomaton[jcbFurniture.getSelectedIndex()];
 				  Graal.nameAtomaton = listAutomaton[jcbGraal.getSelectedIndex()];
-				  OldMan.nameAtomaton = listAutomaton[jcbOldMan.getSelectedIndex()];*/
+				  OldMan.nameAtomaton = listAutomaton[jcbOldMan.getSelectedIndex()];
 				  frame2.setVisible(false);
 			  } 
 			});
